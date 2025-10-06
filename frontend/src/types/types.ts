@@ -1,4 +1,5 @@
 export type Pomo =
+  | "basic"
   | "refine"
   | "random"
   | "reverse"

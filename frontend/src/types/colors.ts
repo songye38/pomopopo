@@ -1,53 +1,59 @@
 export const sessionColors = {
+  basic: {
+    main: "#E5382D",
+    light: "rgba(229, 56, 45, 0.3)",
+    dim: 'rgba(229, 56, 45, 0.15)'
+  },
+
   refine: {
     main: "#21A060",
     light: "rgba(33, 160, 96, 0.3)",
-    dim : 'rgba(33, 160, 96, 0.15)'
+    dim: 'rgba(33, 160, 96, 0.15)'
   },
   random: {
     main: "#E47118",
     light: "rgba(228, 113, 24, 0.3)",
-    dim : 'rgba(228, 113, 24, 0.15)'
+    dim: 'rgba(228, 113, 24, 0.15)'
   },
   reverse: {
     main: "#81338E",
     light: "rgba(129, 51, 142, 0.3)",
-    dim : 'rgba(129, 51, 142, 0.15)'
+    dim: 'rgba(129, 51, 142, 0.15)'
   },
   emotion: {
     main: "#E8CC29",
     light: "rgba(232, 204, 41, 0.3)",
-    dim : 'rgba(232, 204, 41, 0.15)'
+    dim: 'rgba(232, 204, 41, 0.15)'
   },
   explore: {
     main: "#303E90",
     light: "rgba(48, 62, 144, 0.3)",
-    dim : 'rgba(48, 62, 144, 0.15)'
+    dim: 'rgba(48, 62, 144, 0.15)'
   },
   story: {
     main: "#D84A95",
     light: "rgba(216, 74, 149, 0.3)",
-    dim : 'rgba(216, 74, 149, 0.15)'
+    dim: 'rgba(216, 74, 149, 0.15)'
   },
   echo: {
     main: "#349539",
     light: "rgba(52, 149, 57, 0.3)",
-    dim : 'rgba(52, 149, 57, 0.15)'
+    dim: 'rgba(52, 149, 57, 0.15)'
   },
   escape: {
     main: "#953131",
     light: "rgba(149, 49, 49, 0.3)",
-    dim : 'rgba(149, 49, 49, 0.15)'
+    dim: 'rgba(149, 49, 49, 0.15)'
   },
   repeat: {
     main: "#4CBDC7",
     light: "rgba(76, 189, 199, 0.3)",
-    dim : 'rgba(76, 189, 199, 0.15)'
+    dim: 'rgba(76, 189, 199, 0.15)'
   },
   empty: {
     main: "#30896E",
     light: "rgba(48, 137, 110, 0.3)",
-    dim : 'rgba(48, 137, 110, 0.15)'
+    dim: 'rgba(48, 137, 110, 0.15)'
   }
 };
 
@@ -88,9 +94,9 @@ export const brandColors = {
     8: "#595959",
     9: "#454545",
     10: "#262626",
-    11 : "#1F1F1F",
-    12 : "#141414",
-    13 : "#000000",
+    11: "#1F1F1F",
+    12: "#141414",
+    13: "#000000",
   },
 } as const;
 
