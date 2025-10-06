@@ -11,14 +11,21 @@ const defaultPomos = [
   { name: "empty", thumbnail: "/images/thumbnail/empty.png" },
 ];
 
-export default function DefaultPomoSection() {
+
+
+interface DefaultPomoSectionProps {
+  onSelect?: (pomoName: string) => void; // 선택 시 호출되는 콜백
+}
+
+
+export default function DefaultPomoSection({ onSelect }: DefaultPomoSectionProps) {
   return (
     <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(5, 1fr)",
         gap: 12,
-        width: "70%",
+        // width: "70%",
         // maxWidth: 500,
         marginBottom:40,
       }}
@@ -38,6 +45,7 @@ export default function DefaultPomoSection() {
             gap: 2,
             cursor: "pointer",
           }}
+          onClick={() => onSelect?.(pomo.name)} // 클릭 시 부모로 선택 값 전달
         >
           <img src={pomo.thumbnail} alt={pomo.name} style={{ width: "100%", height: "auto" }} />
           {/* <div>{pomo.name}</div> */}

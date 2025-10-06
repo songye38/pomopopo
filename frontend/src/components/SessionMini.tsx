@@ -5,7 +5,7 @@
 // expand 모드 : 드롭다운 했을 때 보여지는 것
 
 
-import SemiboldText24 from "./Text/SemiboldText24";
+import SemiboldText16 from "./Text/SemiboldText16";
 import { sessionColors } from "../types/colors";
 import { type Pomo } from "../types/types";
 
@@ -30,7 +30,7 @@ export default function Session({
       style={{
         width: "234px",
         height: "auto",
-        padding: 20,
+        padding: 12,
         background: bgColor,
         borderRadius: 8,
         display: "flex",
@@ -42,7 +42,7 @@ export default function Session({
     >
       {/* 제목 */}
       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-        <SemiboldText24>{title} {time}</SemiboldText24>
+        <SemiboldText16>{title} {time}</SemiboldText16>
       </div>
 
 
