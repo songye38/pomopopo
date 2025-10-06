@@ -1,5 +1,5 @@
 // components/Text.tsx
-import React, { type CSSProperties,  type ReactNode } from "react";
+import  { type CSSProperties,  type ReactNode } from "react";
 
 interface TextProps {
   children: ReactNode;
