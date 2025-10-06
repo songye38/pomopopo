@@ -1,3 +1,4 @@
+import DefaultPomoSection from "../components/defaultPomoSection";
 import ProfileSection from "../components/ProfileSection";
 import logo from "/images/logo.png";
 
@@ -23,8 +24,9 @@ const HomePage = () => {
                     gap: 40,
                 }}
             >
-                <img src={logo} alt="로고" style={{ width: '240px', height: "auto" }} />
+                <img src={logo} alt="로고" style={{ width: '160px', height: "auto" }} />
                 <ProfileSection />
+                <DefaultPomoSection />
             </div>
         </div>
 

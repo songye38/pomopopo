@@ -12,7 +12,7 @@ export default function RegularText14({ children, style }: TextProps) {
       style={{
         fontFamily: "Pretendard",
         fontSize: 14,
-        fontWeight: 400,
+        fontWeight: 500,
         color: "black",
         wordWrap: "break-word",
         lineHeight:'19px',
