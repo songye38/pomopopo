@@ -10,7 +10,7 @@ const defaultPomos = [
   { name: "repeat", thumbnail: "/images/thumbnail/repeat.png" },
 ];
 
-export default function defaultPomoSection() {
+export default function DefaultPomoSection() {
   return (
     <div
       style={{
