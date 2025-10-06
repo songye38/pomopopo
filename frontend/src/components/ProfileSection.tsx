@@ -1,4 +1,5 @@
 import RegularText14 from "./Text/RegularText14";
+import userlogo from "/images/user_logo.png";
 
 
 
@@ -12,9 +13,9 @@ export default function ProfileSection() {
         gap: 20, // 이미지와 텍스트 간 간격
         flexDirection:'column'
       }}>
-      <div style={{ width: 86, height: 86, borderRadius: 9999, background: "#D9D9D9" }} />
-      <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-        <RegularText14>사용자이름 : hello stranger!</RegularText14>
+      <img src={userlogo} alt="로고" style={{ width: '86px', height: "auto" }} />
+      <div style={{ display: "flex", flexDirection: "column", gap: 5,alignItems: "center",textAlign: "center" }}>
+        <RegularText14>Pomo Beginner</RegularText14>
         <RegularText14>총 뽀모도로 시간 : 22시간 </RegularText14>
         <RegularText14>총 집중 횟수 : 30회</RegularText14>
       </div>
