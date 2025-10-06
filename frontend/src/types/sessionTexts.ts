@@ -11,6 +11,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 발산", "자유 탐색"],
     guide: "제약 없이 최대한 많이 아이디어를 내보세요",
     pomo: "basic",
+    time : '25분',
   },
   converge: {
     name: "수렴",
@@ -20,6 +21,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 정리", "우선순위 결정"],
     guide: "발산된 아이디어 중 핵심만 추려냅니다",
     pomo: "basic",
+    time : '25분',
   },
   observe: {
     name: "관찰",
@@ -29,6 +31,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["패턴 관찰", "데이터 기록"],
     guide: "주변 환경과 현상을 세밀히 관찰합니다",
     pomo: "basic",
+    time : '25분',
   },
   screening: {
     name: "스크리닝",
@@ -38,6 +41,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 필터링", "중요도 평가"],
     guide: "다수의 아이디어를 빠르게 평가하고, 버릴 것/살릴 것을 표시",
     pomo: "refine",
+    time : '25분',
   },
   refine: {
     name: "정밀 조율",
@@ -47,6 +51,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["디테일 체크", "최종 다듬기"],
     guide: "형태, 색, 구조 등 세부 요소를 점검하고 조정",
     pomo: "refine",
+    time : '25분',
   },
   reverse: {
     name: "뒤집기 사고",
@@ -56,6 +61,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["구조 재배치", "논리 전환"],
     guide: "아이디어나 메시지를 뒤집어 새로운 배치를 시도, 예상 결과와 비교",
     pomo: "reverse",
+    time : '25분',
   },
   constraint: {
     name: "제약 도입",
@@ -65,6 +71,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["무작위 요소 제한", "현실적 적용"],
     guide: "무작위 발상에 규칙/제약을 넣어 현실적 가능성을 검토",
     pomo: "random",
+    time : '25분',
   },
   emotion: {
     name: "감정 기록",
@@ -74,6 +81,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["감정 캡처", "기록 도구"],
     guide: "지금 느끼는 감정을 기록하고, 이를 시각/텍스트로 표현",
     pomo: "emotion",
+    time : '25분',
   },
   tagging: {
     name: "아이디어 태깅",
@@ -83,6 +91,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["키워드 분류", "아이디어 라벨링"],
     guide: "생각나는 아이디어에 태그를 붙여 탐색 경로와 연관성 기록",
     pomo: "explore",
+    time : '25분',
   },
   structuring: {
     name: "구조화",
@@ -92,6 +101,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["순서 설계", "흐름 체크"],
     guide: "전체 내용을 단계별로 배치하고 연결 관계 점검",
     pomo: "story",
+    time : '25분',
   },
   analysis: {
     name: "반응 분석",
@@ -101,6 +111,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["기록", "감정 변화 그래프"],
     guide: "작업 진행 중 느낀 감정/반응을 기록하고 패턴 확인",
     pomo: "echo",
+    time : '25분',
   },
   ruleBreaking: {
     name: "규칙 탈착",
@@ -110,6 +121,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["규칙 제거", "제한 해제"],
     guide: "기존 틀을 벗어나 과감히 변형, 재해석",
     pomo: "escape",
+    time : '25분',
   },
   transformation: {
     name: "변형",
@@ -119,6 +131,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["반복 루프", "아이디어 변형"],
     guide: "기존 아이디어를 여러 관점에서 수정/변형하며 발전",
     pomo: "repeat",
+    time : '25분',
   },
   detox: {
     name: "정화",
@@ -128,5 +141,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["감각 정화", "비움"],
     guide: "머릿속 생각을 자유롭게 흘려보내고, 최소한의 행동/표현으로 감각 유지",
     pomo: "empty",
+    time : '25분',
   },
 };

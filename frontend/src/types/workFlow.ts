@@ -4,7 +4,7 @@ import type { Workflow } from "./types"
 // 10개 워크플로우 전체 정의
 export const workf1s: Workflow[] = [
   {
-    name: "🎨 볼륨업",
+    name: "🎨 Refine",
     pattern: "발산 → 스크리닝 → 수렴 → 정밀 조율 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "확산", purpose: "결과" },
@@ -18,7 +18,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🔁 Reverse Logic",
+    name: "🔁 Reverse",
     pattern: "수렴 → 뒤집기 세션 → 수렴 → 장기 휴식",
     steps: [
       { order: 1, session: "converge", duration: "25분", energy: "2", process: "논리", purpose: "결과" },
@@ -30,7 +30,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🎲 Random Driven",
+    name: "🎲 Random",
     pattern: "발산 → 제약 도입 → 발산 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "직관", purpose: "과정" },
@@ -42,7 +42,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🌊 감정 기반 모듈",
+    name: "🌊 Emotion",
     pattern: "발산 → 감정 기록 → 발산 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "직관", purpose: "감정" },
@@ -54,7 +54,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🚀 탐사형 로켓",
+    name: "🚀 Explore",
     pattern: "발산 → 아이디어 태깅 → 발산 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "확산", purpose: "과정" },
@@ -66,7 +66,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🧭 내러티브 시퀀스",
+    name: "🧭 Story",
     pattern: "수렴 → 구조화 → 수렴 → 장기 휴식",
     steps: [
       { order: 1, session: "converge", duration: "25분", energy: "2", process: "수렴", purpose: "결과" },
@@ -78,7 +78,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🔮 에코-트래킹",
+    name: "🔮 Echo",
     pattern: "관찰 → 반응 분석 → 관찰 → 장기 휴식",
     steps: [
       { order: 1, session: "observe", duration: "25분", energy: "2", process: "직관+논리", purpose: "감정" },
@@ -90,7 +90,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🛸 외계인 방식",
+    name: "🛸 Escape",
     pattern: "발산 → 규칙 탈착 → 발산 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "직관", purpose: "탐구" },
@@ -102,7 +102,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🔃 루프-변형",
+    name: "🔃 Repeat",
     pattern: "발산 → 수렴 → 변형 → 발산 → 수렴 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "확산", purpose: "탐구" },
@@ -115,7 +115,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    name: "🔥 디톡스 드라이브",
+    name: "🔥 Empty",
     pattern: "발산 → 정화 → 발산 → 장기 휴식",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "1", process: "직관", purpose: "과정" },

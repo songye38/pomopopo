@@ -11,23 +11,19 @@ import { type Pomo } from "../types/types";
 
 interface SessionProps {
   title: string;
-  description: string;
-  purpose: string;
   pomo: Pomo; // 새로 추가
   backgroundColor?: string; // 선택적, 기본값 가능
+  time:string;
 }
 
 export default function Session({
   title,
-  description,
-  purpose,
   pomo,
   backgroundColor,
+  time
 }: SessionProps) {
-  // backgroundColor가 없으면 pomo 기준으로 main 컬러 사용
   console.log("Session component - pomo:",title, pomo);
   const bgColor = backgroundColor || sessionColors[pomo]?.main || "#21A060";
-  //background: `linear-gradient(135deg, ${sessionColors.focus.main}, ${sessionColors.focus.light})`,
 
   return (
     <div
@@ -46,36 +42,10 @@ export default function Session({
     >
       {/* 제목 */}
       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-        <SemiboldText24>{title}</SemiboldText24>
+        <SemiboldText24>{title} {time}</SemiboldText24>
       </div>
 
-      {/* 설명과 목적 */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <div
-            style={{
-              color: "white",
-              fontSize: 15,
-              fontFamily: "Pretendard",
-              fontWeight: 500,
-              lineHeight: "21px",
-              wordWrap: "break-word",
-            }}
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-          <div
-            style={{
-              color: "white",
-              fontSize: 12,
-              fontFamily: "Pretendard",
-              fontWeight: 600,
-              lineHeight: "15px",
-              wordWrap: "break-word",
-            }}
-            dangerouslySetInnerHTML={{ __html: purpose }}
-          />
-        </div>
-      </div>
+
     </div>
   );
 }

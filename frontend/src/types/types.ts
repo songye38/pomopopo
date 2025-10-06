@@ -34,6 +34,7 @@ export interface SessionContent {
   energy: "1" | "2" | "3";  // 에너지 강도
   features: string[];      // 특화 기능
   guide: string;           // 설명/가이드
+  time: string;           // 시간
 }
 
 export interface WorkflowStep {

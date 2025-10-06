@@ -1,3 +1,4 @@
+
 // 세가지 모드가 있음
 // 기본 모드 , mini 모드 / expand 모드 
 // 기본모드 : 세션 조합할 때 왼쪽에 오는 애들
@@ -33,7 +34,7 @@ export default function Session({
     <div
       style={{
         width: "234px",
-        height: "auto",
+        height: "100%",
         padding: 20,
         background: bgColor,
         borderRadius: 8,
