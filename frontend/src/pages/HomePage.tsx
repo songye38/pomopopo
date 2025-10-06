@@ -1,6 +1,6 @@
-import DefaultPomoSection from "../components/defaultPomoSection";
 import ProfileSection from "../components/ProfileSection";
 import logo from "/images/logo.png";
+import DefaultPomoSection from "../components/defaultPomoSection";
 
 const HomePage = () => {
     return (
