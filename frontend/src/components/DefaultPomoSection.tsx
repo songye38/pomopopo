@@ -8,6 +8,7 @@ const defaultPomos = [
   { name: "echo", thumbnail: "/images/thumbnail/echo.png" },
   { name: "escape", thumbnail: "/images/thumbnail/escape.png" },
   { name: "repeat", thumbnail: "/images/thumbnail/repeat.png" },
+  { name: "empty", thumbnail: "/images/thumbnail/empty.png" },
 ];
 
 export default function DefaultPomoSection() {
@@ -15,10 +16,10 @@ export default function DefaultPomoSection() {
     <div
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
+        gridTemplateColumns: "repeat(5, 1fr)",
         gap: 12,
-        width: "100%",
-        maxWidth: 500,
+        width: "70%",
+        // maxWidth: 500,
         marginBottom:40,
       }}
     >
