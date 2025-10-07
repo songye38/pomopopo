@@ -10,7 +10,7 @@ import SemiboldText24 from "./Text/SemiboldText24";
 import { sessionColors } from "../types/colors";
 import { type Pomo } from "../types/types";
 
-interface SessionProps {
+interface SessionExpandedProps {
   title: string;
   description: string;
   purpose: string;
@@ -18,13 +18,13 @@ interface SessionProps {
   backgroundColor?: string; // 선택적, 기본값 가능
 }
 
-export default function Session({
+export default function SessionExpanded({
   title,
   description,
   purpose,
   pomo,
   backgroundColor,
-}: SessionProps) {
+}: SessionExpandedProps) {
   // backgroundColor가 없으면 pomo 기준으로 main 컬러 사용
   console.log("Session component - pomo:",title, pomo);
   const bgColor = backgroundColor || sessionColors[pomo]?.main || "#21A060";

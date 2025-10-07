@@ -1,4 +1,4 @@
-import Session from "../components/Session";
+import Session from '../components/session'
 import { sessionTexts } from "../types/sessionTexts";
 import SessionMini from "../components/SessionMini";
 import { workf1s } from "../types/workFlow";
