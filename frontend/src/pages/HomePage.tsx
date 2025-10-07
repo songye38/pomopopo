@@ -5,6 +5,7 @@ import { workf1s } from "../types/workFlow";
 import { useState } from "react";
 import SessionMini from "../components/SessionMini";
 import { sessionTexts } from "../types/sessionTexts";
+import {MainBtn} from "../components/Button/MainBtn";
 
 const HomePage = () => {
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
@@ -74,6 +75,7 @@ const HomePage = () => {
                         ) : (
                             <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
                         )}
+                        <MainBtn variant="start" />
                     </div>
                 )}
             </div>

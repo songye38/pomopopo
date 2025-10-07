@@ -22,7 +22,6 @@ export default function Session({
   backgroundColor,
   time
 }: SessionProps) {
-  console.log("Session component - pomo:",title, pomo);
   const bgColor = backgroundColor || sessionColors[pomo]?.main || "#21A060";
 
   return (

@@ -1,13 +1,13 @@
-import Session from '../components/session'
+import Session from '../components/Session'
 import { sessionTexts } from "../types/sessionTexts";
-import SessionMini from "../components/SessionMini";
-import { workf1s } from "../types/workFlow";
-import { type Workflow } from "../types/types";
+// import SessionMini from "../components/SessionMini";
+// import { workf1s } from "../types/workFlow";
+// import { type Workflow } from "../types/types";
 
 const SessionMakePage = () => {
     return (
-        <div style={{ display: "flex", flexDirection: "row", gap: 40, padding: 40 }}>
-            <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20 }}>
+        <div style={{ display: "flex", flexDirection: "row", gap: 40, padding: 20, marginBottom: 20 }}>
+            <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20, height: '100vh', overflowY: "auto" }}>
                 {Object.values(sessionTexts).map((session, idx) => (
                     <Session
                         key={idx}
@@ -18,7 +18,18 @@ const SessionMakePage = () => {
                     />
                 ))}
             </div>
-            {/* <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20 }}>
+            {/* 오른쪽 drag&drop 페이지 */}
+
+
+        </div>
+    );
+};
+
+export default SessionMakePage;
+
+
+
+{/* <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20 }}>
                 {Object.values(sessionTexts).map((session, idx) => (
                     <SessionMini
                         key={idx}
@@ -28,7 +39,8 @@ const SessionMakePage = () => {
                     />
                 ))}
             </div> */}
-            <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20 }}>
+{/* 전체 워크플로우 보이는 페이지 */ }
+{/* <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 20 }}>
                 {workf1s.map((workflow: Workflow) => (
                     <div key={workflow.name} style={{ marginBottom: 40 }}>
                         <h3>{workflow.name}</h3>
@@ -48,10 +60,4 @@ const SessionMakePage = () => {
                     </div>
                 ))}
 
-            </div>
-
-        </div>
-    );
-};
-
-export default SessionMakePage;
+            </div> */}

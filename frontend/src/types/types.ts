@@ -36,6 +36,7 @@ export interface SessionContent {
   features: string[];      // 특화 기능
   guide: string;           // 설명/가이드
   time: string;           // 시간
+  pomo:Pomo;
 }
 
 export interface WorkflowStep {
