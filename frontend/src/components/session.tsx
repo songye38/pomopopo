@@ -65,12 +65,15 @@ export default function session({
           /> */}
           <div
             style={{
-              color: "white",
-              fontSize: 14,
+              color: "black",
+              fontSize: 12,
               fontFamily: "Pretendard",
               fontWeight: 600,
               lineHeight: "18px",
               wordWrap: "break-word",
+              padding:'10px',
+              background:'white',
+              borderRadius:'8px',
             }}
             dangerouslySetInnerHTML={{ __html: purpose }}
           />

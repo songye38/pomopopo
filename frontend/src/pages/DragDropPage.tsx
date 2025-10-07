@@ -156,7 +156,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                                         key={idx}
                                         session={s}
                                         title={s.name}
-                                        description={`🎯${s.guide}`}
+                                        description={`🎯${"여러분들만의 목표를 적어보세요"}`}
                                         pomo={s.pomo}
                                         time={"25"}
                                         onRemove={handleRemove} // 상위 콜백

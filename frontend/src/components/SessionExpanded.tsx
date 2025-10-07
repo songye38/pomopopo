@@ -9,6 +9,7 @@ import { sessionColors } from "../types/colors";
 import { type Pomo } from "../types/types";
 import type { SessionContent } from "../types/types";
 import { useState } from "react";
+import TimeSelector from "./TimeSelector";
 
 interface SessionExpandedProps {
   session: SessionContent; // 원본 세션 객체
@@ -26,12 +27,12 @@ export default function SessionExpanded({
   description,
   pomo,
   backgroundColor,
-  time,
   onRemove
 }: SessionExpandedProps) {
 
   const [editableDescription, setEditableDescription] = useState(description);
   const bgColor = backgroundColor || sessionColors[pomo]?.light || "#21A060";
+  const bgColorforTime = backgroundColor || sessionColors[pomo]?.main || "#21A060";
 
 
   return (
@@ -62,7 +63,7 @@ export default function SessionExpanded({
               wordWrap: "break-word",
             }}
           >
-            {title} {time}
+            {title}
           </div>
         </div>
 
@@ -99,7 +100,7 @@ export default function SessionExpanded({
           onChange={(e) => setEditableDescription(e.target.value)}
           style={{
             width: "90%",
-            height:'20px',
+            height: '20px',
             padding: 8,
             borderRadius: 6,
             border: "none",
@@ -109,10 +110,15 @@ export default function SessionExpanded({
             lineHeight: "21px",
             resize: "vertical",
             backgroundColor: "transparent",
-            color: 'black',
+            color: '#898989',
           }}
         />
       </div>
+      <TimeSelector
+        time={25} // 초기 시간
+        mainColor={bgColorforTime} // 세션 배경색 전달
+        onChange={(newTime) => console.log("선택된 시간:", newTime)}
+      />
     </div>
   );
 }
