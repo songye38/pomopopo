@@ -9,6 +9,7 @@ import SessionExpanded from '../components/SessionExpanded';
 import { MainBtn } from '../components/Button/MainBtn';
 import arrowLeft from "/images/arrow-narrow-left.png";
 import { useNavigate } from "react-router-dom";
+import { generateRandomTitle } from '../utils/random';
 
 
 type DraggableSessionProps = {
@@ -85,6 +86,7 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
                 border: "2px dashed #ccc",
                 borderRadius: 16,
                 width: '90%',
+                paddingBottom:200,
             }}
         >
             {/* Drop here */}
@@ -97,7 +99,7 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
 export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     const [droppedSessions, setDroppedSessions] = useState<SessionContent[]>([]);
     const navigate = useNavigate();
-    const [title, setTitle] = useState("");
+    const [title, setTitle] = useState(generateRandomTitle());
 
     const handleDrop = (session: SessionContent) => {
         setDroppedSessions((prev) => [...prev, session]);
@@ -126,10 +128,11 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                         onChange={(e) => setTitle(e.target.value)}
                         style={{
                             padding: "6px 12px",
-                            fontSize: 16,
+                            fontSize: 18,
+                            fontWeight: "500",
                             borderRadius: 6,
-                            border: "1px solid #ffffff",
-                            minWidth: 200,
+                            border: "2px solid #c9c9c9",
+                            width: '120px',
                             background:'white',
                             color : 'black'
                         }}
@@ -156,7 +159,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                                         key={idx}
                                         session={s}
                                         title={s.name}
-                                        description={`🎯${"여러분들만의 목표를 적어보세요"}`}
+                                        description={`🎯${"이번 세션 목표"}`}
                                         pomo={s.pomo}
                                         time={"25"}
                                         onRemove={handleRemove} // 상위 콜백
