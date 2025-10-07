@@ -13,7 +13,7 @@ export default function SemiboldText22({ children, style }: TextProps) {
         fontFamily: "Pretendard",
         fontSize: 22,
         fontWeight: 700,
-        color: "black",
+        color: "white",
         wordWrap: "break-word",
         ...style, // 추가 스타일 병합
       }}

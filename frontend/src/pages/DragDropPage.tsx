@@ -6,6 +6,9 @@ import type { SessionContent } from "./../types/types"
 import { useState, type ReactNode } from 'react';
 import Session from '../components/Session';
 import SessionExpanded from '../components/SessionExpanded';
+import { MainBtn } from '../components/Button/MainBtn';
+import arrowLeft from "/images/arrow-narrow-left.png";
+import { useNavigate } from "react-router-dom";
 
 
 type DraggableSessionProps = {
@@ -60,8 +63,6 @@ export const DraggableSession = ({ session }: DraggableSessionProps) => {
     );
 };
 
-
-
 // 드롭 가능한 영역
 export const DropZone = ({ onDrop, children }: DropZoneProps) => {
     const [, drop] = useDrop<{ session: SessionContent }, void, unknown>(() => ({
@@ -80,10 +81,10 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
             style={{
                 flex: 1,
                 padding: 20,
-                minHeight: "100vh",
                 backgroundColor: "#f9f9f9",
                 border: "2px dashed #ccc",
-                width: '70%',
+                borderRadius: 16,
+                width: '90%',
             }}
         >
             {/* Drop here */}
@@ -95,6 +96,8 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
 
 export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     const [droppedSessions, setDroppedSessions] = useState<SessionContent[]>([]);
+    const navigate = useNavigate();
+    const [title, setTitle] = useState("");
 
     const handleDrop = (session: SessionContent) => {
         setDroppedSessions((prev) => [...prev, session]);
@@ -105,36 +108,66 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     };
 
     return (
-        <DndProvider backend={HTML5Backend}>
-            <div style={{ display: "flex", gap: 40, padding: 20, height: '100vh', width: '100%' }}>
-                {/* 왼쪽 드래그 영역 */}
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
-                    {sessions.map((s, idx) => (
-                        <DraggableSession key={idx} session={s} />
-                    ))}
+        <div style={{ margin: '24px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", alignItems: 'center', margin: "-2px 4px 8px 12px", width: '100%' }}>
+                <div
+                    style={{ display: 'flex', flexDirection: 'row', gap: 12, cursor: 'pointer' }}
+                    onClick={() => navigate("/")} // 메인 페이지로 이동
+                >
+                    <img src={arrowLeft} alt="로고" style={{ width: '24px', height: "auto" }} />
+                    <div>메인 페이지로 돌아가기</div>
                 </div>
-
-                {/* 오른쪽 드롭 영역 */}
-                <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
-                    {/* DropZone + droppedSessions를 하나의 flex column 안에 */}
-                    <DropZone onDrop={handleDrop}>
-                        <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
-                            {droppedSessions.map((s, idx) => (
-                                <SessionExpanded
-                                    key={idx}
-                                    session={s}
-                                    title={s.name}
-                                    description={`🎯${s.guide}`}
-                                    pomo={s.pomo}
-                                    time={"25"}
-                                    onRemove={handleRemove} // 상위 콜백
-                                />
-                            ))}
-                        </div>
-                    </DropZone>
+                <div style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
+                    {/* 제목 입력창 */}
+                    <input
+                        type="text"
+                        placeholder="제목을 입력하세요"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        style={{
+                            padding: "6px 12px",
+                            fontSize: 16,
+                            borderRadius: 6,
+                            border: "1px solid #ffffff",
+                            minWidth: 200,
+                            background:'white',
+                            color : 'black'
+                        }}
+                    />
+                    <MainBtn variant="save" />
+                    <MainBtn variant="start" />
                 </div>
             </div>
-        </DndProvider>
+            <DndProvider backend={HTML5Backend}>
+                <div style={{ display: "flex", gap: 40, padding: '50px 20px', height: '100%', width: '100%', flexDirection: 'row', overflowY: 'hidden', overflowX: 'hidden', boxSizing: 'border-box' }}>
+                    {/* 아래 드래그 영역 */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10, width: '25%', height: '90vh', overflowY: 'auto' }}>
+                        {sessions.map((s, idx) => (
+                            <DraggableSession key={idx} session={s} />
+                        ))}
+                    </div>
+                    {/* 위 드롭 영역 */}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10, height: '90vh', width: '75%', overflowY: 'auto' }}>
+                        {/* DropZone + droppedSessions를 하나의 flex column 안에 */}
+                        <DropZone onDrop={handleDrop}>
+                            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
+                                {droppedSessions.map((s, idx) => (
+                                    <SessionExpanded
+                                        key={idx}
+                                        session={s}
+                                        title={s.name}
+                                        description={`🎯${s.guide}`}
+                                        pomo={s.pomo}
+                                        time={"25"}
+                                        onRemove={handleRemove} // 상위 콜백
+                                    />
+                                ))}
+                            </div>
+                        </DropZone>
+                    </div>
+                </div>
+            </DndProvider>
+        </div>
     );
 };
 

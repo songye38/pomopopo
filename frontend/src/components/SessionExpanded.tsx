@@ -5,11 +5,10 @@
 // mini 모드 : 메인페이지에서 조합을 보여줄 때 사용
 // expand 모드 : 드롭다운 했을 때 보여지는 것
 
-
-import SemiboldText24 from "./Text/SemiboldText24";
 import { sessionColors } from "../types/colors";
 import { type Pomo } from "../types/types";
 import type { SessionContent } from "../types/types";
+import { useState } from "react";
 
 interface SessionExpandedProps {
   session: SessionContent; // 원본 세션 객체
@@ -30,9 +29,10 @@ export default function SessionExpanded({
   time,
   onRemove
 }: SessionExpandedProps) {
-  // backgroundColor가 없으면 pomo 기준으로 main 컬러 사용
-  const bgColor = backgroundColor || sessionColors[pomo]?.main || "#21A060";
-  //background: `linear-gradient(135deg, ${sessionColors.focus.main}, ${sessionColors.focus.light})`,
+
+  const [editableDescription, setEditableDescription] = useState(description);
+  const bgColor = backgroundColor || sessionColors[pomo]?.light || "#21A060";
+
 
   return (
     <div
@@ -46,18 +46,28 @@ export default function SessionExpanded({
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        gap: 20,
+        gap: 12,
       }}
     >
 
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%" }}>
         {/* 제목 */}
         <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-          <SemiboldText24>{title} {time} </SemiboldText24>
+          <div
+            style={{
+              fontFamily: "Pretendard",
+              fontSize: 20,
+              fontWeight: 700,
+              color: "black",
+              wordWrap: "break-word",
+            }}
+          >
+            {title} {time}
+          </div>
         </div>
 
         <div
-          style={{ cursor: "pointer", color: "white", fontSize: 24, fontWeight: "bold" }}
+          style={{ cursor: "pointer", color: "black", fontSize: 20, fontWeight: "bold" }}
           onClick={() => onRemove(session)}
         >
           x
@@ -67,7 +77,7 @@ export default function SessionExpanded({
 
 
       {/* 설명과 목적 */}
-      <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "auto" }}>
+      {/* <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "auto" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <div
             style={{
@@ -81,6 +91,27 @@ export default function SessionExpanded({
             dangerouslySetInnerHTML={{ __html: description }}
           />
         </div>
+      </div> */}
+      {/* 설명과 목적 (editable) */}
+      <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
+        <textarea
+          value={editableDescription}
+          onChange={(e) => setEditableDescription(e.target.value)}
+          style={{
+            width: "90%",
+            height:'20px',
+            padding: 8,
+            borderRadius: 6,
+            border: "none",
+            fontSize: 16,
+            fontFamily: "Pretendard",
+            fontWeight: 500,
+            lineHeight: "21px",
+            resize: "vertical",
+            backgroundColor: "transparent",
+            color: 'black',
+          }}
+        />
       </div>
     </div>
   );

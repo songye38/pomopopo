@@ -37,6 +37,7 @@ export interface SessionContent {
   guide: string;           // 설명/가이드
   time: string;           // 시간
   pomo:Pomo;
+  relatedArtists?: string[]; // 관련 아티스트 (선택 사항)
 }
 
 export interface WorkflowStep {

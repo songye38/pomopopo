@@ -16,7 +16,7 @@ const HomePage = () => {
         : [];
 
     return (
-        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
+        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40,margin:'24px' }}>
 
             {/* 로고 + 프로필 */}
             <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
