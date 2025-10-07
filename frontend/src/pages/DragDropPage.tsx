@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import type { SessionContent } from "./../types/types"
 import { useState, type ReactNode } from 'react';
 import Session from '../components/Session';
+import SessionExpanded from '../components/SessionExpanded';
 
 
 type DraggableSessionProps = {
@@ -62,11 +63,11 @@ export const DraggableSession = ({ session }: DraggableSessionProps) => {
 
 
 // 드롭 가능한 영역
-export const DropZone = ({ onDrop,children }: DropZoneProps) => {
+export const DropZone = ({ onDrop, children }: DropZoneProps) => {
     const [, drop] = useDrop<{ session: SessionContent }, void, unknown>(() => ({
         accept: ItemTypes.SESSION,
         drop: (item: { session: SessionContent }, _monitor: DropTargetMonitor) => {
-            console.log("Dropped session:", item.session,_monitor);
+            console.log("Dropped session:", item.session, _monitor);
             onDrop(item.session); // 이제 안전하게 접근 가능
         },
     }));
@@ -82,6 +83,7 @@ export const DropZone = ({ onDrop,children }: DropZoneProps) => {
                 minHeight: "100vh",
                 backgroundColor: "#f9f9f9",
                 border: "2px dashed #ccc",
+                width: '70%',
             }}
         >
             {/* Drop here */}
@@ -98,9 +100,13 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
         setDroppedSessions((prev) => [...prev, session]);
     };
 
+    const handleRemove = (sessionToRemove: SessionContent) => {
+        setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
+    };
+
     return (
         <DndProvider backend={HTML5Backend}>
-            <div style={{ display: "flex", gap: 40, padding: 20 }}>
+            <div style={{ display: "flex", gap: 40, padding: 20, height: '100vh', width: '100%' }}>
                 {/* 왼쪽 드래그 영역 */}
                 <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 10 }}>
                     {sessions.map((s, idx) => (
@@ -114,12 +120,14 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                     <DropZone onDrop={handleDrop}>
                         <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
                             {droppedSessions.map((s, idx) => (
-                                <Session
+                                <SessionExpanded
                                     key={idx}
+                                    session={s}
                                     title={s.name}
                                     description={`🎯${s.guide}`}
-                                    purpose={`${s.target}<br/>${s.effect}`}
                                     pomo={s.pomo}
+                                    time={"25"}
+                                    onRemove={handleRemove} // 상위 콜백
                                 />
                             ))}
                         </div>
@@ -128,5 +136,10 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
             </div>
         </DndProvider>
     );
-
 };
+
+//   title,
+//   description,
+//   pomo,
+//   backgroundColor,
+//   time
