@@ -24,6 +24,8 @@ export default function Session({
   pomo,
   backgroundColor,
 }: SessionProps) {
+
+  
   // backgroundColor가 없으면 pomo 기준으로 main 컬러 사용
   console.log("Session component - pomo:",title, pomo);
   const bgColor = backgroundColor || sessionColors[pomo]?.main || "#21A060";

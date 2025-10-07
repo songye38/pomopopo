@@ -18,6 +18,10 @@ export default function ProfileSection() {
         <RegularText14>Pomo Beginner</RegularText14>
         <RegularText14>총 뽀모도로 시간 : 22시간 </RegularText14>
         <RegularText14>총 집중 횟수 : 30회</RegularText14>
+        <div style={{ display: "flex", flexDirection: "row", gap: 10 }}>
+          <RegularText14>⚙️설정</RegularText14>
+          <RegularText14>💎기록</RegularText14>
+        </div>
       </div>
 
     </div>

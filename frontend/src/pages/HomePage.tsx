@@ -20,6 +20,7 @@ const HomePage = () => {
             {/* 로고 + 프로필 */}
             <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
                 <img src={logo} alt="로고" style={{ width: '160px', height: "auto" }} />
+                <div> 창작자를 위한 뽀모도로, 즐겁게 창작하는 나만의 루틴</div>
                 <ProfileSection />
             </div>
 

@@ -25,6 +25,7 @@ export type Session =
   | "analysis"
   | "ruleBreaking"
   | "transformation"
+  | "break"
   | "detox";
 
 export interface SessionContent {
