@@ -5,7 +5,7 @@ import { workf1s } from "../types/workFlow";
 import { useState } from "react";
 import SessionMini from "../components/SessionMini";
 import { sessionTexts } from "../types/sessionTexts";
-import {MainBtn} from "../components/Button/MainBtn";
+import { MainBtn } from "../components/Button/MainBtn";
 
 const HomePage = () => {
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
@@ -16,13 +16,35 @@ const HomePage = () => {
         : [];
 
     return (
-        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40,margin:'24px' }}>
+        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40, margin: '24px' }}>
 
             {/* 로고 + 프로필 */}
-            <div style={{ width: "50%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40 }}>
-                <img src={logo} alt="로고" style={{ width: '160px', height: "auto" }} />
-                <div> 창작자를 위한 뽀모도로, 즐겁게 창작하는 나만의 루틴</div>
-                <ProfileSection />
+            <div style={{ width: '100%', display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
+                <div style={{
+                    width:'100%',
+                    display: "grid",
+                    gridTemplateColumns: "1fr auto 1fr",
+                    alignItems: "center",
+                    padding: "0 40px" ,  // ← margin 말고 padding
+                    boxSizing: 'border-box',   // ← padding까지 포함해서 100%로 계산
+                }}>
+                    <div style={{ textAlign: 'left' }}>
+                        창작자를 위한 뽀모도로, <br></br> 즐겁게 창작하는 나만의 루틴
+                    </div>
+
+                    <img src={logo} alt="로고" style={{ width: '220px', height: "auto", justifySelf: 'center' }} />
+
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10, justifyContent: 'flex-end' }}>
+                        <a>서비스 소개</a>
+                        <a>사용방법</a>
+                        <a>문의</a>
+                    </div>
+                </div>
+
+                <div style={{ width: '50%' }}>
+                    <ProfileSection />
+
+                </div>
             </div>
 
             {/* 중앙 레이아웃 */}

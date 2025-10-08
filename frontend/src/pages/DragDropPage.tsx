@@ -10,6 +10,7 @@ import { MainBtn } from '../components/Button/MainBtn';
 import arrowLeft from "/images/arrow-narrow-left.png";
 import { useNavigate } from "react-router-dom";
 import { generateRandomTitle } from '../utils/random';
+import { useEffect } from 'react';
 
 
 type DraggableSessionProps = {
@@ -86,7 +87,7 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
                 border: "2px dashed #ccc",
                 borderRadius: 16,
                 width: '90%',
-                paddingBottom:200,
+                paddingBottom: 200,
             }}
         >
             {/* Drop here */}
@@ -103,7 +104,12 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
 
     const handleDrop = (session: SessionContent) => {
         setDroppedSessions((prev) => [...prev, session]);
+
     };
+
+    useEffect(() => {
+        console.log("droppedSessions 업데이트됨:", droppedSessions);
+    }, [droppedSessions]);
 
     const handleRemove = (sessionToRemove: SessionContent) => {
         setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
@@ -132,9 +138,9 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                             fontWeight: "500",
                             borderRadius: 6,
                             border: "2px solid #c9c9c9",
-                            width: '120px',
-                            background:'white',
-                            color : 'black'
+                            width: '150px',
+                            background: 'white',
+                            color: 'black'
                         }}
                     />
                     <MainBtn variant="save" />
