@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import type { SessionContent, SavedSession } from "../types/types";
 import { sessionImages } from "../types/images";
 import LogoutBtn from "../components/Button/LogoutBtn";
+import { workf1s } from "../types/workFlow";
+import { sessionTexts } from "../types/sessionTexts";
 
 
 export default function PomodoroPage() {
@@ -16,20 +18,57 @@ export default function PomodoroPage() {
 
     // const timerRef = useRef<number | null>(null);
 
+    // useEffect(() => {
+    //     if (!id) return;
+
+    //     const target = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
+    //     if (target && target.droppedSessions) {
+    //         setSessions(target.droppedSessions);
+    //         if (target.droppedSessions.length > 0) {
+    //             setTimeLeft(parseInt(target.droppedSessions[0].time) * 60);
+    //         }
+    //     } else {
+    //         alert("저장된 세션을 찾을 수 없습니다.");
+    //         navigate("/");
+    //     }
+    // }, [id]);
     useEffect(() => {
         if (!id) return;
 
-        const target = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
-        if (target && target.droppedSessions) {
-            setSessions(target.droppedSessions);
-            if (target.droppedSessions.length > 0) {
-                setTimeLeft(parseInt(target.droppedSessions[0].time) * 60);
-            }
-        } else {
-            alert("저장된 세션을 찾을 수 없습니다.");
-            navigate("/make2");
+        // 1️⃣ 로컬스토리지에서 찾아보기 (사용자 세션)
+        const savedSession = JSON.parse(localStorage.getItem(id) || "null") as SavedSession | null;
+        if (savedSession && savedSession.droppedSessions?.length) {
+            setSessions(savedSession.droppedSessions);
+            setTimeLeft(parseInt(savedSession.droppedSessions[0].time) * 60);
+            return;
         }
+
+
+        console.log("id",id);
+        // 2️⃣ 워크플로우에서 찾아보기 (기본 세션)
+        const workflow = workf1s.find(wf => wf.id === id);
+        console.log("workflow",workflow);
+        if (workflow) {
+            // steps 배열을 SessionContent[]로 변환
+            const workflowSessions: SessionContent[] = workflow.steps.map(step => {
+                const sessionTemplate = sessionTexts[step.session]; // ex: diverge
+                return {
+                    ...sessionTemplate,
+                    time: step.duration.replace("분", ""), // 문자열 "25분" → 숫자 "25"
+                    pomo: sessionTemplate.pomo,
+                    id: `${workflow.id}-${step.order}` // workflow용 고유 id
+                };
+            });
+            setSessions(workflowSessions);
+            setTimeLeft(parseInt(workflowSessions[0].time) * 60);
+            return;
+        }
+
+        // 3️⃣ 둘 다 아니면 에러
+        alert("세션을 찾을 수 없습니다.");
+        navigate("/");
     }, [id]);
+
 
     // 타이머 로직
     useEffect(() => {
@@ -106,10 +145,10 @@ export default function PomodoroPage() {
                     marginTop: '20px'
                 }}
             >
-                <div style={{ color: "black", fontSize: '60px', fontWeight: '600',fontFamily: "Outfit" }}>{sessions[currentIndex].pomo}</div>
+                <div style={{ color: "black", fontSize: '60px', fontWeight: '600', fontFamily: "Outfit" }}>{sessions[currentIndex].pomo}</div>
                 <div style={{ color: "black", fontSize: '20px', fontWeight: '500' }}>🎯{sessions[currentIndex].guide}</div>
 
-                <div style={{ fontSize: 200, color: "black",fontFamily: "Outfit" }}>{formatTime(timeLeft)}</div>
+                <div style={{ fontSize: 200, color: "black", fontFamily: "Outfit" }}>{formatTime(timeLeft)}</div>
 
                 <div style={{ display: "flex", gap: 12 }}>
                     <button onClick={startPause}>{isRunning ? "일시정지" : "시작"}</button>

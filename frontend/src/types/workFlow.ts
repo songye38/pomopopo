@@ -4,6 +4,7 @@ import type { Workflow } from "./types"
 // 10개 워크플로우 전체 정의
 export const workf1s: Workflow[] = [
   {
+    id : '1',
     name: "🎨 Refine",
     index : "refine",
     pattern: "발산 → 스크리닝 → 수렴 → 정밀 조율 → 장기 휴식",
@@ -17,6 +18,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '2',
     name: "🔁 Reverse",
     index : "reverse",
     pattern: "수렴 → 뒤집기 세션 → 수렴 → 장기 휴식",
@@ -30,6 +32,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '3',
     name: "🎲 Random",
     index : "random",
     pattern: "발산 → 제약 도입 → 발산 → 장기 휴식",
@@ -43,6 +46,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '4',
     name: "🌊 Emotion",
     index : "emotion",
     pattern: "발산 → 감정 기록 → 발산 → 장기 휴식",
@@ -56,6 +60,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '5',
     name: "🚀 Explore",
     index : "explore",
     pattern: "발산 → 아이디어 태깅 → 발산 → 장기 휴식",
@@ -69,6 +74,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '6',
     name: "🧭 Story",
     index : "story",
     pattern: "수렴 → 구조화 → 수렴 → 장기 휴식",
@@ -82,6 +88,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '7',
     name: "🔮 Echo",
     index : "echo",
     pattern: "관찰 → 반응 분석 → 관찰 → 장기 휴식",
@@ -95,6 +102,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '8',
     name: "🛸 Escape",
     index : "escape",
     pattern: "발산 → 규칙 탈착 → 발산 → 장기 휴식",
@@ -108,6 +116,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '9',
     name: "🔃 Repeat",
     index : "repeat",
     pattern: "발산 → 수렴 → 변형 → 발산 → 수렴 → 장기 휴식",
@@ -121,6 +130,7 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
+    id : '10',
     name: "🔥 Empty",
     index : "empty",
     pattern: "발산 → 정화 → 발산 → 장기 휴식",

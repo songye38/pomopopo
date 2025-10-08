@@ -5,7 +5,6 @@ import { workf1s } from "../types/workFlow";
 import { useState } from "react";
 import SessionMini from "../components/SessionMini";
 import { sessionTexts } from "../types/sessionTexts";
-import { MainBtn } from "../components/Button/MainBtn";
 import { TabButtons } from "../components/Button/TabButtons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -106,19 +105,22 @@ const HomePage = () => {
                                 flexShrink: 0,
                                 transition: "all 0.3s ease",
                                 overflowY: "auto",
-                                // maxHeight: "70vh",
                                 boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
                                 display: "flex",
                                 flexDirection: "column", // 🔥 세로로 쌓기
                                 boxSizing: "border-box",
                                 overflowX: 'hidden',
                                 padding: '20px',
+
                             }}
                         >
                             <div style={{ flexGrow: 1 }}>
                                 {filteredWorkflows.length > 0 ? (
                                     filteredWorkflows.map(workflow => (
-                                        <div key={workflow.index} style={{ marginBottom: 20 }}>
+                                        <div
+                                            key={workflow.index}
+                                            style={{ marginBottom: 20, cursor: "pointer" }}
+                                        >
                                             <h3>{workflow.name}</h3>
                                             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                                 {workflow.steps.map(step => {
@@ -142,7 +144,16 @@ const HomePage = () => {
 
                             {/* 버튼을 항상 아래에 붙이기 */}
                             <div style={{ marginTop: "auto" }}>
-                                <MainBtn variant="start" />
+                                <StartPomoBtn
+                                    width="234px"
+                                    onClick={() => {
+                                        if (filteredWorkflows.length > 0) {
+                                            navigate(`/pomo/${filteredWorkflows[0].id}`);
+                                        } else {
+                                            alert("워크플로우를 찾을 수 없습니다.");
+                                        }
+                                    }}
+                                />
                             </div>
                         </div>
                     )}

@@ -51,6 +51,7 @@ export interface WorkflowStep {
 }
 
 export interface Workflow {
+  id : string;
   name: string;            // 워크플로우 이름
   index : string;         // 워크플로우 인덱스
   pattern: string;         // 워크패턴 설명
