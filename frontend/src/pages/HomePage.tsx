@@ -97,42 +97,54 @@ const HomePage = () => {
                     {selectedPomo && (
                         <div
                             style={{
-                                width: "25%",
-                                background: "#f9f9f9",
-                                padding: 12,
+                                width: "20%",
+                                height: 'auto',
+                                background: "white",
                                 borderRadius: 8,
                                 flexShrink: 0,
                                 transition: "all 0.3s ease",
                                 overflowY: "auto",
-                                maxHeight: "80vh",
+                                // maxHeight: "70vh",
+                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+                                display: "flex",
+                                flexDirection: "column", // 🔥 세로로 쌓기
+                                boxSizing: "border-box",
+                                overflowX: 'hidden',
+                                padding: '20px',
                             }}
                         >
-                            {filteredWorkflows.length > 0 ? (
-                                filteredWorkflows.map(workflow => (
-                                    <div key={workflow.index} style={{ marginBottom: 20 }}>
-                                        <h3>{workflow.name}</h3>
-                                        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-
-                                            {workflow.steps.map((step) => {
-                                                const session = sessionTexts[step.session]; // step.session → sessionTexts에서 매핑
-                                                return (
-                                                    <SessionMini
-                                                        key={step.order}
-                                                        title={session.name}   // 화면에 보여줄 이름
-                                                        pomo={session.pomo}    // session에 매핑된 Pomo
-                                                        time={step.duration}   // 시간 표시
-                                                    />
-                                                );
-                                            })}
+                            <div style={{ flexGrow: 1 }}>
+                                {filteredWorkflows.length > 0 ? (
+                                    filteredWorkflows.map(workflow => (
+                                        <div key={workflow.index} style={{ marginBottom: 20 }}>
+                                            <h3>{workflow.name}</h3>
+                                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                                {workflow.steps.map(step => {
+                                                    const session = sessionTexts[step.session];
+                                                    return (
+                                                        <SessionMini
+                                                            key={step.order}
+                                                            title={session.name}
+                                                            pomo={session.pomo}
+                                                            time={step.duration}
+                                                        />
+                                                    );
+                                                })}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
-                            )}
-                            <MainBtn variant="start" />
+                                    ))
+                                ) : (
+                                    <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
+                                )}
+                            </div>
+
+                            {/* 버튼을 항상 아래에 붙이기 */}
+                            <div style={{ marginTop: "auto" }}>
+                                <MainBtn variant="start" />
+                            </div>
                         </div>
                     )}
+
                 </div>
             )}
 

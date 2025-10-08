@@ -18,7 +18,7 @@ export const MainBtn = ({ variant,onClick: externalOnClick }: ButtonProps) => {
         start: {
             label: "시작하기",
             style: {
-                width: "225px",
+                width: "234px",
                 height: "auto",
                 padding: 10,
                 background: "#E5382D",
