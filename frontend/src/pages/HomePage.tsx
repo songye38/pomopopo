@@ -11,6 +11,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StartPomoBtn } from "../components/Button/StartPomoBtn";
 import type { SavedSession } from "../types/types";
+import { getRandomColor } from "../utils/random";
+import NewPomoButton from "../components/Button/NewPomoButton";
 
 const HomePage = () => {
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
@@ -151,13 +153,16 @@ const HomePage = () => {
             {activeTab === "내 뽀모도로" && (
                 <div
                     style={{
-                        width: "100%",
-                        display: "flex",
-                        flexDirection: "column",
+                        width: "70%",
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, 1fr)", // 항상 3열
                         gap: 20,
+                        padding: "20px",
                         transition: "all 0.3s ease",
                     }}
                 >
+                    {/* 항상 보이는 새 세션 만들기 버튼 */}
+                    <NewPomoButton />
                     {savedSessionIds.length > 0 ? (
                         savedSessionIds.map((id) => {
                             const savedSession = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
@@ -185,7 +190,7 @@ const HomePage = () => {
                                     </h3>
 
                                     {/* 세션 목록 */}
-                                    <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                                    {/* <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                                         {savedSession.droppedSessions.map((s) => (
                                             <SessionMini
                                                 key={s.id}
@@ -194,7 +199,34 @@ const HomePage = () => {
                                                 time={s.time}
                                             />
                                         ))}
+                                    </div> */}
+                                    {/* 세션 목록 (간단히 카드 형태) */}
+                                    <div style={{ display: "flex", gap: 8 }}>
+                                        {savedSession.droppedSessions.map((s) => (
+                                            <div
+                                                key={s.id}
+                                                style={{
+                                                    backgroundColor: getRandomColor(), // 랜덤 색상
+                                                    width: '60px',
+                                                    height: '60px',
+                                                    borderRadius: '50%',              // 원으로 만들기
+                                                    display: 'flex',                  // flex로 중앙 정렬
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    color: "#fff",
+                                                    fontWeight: "bold",
+                                                    fontSize: 12,                     // 글자 길이에 맞춰 조금 작게
+                                                    textAlign: "center",
+                                                    padding: 4,                        // 혹시 긴 글자 대비
+                                                    overflow: 'hidden',               // 글자가 넘치면 잘림
+                                                }}
+                                            >
+                                                {s.name}
+                                            </div>
+
+                                        ))}
                                     </div>
+
 
                                     {/* 카드 하단: 시작 버튼 */}
                                     <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>

@@ -41,7 +41,7 @@ export default function Session({
     >
       {/* 제목 */}
       <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-        <SemiboldText16>{title} {time}</SemiboldText16>
+        <SemiboldText16>{title} {time}분</SemiboldText16>
       </div>
 
 

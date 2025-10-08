@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { v4 as uuidv4 } from "uuid";
 import { toast } from 'react-toastify';
 import { StartPomoBtn } from '../components/Button/StartPomoBtn';
+import { useParams } from "react-router-dom";
 
 
 type DraggableSessionProps = {
@@ -101,6 +102,7 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
 
 
 export const DragDropPage = ({ sessions }: DragDropPageProps) => {
+    const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
     const [droppedSessions, setDroppedSessions] = useState<SessionContent[]>([]);
     const navigate = useNavigate();
     const [title, setTitle] = useState(generateRandomTitle());
@@ -119,28 +121,29 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
 
     // 개별 세션 저장
     const saveDroppedSessions = (title: string, droppedSessions: SessionContent[]) => {
-        const id = uuidv4();
+        if (!id) {
+            toast.error("ID가 존재하지 않습니다.");
+            return;
+        }
+
         const saveObj: SavedSession = {
-            id,
+            id, // 이제 uuid 대신 URL param 사용
             title,
             droppedSessions,
             savedAt: Date.now(),
         };
 
-        // id를 key로 저장
         localStorage.setItem(id, JSON.stringify(saveObj));
 
-        // 전체 목록 관리용 배열 업데이트
+        // 전체 목록 관리용 배열 업데이트 (중복 체크)
         const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
-        localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
+        if (!existingIds.includes(id)) {
+            localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
+        }
 
-        // 현재 세션 ID 상태 업데이트
         setCurrentSessionId(id);
-
-        console.log("임시저장 완료:", saveObj);
         toast.success("성공! 세션이 저장되었습니다!");
     };
-
 
 
     useEffect(() => {
@@ -184,11 +187,17 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                         onClick={() => saveDroppedSessions(title, droppedSessions)}
                     />
                     <StartPomoBtn
+                        width="234px"
                         onClick={() => {
-                            if (currentSessionId) {
-                                navigate(`/pomo/${currentSessionId}`);
+                            if (!currentSessionId) {
+                                // 저장되지 않은 경우 자동 저장
+                                saveDroppedSessions(title, droppedSessions);
+                                // 저장 직후 currentSessionId가 set되므로, 바로 navigate
+                                if (id) {
+                                    navigate(`/pomo/${id}`);
+                                }
                             } else {
-                                alert("먼저 세션을 저장하세요.");
+                                navigate(`/pomo/${currentSessionId}`);
                             }
                         }}
                     />
