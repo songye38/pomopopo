@@ -106,10 +106,10 @@ export default function PomodoroPage() {
                     marginTop: '20px'
                 }}
             >
-                <div style={{ color: "black", fontSize: '28px', fontWeight: '700' }}>{sessions[currentIndex].name}</div>
-                <p style={{ color: "black", fontSize: '22', fontWeight: '500' }}>🎯{sessions[currentIndex].guide}</p>
+                <div style={{ color: "black", fontSize: '60px', fontWeight: '600',fontFamily: "Outfit" }}>{sessions[currentIndex].pomo}</div>
+                <div style={{ color: "black", fontSize: '20px', fontWeight: '500' }}>🎯{sessions[currentIndex].guide}</div>
 
-                <div style={{ fontSize: 32, color: "black" }}>{formatTime(timeLeft)}</div>
+                <div style={{ fontSize: 200, color: "black",fontFamily: "Outfit" }}>{formatTime(timeLeft)}</div>
 
                 <div style={{ display: "flex", gap: 12 }}>
                     <button onClick={startPause}>{isRunning ? "일시정지" : "시작"}</button>
