@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import type { SessionContent, SavedSession } from "../types/types";
 import { sessionImages } from "../types/images";
+import LogoutBtn from "../components/Button/LogoutBtn";
+
 
 export default function PomodoroPage() {
     const { id } = useParams<{ id: string }>();
@@ -88,6 +90,10 @@ export default function PomodoroPage() {
                 minHeight: "100vh", // 화면 절반
             }}
         >
+            <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <LogoutBtn />
+            </div>
+
             <div
                 style={{
                     display: "flex",
@@ -97,11 +103,11 @@ export default function PomodoroPage() {
                     height: "100vh", // 화면 전체 높이
                     gap: 20, // 요소 간 간격
                     textAlign: "center", // 글자 중앙 정렬
-                    marginTop:'20px'
+                    marginTop: '20px'
                 }}
             >
-                <div style={{ color: "black",fontSize:'28px',fontWeight:'700' }}>{sessions[currentIndex].name}</div>
-                <p style={{ color: "black",fontSize:'22',fontWeight:'500' }}>🎯{sessions[currentIndex].guide}</p>
+                <div style={{ color: "black", fontSize: '28px', fontWeight: '700' }}>{sessions[currentIndex].name}</div>
+                <p style={{ color: "black", fontSize: '22', fontWeight: '500' }}>🎯{sessions[currentIndex].guide}</p>
 
                 <div style={{ fontSize: 32, color: "black" }}>{formatTime(timeLeft)}</div>
 
