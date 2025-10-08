@@ -56,3 +56,10 @@ export interface Workflow {
   pattern: string;         // 워크패턴 설명
   steps: WorkflowStep[];   // 각 단계 배열
 }
+
+export interface SavedSession {
+    id: string;
+    title: string;
+    droppedSessions: SessionContent[];
+    savedAt: number;
+}

@@ -2,7 +2,7 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import type { DragSourceMonitor } from 'react-dnd';
 import type { DropTargetMonitor } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import type { SessionContent } from "./../types/types"
+import type { SessionContent, SavedSession } from "./../types/types"
 import { useState, type ReactNode } from 'react';
 import Session from '../components/Session';
 import SessionExpanded from '../components/SessionExpanded';
@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { generateRandomTitle } from '../utils/random';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from "uuid";
+import { toast } from 'react-toastify';
+import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 
 
 type DraggableSessionProps = {
@@ -102,6 +104,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     const [droppedSessions, setDroppedSessions] = useState<SessionContent[]>([]);
     const navigate = useNavigate();
     const [title, setTitle] = useState(generateRandomTitle());
+    const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
     // const handleDrop = (session: SessionContent) => {
     //     setDroppedSessions((prev) => [...prev, session]);
@@ -117,7 +120,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     // 개별 세션 저장
     const saveDroppedSessions = (title: string, droppedSessions: SessionContent[]) => {
         const id = uuidv4();
-        const saveObj = {
+        const saveObj: SavedSession = {
             id,
             title,
             droppedSessions,
@@ -128,11 +131,16 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
         localStorage.setItem(id, JSON.stringify(saveObj));
 
         // 전체 목록 관리용 배열 업데이트
-        const existingIds = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
+        const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
         localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
 
+        // 현재 세션 ID 상태 업데이트
+        setCurrentSessionId(id);
+
         console.log("임시저장 완료:", saveObj);
+        toast.success("성공! 세션이 저장되었습니다!");
     };
+
 
 
     useEffect(() => {
@@ -175,7 +183,15 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                         variant="save"
                         onClick={() => saveDroppedSessions(title, droppedSessions)}
                     />
-                    <MainBtn variant="start" />
+                    <StartPomoBtn
+                        onClick={() => {
+                            if (currentSessionId) {
+                                navigate(`/pomo/${currentSessionId}`);
+                            } else {
+                                alert("먼저 세션을 저장하세요.");
+                            }
+                        }}
+                    />
                 </div>
             </div>
             <DndProvider backend={HTML5Backend}>
