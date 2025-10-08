@@ -19,6 +19,7 @@ interface SessionExpandedProps {
   backgroundColor?: string; // 선택적, 기본값 가능
   time: string;
   onRemove: (session: SessionContent) => void; // 상위 콜백
+  onUpdate: (updatedSession: SessionContent) => void; // 수정 콜백
 }
 
 export default function SessionExpanded({
@@ -27,12 +28,30 @@ export default function SessionExpanded({
   description,
   pomo,
   backgroundColor,
-  onRemove
+  time,
+  onRemove,
+  onUpdate
 }: SessionExpandedProps) {
 
-  const [editableDescription, setEditableDescription] = useState(description);
+  const [editableDescription, setEditableDescription] = useState(description); //사용자가 쓰는 목표 
+  const [selectedTime, setSelectedTime] = useState(Number(time)); // 사용자가 선택하는 시간
+
+
+
   const bgColor = backgroundColor || sessionColors[pomo]?.light || "#21A060";
   const bgColorforTime = backgroundColor || sessionColors[pomo]?.main || "#21A060";
+
+
+  const handleDescriptionChange = (value: string) => {
+    setEditableDescription(value);
+    onUpdate({ ...session, guide: value });
+  };
+
+  const handleTimeChange = (value: number) => {
+    setSelectedTime(value);
+    console.log("selectedTime",selectedTime);
+    onUpdate({ ...session, time: String(value) });
+  };
 
 
   return (
@@ -75,29 +94,11 @@ export default function SessionExpanded({
         </div>
       </div>
 
-
-
-      {/* 설명과 목적 */}
-      {/* <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "auto" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <div
-            style={{
-              color: "white",
-              fontSize: 15,
-              fontFamily: "Pretendard",
-              fontWeight: 500,
-              lineHeight: "21px",
-              wordWrap: "break-word",
-            }}
-            dangerouslySetInnerHTML={{ __html: description }}
-          />
-        </div>
-      </div> */}
       {/* 설명과 목적 (editable) */}
       <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
         <textarea
           value={editableDescription}
-          onChange={(e) => setEditableDescription(e.target.value)}
+          onChange={(e) => handleDescriptionChange(e.target.value)}
           style={{
             width: "90%",
             height: '20px',
@@ -117,7 +118,7 @@ export default function SessionExpanded({
       <TimeSelector
         time={25} // 초기 시간
         mainColor={bgColorforTime} // 세션 배경색 전달
-        onChange={(newTime) => console.log("선택된 시간:", newTime)}
+        onChange={handleTimeChange}
       />
     </div>
   );

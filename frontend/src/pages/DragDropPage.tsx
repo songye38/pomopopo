@@ -11,6 +11,7 @@ import arrowLeft from "/images/arrow-narrow-left.png";
 import { useNavigate } from "react-router-dom";
 import { generateRandomTitle } from '../utils/random';
 import { useEffect } from 'react';
+import { v4 as uuidv4 } from "uuid";
 
 
 type DraggableSessionProps = {
@@ -102,18 +103,24 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     const navigate = useNavigate();
     const [title, setTitle] = useState(generateRandomTitle());
 
-    const handleDrop = (session: SessionContent) => {
-        setDroppedSessions((prev) => [...prev, session]);
+    // const handleDrop = (session: SessionContent) => {
+    //     setDroppedSessions((prev) => [...prev, session]);
 
+    // };
+    const handleDrop = (session: SessionContent) => {
+        setDroppedSessions(prev => [
+            ...prev,
+            { ...session, id: uuidv4() } // 고유 id 추가
+        ]);
     };
 
     useEffect(() => {
         console.log("droppedSessions 업데이트됨:", droppedSessions);
     }, [droppedSessions]);
 
-    const handleRemove = (sessionToRemove: SessionContent) => {
-        setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
-    };
+    // const handleRemove = (sessionToRemove: SessionContent) => {
+    //     setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
+    // };
 
     return (
         <div style={{ margin: '24px' }}>
@@ -165,10 +172,19 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                                         key={idx}
                                         session={s}
                                         title={s.name}
-                                        description={`🎯${"이번 세션 목표"}`}
+                                        description={`🎯${"나만의 목표를 적어보자"}`}
                                         pomo={s.pomo}
-                                        time={"25"}
-                                        onRemove={handleRemove} // 상위 콜백
+                                        time={s.time}
+                                        onRemove={(sessionToRemove) => {
+                                            setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
+                                        }}
+                                        onUpdate={(updatedSession) => {
+                                            setDroppedSessions(prev =>
+                                                prev.map(s =>
+                                                    s.id === updatedSession.id ? updatedSession : s
+                                                )
+                                            );
+                                        }}
                                     />
                                 ))}
                             </div>

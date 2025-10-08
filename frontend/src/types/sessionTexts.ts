@@ -11,7 +11,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 발산", "자유 탐색"],
     guide: "생각나는 아이디어를 제한 없이 쭉 적어보기",
     pomo: "basic",
-    time : '25분',
+    time : '25',
     relatedArtists: ["살바도르 달리 – 상상력 폭발, 초현실적 아이디어", "파블로 피카소 (큐비즘 초기) – 다양한 형태 실험","야요이 쿠사마 – 반복적 발산적 설치 예술"],
   },
   converge: {
@@ -22,7 +22,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 정리", "우선순위 결정"],
     guide: "발산한 아이디어 중 중요한 것만 골라 구체화하기",
     pomo: "basic",
-    time : '25분',
+    time : '25',
     relatedArtists: ["르 코르뷔지에 – 디자인 아이디어를 구조와 기능으로 정리", "미스 반 데어 로에 – ‘Less is more’ 철학으로 디자인 수렴","모리스 라벨 – 음악에서 주제의 단순화와 집중"],
   },
   observe: {
@@ -33,7 +33,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["패턴 관찰", "데이터 기록"],
     guide: "주변 현상이나 대상을 주의 깊게 보고 기록하기",
     pomo: "basic",
-    time : '25분',
+    time : '25',
     relatedArtists: ["클로드 모네 – 자연 관찰, 빛과 색의 변화 포착", "레오나르도 다 빈치 – 해부, 자연 관찰을 통한 과학적 예술","앤디 골즈워시 – 자연 속 물질과 패턴 관찰"],
   },
   screening: {
@@ -44,7 +44,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["아이디어 필터링", "중요도 평가"],
     guide: "아이디어를 빠르게 평가하고 필요 없는 것은 제외",
     pomo: "refine",
-    time : '25분',
+    time : '25',
     relatedArtists: ["다이애나 아르부스 – 수많은 촬영 중 핵심만 선별", "안젤름 키퍼 – 방대한 자료 중 의미 있는 요소 추출"],
   },
   refine: {
@@ -55,7 +55,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["디테일 체크", "최종 다듬기"],
     guide: "디테일을 체크하고 결과물을 깔끔하게 다듬기",
     pomo: "refine",
-    time : '25분',
+    time : '25',
     relatedArtists: ["조지아 오키프 – 세밀한 형태와 색감 다듬기", "아이웨이웨이 – 설치물 디테일과 구조 조율"],
   },
   reverse: {
@@ -66,7 +66,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["구조 재배치", "논리 전환"],
     guide: "기존 아이디어를 뒤집어 새 관점으로 재배치하기",
     pomo: "reverse",
-    time : '25분',
+    time : '25',
     relatedArtists: ["르네 마그리트 – 일상적 사물 뒤집기, 역설적 이미지", "요셉 보이스 – 사회 구조에 대한 전복적 설치"],
   },
   constraint: {
@@ -77,7 +77,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["무작위 요소 제한", "현실적 적용"],
     guide: "무작위 아이디어에 현실적인 규칙 적용해 보기",
     pomo: "random",
-    time : '25분',
+    time : '25',
     relatedArtists: ["존 케이지 – 우연성과 제약을 음악에 적용", "마르셀 뒤샹 – 기존 오브제를 제약 속에서 재해석"],
   },
   emotion: {
@@ -88,7 +88,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["감정 캡처", "기록 도구"],
     guide: "지금 느끼는 감정을 글이나 그림으로 기록하기",
     pomo: "emotion",
-    time : '25분',
+    time : '25',
     relatedArtists: ["빈센트 반 고흐 – 감정 표현을 직접 그림에 담음", "프리다 칼로 – 자기 내면 감정을 솔직하게 회화로 표현"],
   },
   tagging: {
@@ -99,7 +99,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["키워드 분류", "아이디어 라벨링"],
     guide: "아이디어에 키워드나 카테고리를 붙여 정리하기",
     pomo: "explore",
-    time : '25분',
+    time : '25',
     relatedArtists: ["앤디 워홀 – 반복과 패턴, 시리즈화로 아이디어 분류", "솔 르윗 – 개념미술에서 시스템적 접근"],
   },
   structuring: {
@@ -110,7 +110,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["순서 설계", "흐름 체크"],
     guide: "전체 흐름을 단계별로 설계하고 연결 확인하기",
     pomo: "story",
-    time : '25분',
+    time : '25',
     relatedArtists: ["스탠리 큐브릭 – 영화 속 스토리 구조 철저하게 설계", "아키그레이브(Comics) – 시퀀스 기반 내러티브 설계"],
   },
   analysis: {
@@ -121,7 +121,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["기록", "감정 변화 그래프"],
     guide: "작업 중 느낀 감정을 기록하고 패턴 확인하기",
     pomo: "echo",
-    time : '25분',
+    time : '25',
     relatedArtists: ["루이스 부르주아 – 자신의 심리/감정 패턴을 작품화", "요셉 코수스 – 관찰을 통한 개념 예술"],
   },
   ruleBreaking: {
@@ -132,7 +132,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["규칙 제거", "제한 해제"],
     guide: "기존 규칙을 과감히 벗어나 새 방식 시도하기",
     pomo: "escape",
-    time : '25분',
+    time : '25',
     relatedArtists: ["장 미셸 바스키아 – 기존 미술 규칙 파괴, 자유로운 표현", "마르셀 뒤샹 – 레디메이드로 규칙 도전"],
   },
   transformation: {
@@ -143,7 +143,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["반복 루프", "아이디어 변형"],
     guide: "아이디어를 여러 방식으로 변형하며 발전시키기",
     pomo: "repeat",
-    time : '25분',
+    time : '25',
     relatedArtists: ["브라크 – 형태와 시각 요소 반복 변형", "요셉 알버스 – 색채와 형태 반복적 실험"],
   },
   break: {
@@ -154,7 +154,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["감각 정화", "비움"],
     guide: "머리를 비우고 잠깐 쉬기",
     pomo: "empty",
-    time : '5분',
+    time : '5',
     relatedArtists: ["존 케이지 – 명상적 음악 실험", "앤디 골즈워시 – 자연 속 작업과 회복"],
   },
   detox: {
@@ -165,7 +165,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     features: ["숨 돌리기"],
     guide: "머릿속 생각을 자유롭게 흘려보내고, 최소한의 행동/표현으로 감각 유지",
     pomo: "empty",
-    time : '25분',
+    time : '25',
     relatedArtists: ["존 케이지 – 명상적 음악 실험", "앤디 골즈워시 – 자연 속 작업과 회복"],
   },
 };
