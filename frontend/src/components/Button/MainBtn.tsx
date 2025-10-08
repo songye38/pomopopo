@@ -5,9 +5,10 @@ type Variant = "start" | "save" | "finish";
 
 type ButtonProps = {
     variant: Variant;
+    onClick?: () => void; // 외부에서 클릭 핸들러를 받을 수 있게 추가
 };
 
-export const MainBtn = ({ variant }: ButtonProps) => {
+export const MainBtn = ({ variant,onClick: externalOnClick }: ButtonProps) => {
     const navigate = useNavigate();
 
     const configs: Record<
@@ -54,6 +55,7 @@ export const MainBtn = ({ variant }: ButtonProps) => {
                 wordWrap: "break-word",
                 cursor: "pointer",
             },
+            onClick: () => { }, // 기본 동작은 아무것도 안 함
         },
         finish: {
             label: "완료",
@@ -67,14 +69,15 @@ export const MainBtn = ({ variant }: ButtonProps) => {
         },
     };
 
-    const { label, style, onClick } = configs[variant];
+    const { label, style, onClick: defaultOnClick } = configs[variant];
 
     return (
         <div
             style={style}
             onClick={() => {
                 console.log(`${label} 클릭!`);
-                onClick?.(); // ✅ 여기서 navigate 호출
+                defaultOnClick?.();       // configs 안 기본 동작
+                externalOnClick?.();      // 외부에서 전달된 동작
             }}
         >
             {label}

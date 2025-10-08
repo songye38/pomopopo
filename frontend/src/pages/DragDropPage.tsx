@@ -114,6 +114,27 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
         ]);
     };
 
+    // 개별 세션 저장
+    const saveDroppedSessions = (title: string, droppedSessions: SessionContent[]) => {
+        const id = uuidv4();
+        const saveObj = {
+            id,
+            title,
+            droppedSessions,
+            savedAt: Date.now(),
+        };
+
+        // id를 key로 저장
+        localStorage.setItem(id, JSON.stringify(saveObj));
+
+        // 전체 목록 관리용 배열 업데이트
+        const existingIds = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
+        localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
+
+        console.log("임시저장 완료:", saveObj);
+    };
+
+
     useEffect(() => {
         console.log("droppedSessions 업데이트됨:", droppedSessions);
     }, [droppedSessions]);
@@ -150,7 +171,10 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                             color: 'black'
                         }}
                     />
-                    <MainBtn variant="save" />
+                    <MainBtn
+                        variant="save"
+                        onClick={() => saveDroppedSessions(title, droppedSessions)}
+                    />
                     <MainBtn variant="start" />
                 </div>
             </div>
@@ -195,9 +219,3 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
         </div>
     );
 };
-
-//   title,
-//   description,
-//   pomo,
-//   backgroundColor,
-//   time
