@@ -4,7 +4,7 @@ import type { DropTargetMonitor } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import type { SessionContent, SavedSession } from "./../types/types"
 import { useState, type ReactNode } from 'react';
-import Session from '../components/Session';
+import Session from '../components/SessionDefault';
 import SessionExpanded from '../components/SessionExpanded';
 import { MainBtn } from '../components/Button/MainBtn';
 import arrowLeft from "/images/arrow-narrow-left.png";

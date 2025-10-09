@@ -18,7 +18,7 @@ interface SessionProps {
   relatedArtists?: string[]; // 선택적, 기본값 가능
 }
 
-export default function Session({
+export default function SessionDefault({
   title,
   purpose,
   pomo,
