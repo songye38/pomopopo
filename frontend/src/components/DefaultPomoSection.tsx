@@ -1,3 +1,6 @@
+import styles from '../styles/DefaultPomoSection.module.css'
+
+
 const defaultPomos = [
   { name: "refine", thumbnail: "/images/thumbnail/refine.png" },
   { name: "random", thumbnail: "/images/thumbnail/random.png" },
@@ -20,34 +23,14 @@ interface DefaultPomoSectionProps {
 
 export default function DefaultPomoSection({ onSelect }: DefaultPomoSectionProps) {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 1fr)",
-        gap: 12,
-        // width: "70%",
-        // maxWidth: 500,
-        marginBottom:40,
-      }}
-    >
+    <div className={styles.container}>
       {defaultPomos.map((pomo) => (
         <div
           key={pomo.name}
-          style={{
-            background: "#F5F5F5",
-            width: "auto",
-            aspectRatio: "3 / 4",
-            borderRadius: 1,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: 2,
-            cursor: "pointer",
-          }}
-          onClick={() => onSelect?.(pomo.name)} // 클릭 시 부모로 선택 값 전달
+          className={styles['pomo-card']}
+          onClick={() => onSelect?.(pomo.name)}
         >
-          <img src={pomo.thumbnail} alt={pomo.name} style={{ width: "100%", height: "auto" }} />
+          <img src={pomo.thumbnail} alt={pomo.name} className={styles['pomo-image']} />
           {/* <div>{pomo.name}</div> */}
         </div>
       ))}

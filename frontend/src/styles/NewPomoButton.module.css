@@ -1,0 +1,35 @@
+.wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  border: 1px dotted #ddd;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.button.hover {
+  border: 2px dotted #e5382d;
+  font-size: 22px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .button {
+    font-size: 22px;
+    padding: 6px 12px;
+    height:180px;
+    border: 2px solid black;
+  }
+
+  .button.hover {
+    font-size: 18px;
+  }
+}

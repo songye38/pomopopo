@@ -12,6 +12,7 @@ import { StartPomoBtn } from "../components/Button/StartPomoBtn";
 import type { SavedSession } from "../types/types";
 import { getRandomColor } from "../utils/random";
 import NewPomoButton from "../components/Button/NewPomoButton";
+import styles from '../styles/HomePage.module.css'
 
 const HomePage = () => {
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
@@ -45,25 +46,17 @@ const HomePage = () => {
         : [];
 
     return (
-        <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: 40, margin: '24px' }}>
 
-            {/* 로고 + 프로필 */}
-            <div style={{ width: '100%', display: "flex", flexDirection: "column", alignItems: "center", gap: 20 }}>
-                <div style={{
-                    width: '100%',
-                    display: "grid",
-                    gridTemplateColumns: "1fr auto 1fr",
-                    alignItems: "center",
-                    padding: "0 40px",  // ← margin 말고 padding
-                    boxSizing: 'border-box',   // ← padding까지 포함해서 100%로 계산
-                }}>
-                    <div style={{ textAlign: 'left' }}>
-                        창작자를 위한 뽀모도로, <br></br> 즐겁게 창작하는 나만의 루틴
+        <div className={styles.container}>
+
+            {/* 헤더 */}
+            <div className={styles.header}>
+                <div className={styles['header-grid']}>
+                    <div className={styles['header-left']}>
+                        창작자를 위한 뽀모도로, <br /> 즐겁게 창작하는 나만의 루틴
                     </div>
-
-                    <img src={logo} alt="로고" style={{ width: '220px', height: "auto", justifySelf: 'center' }} />
-
-                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 10, justifyContent: 'flex-end' }}>
+                    <img src={logo} alt="로고" className={styles['header-logo']} />
+                    <div className={styles['header-right']}>
                         <a>서비스 소개</a>
                         <a>사용방법</a>
                         <a>문의</a>
@@ -72,204 +65,84 @@ const HomePage = () => {
 
                 <div style={{ width: '50%' }}>
                     <ProfileSection />
-
                 </div>
             </div>
 
             <TabButtons activeTab={activeTab} onTabChange={setActiveTab} tabs={["내 뽀모도로", "프리셋 뽀모도로"]} />
 
-            {/* 중앙 레이아웃 */}
-
-            {/* 선택된 탭에 따라 다른 콘텐츠 보여주기 */}
+            {/* 프리셋 뽀모도로 */}
             {activeTab === "프리셋 뽀모도로" && (
-                <div style={{ width: "100%", display: "flex", justifyContent: "center", gap: 20, transition: "all 0.3s ease" }}>
-
-                    {/* DefaultPomoSection */}
-                    <div
-                        style={{
-                            width: selectedPomo ? "70%" : "70%", // 선택 전/후 동일 (중앙 정렬 유지)
-                            transition: "all 0.3s ease",
-                        }}
-                    >
-                        <DefaultPomoSection onSelect={(pomoName: string) => setSelectedPomo(pomoName)} />
+                <div className={styles['center-section']}>
+                    <div className={styles['default-pomo']}>
+                        <DefaultPomoSection onSelect={setSelectedPomo} />
                     </div>
 
-                    {/* 오른쪽 워크플로우 패널 */}
                     {selectedPomo && (
-                        <div
-                            style={{
-                                width: "20%",
-                                height: 'auto',
-                                background: "white",
-                                borderRadius: 8,
-                                flexShrink: 0,
-                                transition: "all 0.3s ease",
-                                overflowY: "auto",
-                                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
-                                display: "flex",
-                                flexDirection: "column", // 🔥 세로로 쌓기
-                                boxSizing: "border-box",
-                                overflowX: 'hidden',
-                                padding: '20px',
-
-                            }}
-                        >
-                            <div style={{ flexGrow: 1 }}>
-                                {filteredWorkflows.length > 0 ? (
-                                    filteredWorkflows.map(workflow => (
-                                        <div
-                                            key={workflow.index}
-                                            style={{ marginBottom: 20, cursor: "pointer" }}
-                                        >
-                                            <h3>{workflow.name}</h3>
-                                            <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                                {workflow.steps.map(step => {
-                                                    const session = sessionTexts[step.session];
-                                                    return (
-                                                        <SessionMini
-                                                            key={step.order}
-                                                            title={session.name}
-                                                            pomo={session.pomo}
-                                                            time={step.duration}
-                                                        />
-                                                    );
-                                                })}
-                                            </div>
+                        <div className={styles['workflow-panel']}>
+                            {filteredWorkflows.length > 0 ? (
+                                filteredWorkflows.map(w => (
+                                    <div key={w.index} className={styles['workflow-item']}>
+                                        <h3>{w.name}</h3>
+                                        <div className={styles['workflow-steps']}>
+                                            {w.steps.map(step => {
+                                                const session = sessionTexts[step.session];
+                                                return (
+                                                    <SessionMini
+                                                        key={step.order}
+                                                        title={session.name}
+                                                        pomo={session.pomo}
+                                                        time={step.duration}
+                                                    />
+                                                );
+                                            })}
                                         </div>
-                                    ))
-                                ) : (
-                                    <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
-                                )}
-                            </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
+                            )}
 
-                            {/* 버튼을 항상 아래에 붙이기 */}
                             <div style={{ marginTop: "auto" }}>
-                                <StartPomoBtn
-                                    width="234px"
-                                    onClick={() => {
-                                        if (filteredWorkflows.length > 0) {
-                                            navigate(`/pomo/${filteredWorkflows[0].id}`);
-                                        } else {
-                                            alert("워크플로우를 찾을 수 없습니다.");
-                                        }
-                                    }}
-                                />
+                                <StartPomoBtn width="234px" onClick={() => navigate(`/pomo/${filteredWorkflows[0]?.id}`)} />
                             </div>
                         </div>
                     )}
-
                 </div>
             )}
 
+            {/* 내 뽀모도로 */}
             {activeTab === "내 뽀모도로" && (
-                <div
-                    style={{
-                        width: "70%",
-                        display: "grid",
-                        gridTemplateColumns: "repeat(3, 1fr)", // 항상 3열
-                        gap: 20,
-                        padding: "20px",
-                        transition: "all 0.3s ease",
-                    }}
-                >
-                    {/* 항상 보이는 새 세션 만들기 버튼 */}
+                <div className={styles['saved-sessions-grid']}>
                     <NewPomoButton />
                     {savedSessionIds.length > 0 ? (
-                        savedSessionIds.map((id) => {
-                            const savedSession = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
-
-                            if (!savedSession || !savedSession.droppedSessions) return null;
+                        savedSessionIds.map(id => {
+                            const saved = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
+                            if (!saved?.droppedSessions) return null;
 
                             return (
-                                <div
-                                    key={id}
-                                    style={{
-                                        border: "1px solid #ddd",
-                                        borderRadius: 12,
-                                        padding: 16,
-                                        background: "#fff",
-                                        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        gap: 12,
-                                        transition: "all 0.2s ease",
-                                    }}
-                                >
-                                    {/* 카드 상단: 제목 */}
-                                    <h3 style={{ margin: 0, fontSize: 20, color: "#333" }}>
-                                        {savedSession.title}
-                                    </h3>
-
-                                    {/* 세션 목록 */}
-                                    {/* <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                                        {savedSession.droppedSessions.map((s) => (
-                                            <SessionMini
-                                                key={s.id}
-                                                title={s.name}
-                                                pomo={s.pomo}
-                                                time={s.time}
-                                            />
-                                        ))}
-                                    </div> */}
-                                    {/* 세션 목록 (간단히 카드 형태) */}
+                                <div key={id} className={styles['saved-session-card']}>
+                                    <h3 className={styles['saved-session-title']}>{saved.title}</h3>
                                     <div style={{ display: "flex", gap: 8 }}>
-                                        {savedSession.droppedSessions.map((s) => (
-                                            <div
-                                                key={s.id}
-                                                style={{
-                                                    backgroundColor: getRandomColor(), // 랜덤 색상
-                                                    width: '60px',
-                                                    height: '60px',
-                                                    borderRadius: '50%',              // 원으로 만들기
-                                                    display: 'flex',                  // flex로 중앙 정렬
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    color: "#fff",
-                                                    fontWeight: "bold",
-                                                    fontSize: 12,                     // 글자 길이에 맞춰 조금 작게
-                                                    textAlign: "center",
-                                                    padding: 4,                        // 혹시 긴 글자 대비
-                                                    overflow: 'hidden',               // 글자가 넘치면 잘림
-                                                }}
-                                            >
+                                        {saved.droppedSessions.map(s => (
+                                            <div key={s.id} className={styles['session-circle']} style={{ backgroundColor: getRandomColor() }}>
                                                 {s.name}
                                             </div>
-
                                         ))}
                                     </div>
-
-
-                                    {/* 카드 하단: 시작 버튼 */}
                                     <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                        <StartPomoBtn
-                                            label="시작하기"
-                                            onClick={() => navigate(`/pomo/${id}`)}
-                                        />
+                                        <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${id}`)} />
                                     </div>
                                 </div>
                             );
                         })
                     ) : (
-                        <div
-                            style={{
-                                textAlign: "center",
-                                padding: 40,
-                                color: "#999",
-                                fontSize: 16,
-                            }}
-                        >
-                            저장된 세션이 없습니다.
-                        </div>
+                        <div className={styles['empty-state']}>저장된 세션이 없습니다.</div>
                     )}
                 </div>
             )}
 
-
-
-
-
-
         </div>
+
     );
 };
 

@@ -1,0 +1,172 @@
+/* 전체 컨테이너 */
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin: 24px;
+}
+
+/* 헤더 + 로고 + 메뉴 */
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+
+.header-left {
+  text-align: left;
+}
+
+.header-logo {
+  width: 220px;
+  height: auto;
+  justify-self: center;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+/* 중앙 영역 */
+.center-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.default-pomo {
+  width: 70%;
+  transition: all 0.3s ease;
+}
+
+.workflow-panel {
+  width: 20%;
+  background: white;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+.workflow-item {
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+
+.workflow-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 내 뽀모도로 탭 */
+.saved-sessions-grid {
+  width: 70%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.saved-session-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s ease;
+}
+
+.saved-session-title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.session-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 12px;
+  text-align: center;
+  padding: 4px;
+  overflow: hidden;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 16px;
+}
+
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    /* 내 뽀모도로 탭 */
+    .saved-sessions-grid {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    }
+    .default-pomo {
+        width: 90%;
+        transition: all 0.3s ease;
+    }
+
+    .header-left {
+        display: none;
+    }
+     .header-right {
+        display: none;
+    }
+    .header-grid {
+        grid-template-columns: 1fr; /* 한 열로 바꾸기 */
+        justify-items: center;       /* 모든 아이템 중앙 정렬 */
+        text-align: center;          /* 텍스트도 중앙으로 */
+        padding: 0 16px;
+    }
+
+    .header-logo {
+        width: 180px; /* 모바일에서 로고 크기 축소 */
+    }
+
+}

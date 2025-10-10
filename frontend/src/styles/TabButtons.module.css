@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  all: unset;
+  cursor: pointer;
+  padding: 2px 8px;
+  background-color: transparent;
+  text-align: center;
+  font-size: 18px;
+  transition: all 0.2s ease;
+  border : none;
+}
+.tab:focus {
+  outline: none; /* 클릭 또는 탭 포커스 시도 제거 */
+}
+
+.active {
+  color: black;
+  font-weight: 700;
+  border-bottom: 2.4px solid black; /* 원하는 색상과 두께로 */
+  padding-bottom: 2px; /* 밑줄과 텍스트 간 간격 */
+}
+
+.active:hover {
+  border-bottom-color: black; /* hover 시 색상 유지 */
+}
+
+.inactive {
+  color: #8c8c8c;
+  font-weight: 500;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .tab {
+    padding: 2px 6px;
+    font-size: 17px;
+  }
+}

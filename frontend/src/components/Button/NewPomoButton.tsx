@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import styles from '../../styles/NewPomoButton.module.css'
 
 interface NewPomoButtonProps {
   label?: string;
@@ -13,29 +14,19 @@ const NewPomoButton: React.FC<NewPomoButtonProps> = ({
   const [hover, setHover] = useState(false);
 
   const handleClick = () => {
-    const id = uuidv4();  // UUID 생성
+    const id = uuidv4();
     navigate(`/make/${id}`);
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+    <div className={styles.wrapper}>
       <button
         onClick={handleClick}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        style={{
-          width: "100%",
-          padding: "8px 16px",
-          borderRadius: 8,
-          background: "white",
-          color: "black",
-          cursor: "pointer",
-          border: hover ? "2px dotted #E5382D" : "1px dotted #ddd",
-          transition: "all 0.2s ease",
-          fontSize: hover ? "22px" : "18px",
-        }}
+        className={`${styles.button} ${hover ? styles.hover : ""}`}
       >
-        {hover && " + "}{label}
+        {hover && " + "} {label}
       </button>
     </div>
   );
