@@ -15,6 +15,7 @@ import { v4 as uuidv4 } from "uuid";
 import { toast } from 'react-toastify';
 import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
+import styles from '../styles/DragDropPage.module.css'
 
 
 type DraggableSessionProps = {
@@ -154,93 +155,72 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     //     setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
     // };
 
-    return (
-        <div style={{ margin: '24px' }}>
-            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: "space-between", alignItems: 'center', margin: "-2px 4px 8px 12px", width: '100%' }}>
-                <div
-                    style={{ display: 'flex', flexDirection: 'row', gap: 12, cursor: 'pointer' }}
-                    onClick={() => navigate("/")} // 메인 페이지로 이동
-                >
-                    <img src={arrowLeft} alt="로고" style={{ width: '24px', height: "auto" }} />
-                    <div>메인 페이지로 돌아가기</div>
-                </div>
-                <div style={{ display: 'flex', flexDirection: 'row', gap: 12 }}>
-                    {/* 제목 입력창 */}
-                    <input
-                        type="text"
-                        placeholder="제목을 입력하세요"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        style={{
-                            padding: "6px 12px",
-                            fontSize: 18,
-                            fontWeight: "500",
-                            borderRadius: 6,
-                            border: "2px solid #c9c9c9",
-                            width: '150px',
-                            background: 'white',
-                            color: 'black'
-                        }}
-                    />
-                    <MainBtn
-                        variant="save"
-                        onClick={() => saveDroppedSessions(title, droppedSessions)}
-                    />
-                    <StartPomoBtn
-                        width="234px"
-                        onClick={() => {
-                            if (!currentSessionId) {
-                                // 저장되지 않은 경우 자동 저장
-                                saveDroppedSessions(title, droppedSessions);
-                                // 저장 직후 currentSessionId가 set되므로, 바로 navigate
-                                if (id) {
-                                    navigate(`/pomo/${id}`);
-                                }
-                            } else {
-                                navigate(`/pomo/${currentSessionId}`);
-                            }
-                        }}
-                    />
-                </div>
-            </div>
-            <DndProvider backend={HTML5Backend}>
-                <div style={{ display: "flex", gap: 40, padding: '50px 20px', height: '100%', width: '100%', flexDirection: 'row', overflowY: 'hidden', overflowX: 'hidden', boxSizing: 'border-box' }}>
-                    {/* 아래 드래그 영역 */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 10, width: '25%', height: '90vh', overflowY: 'auto' }}>
-                        {sessions.map((s, idx) => (
-                            <DraggableSession key={idx} session={s} />
-                        ))}
-                    </div>
-                    {/* 위 드롭 영역 */}
-                    <div style={{ display: "flex", flexDirection: "column", gap: 10, height: '90vh', width: '75%', overflowY: 'auto' }}>
-                        {/* DropZone + droppedSessions를 하나의 flex column 안에 */}
-                        <DropZone onDrop={handleDrop}>
-                            <div style={{ display: "flex", flexDirection: "column", gap: 10, marginTop: 10 }}>
-                                {droppedSessions.map((s, idx) => (
-                                    <SessionExpanded
-                                        key={idx}
-                                        session={s}
-                                        title={s.name}
-                                        description={`🎯${"나만의 목표를 적어보자"}`}
-                                        pomo={s.pomo}
-                                        time={s.time}
-                                        onRemove={(sessionToRemove) => {
-                                            setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
-                                        }}
-                                        onUpdate={(updatedSession) => {
-                                            setDroppedSessions(prev =>
-                                                prev.map(s =>
-                                                    s.id === updatedSession.id ? updatedSession : s
-                                                )
-                                            );
-                                        }}
-                                    />
-                                ))}
-                            </div>
-                        </DropZone>
-                    </div>
-                </div>
-            </DndProvider>
+   return (
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <div className={styles.backButton} onClick={() => navigate("/")}>
+          <img src={arrowLeft} alt="로고" />
+          <div>메인 페이지로 돌아가기</div>
         </div>
-    );
+        <div className={styles.headerRight}>
+          <input
+            type="text"
+            placeholder="제목을 입력하세요"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className={styles.titleInput}
+          />
+          <MainBtn variant="save" onClick={() => saveDroppedSessions(title, droppedSessions)} />
+          <StartPomoBtn
+            width="auto"
+            onClick={() => {
+              if (!currentSessionId) {
+                saveDroppedSessions(title, droppedSessions);
+                if (id) navigate(`/pomo/${id}`);
+              } else {
+                navigate(`/pomo/${currentSessionId}`);
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      <DndProvider backend={HTML5Backend}>
+        <div className={styles.dragDropWrapper}>
+          {/* 드래그 가능한 세션 */}
+          <div className={styles.sessionList}>
+            {sessions.map((s, idx) => (
+              <DraggableSession key={idx} session={s} />
+            ))}
+          </div>
+
+          {/* 드롭 영역 */}
+          <div className={styles.dropAreaWrapper}>
+            <DropZone onDrop={handleDrop}>
+              <div className={styles.droppedSessions}>
+                {droppedSessions.map((s, idx) => (
+                  <SessionExpanded
+                    key={idx}
+                    session={s}
+                    title={s.name}
+                    description={`🎯${"나만의 목표를 적어보자"}`}
+                    pomo={s.pomo}
+                    time={s.time}
+                    onRemove={(sessionToRemove) =>
+                      setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove))
+                    }
+                    onUpdate={(updatedSession) =>
+                      setDroppedSessions(prev =>
+                        prev.map(s => (s.id === updatedSession.id ? updatedSession : s))
+                      )
+                    }
+                  />
+                ))}
+              </div>
+            </DropZone>
+          </div>
+        </div>
+      </DndProvider>
+    </div>
+  );
 };
