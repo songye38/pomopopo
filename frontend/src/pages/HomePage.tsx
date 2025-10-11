@@ -89,6 +89,9 @@ const HomePage = () => {
                         <DefaultPomoSection onSelect={setSelectedPomo} />
                     </div>
 
+                    {/* Dim 처리 */}
+                    <div className={styles.backdrop} onClick={() => setIsPanelOpen(false)}></div>
+
                     {selectedPomo && isPanelOpen && (
                         <div className={styles['workflow-panel']}>
 

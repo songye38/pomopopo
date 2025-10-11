@@ -19,7 +19,6 @@
 /* 🔹 반응형 디자인 */
 @media (max-width: 768px) {
   .container {
-    width: 100%;
     padding: 10px;
     gap: 16px;
   }

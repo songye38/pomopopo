@@ -79,6 +79,7 @@
   cursor: pointer;
 }
 .workflow-item-header {
+    width:100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between; /* 양쪽 끝으로 아이템 배치 */
@@ -90,6 +91,7 @@
     cursor: pointer;
     font-size: 20px;
     color: #333;
+    padding:4px;
 }
 
 
@@ -182,25 +184,27 @@
     .header-logo {
         width: 180px; /* 모바일에서 로고 크기 축소 */
     }
-.workflow-panel {
-  position: fixed;
-  top: -10%;       /* 화면 위쪽에서 40% 위치 */
-  left: 50%;      /* 화면 가로 중앙 */
-  width: 85%;
-  max-width: 600px;
-  height: auto;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.8);
-  padding: 20px;
-  z-index: 1000;
-  transform: translate(-50%, -50%) translateY(100%); /* 초기 숨김 상태 */
-  transition: transform 0.3s ease;
-}
+    
+    .workflow-panel {
+        position: fixed;
+        top: -10%;       /* 화면 위쪽에서 40% 위치 */
+        left: 50%;      /* 화면 가로 중앙 */
+        width: 60%;
+        max-width: 600px;
+        height: auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.8);
+        padding: 20px;
+        z-index: 1000;
+        transform: translate(-50%, -50%) translateY(100%); /* 초기 숨김 상태 */
+        transition: transform 0.3s ease;
+    }
 
-.workflow-panel.open {
-  transform: translate(-50%, -50%) translateY(0); /* 화면 중앙/위쪽으로 슬라이드 */
-}
+    .workflow-panel.open {
+        transform: translate(-50%, -50%) translateY(0); /* 화면 중앙/위쪽으로 슬라이드 */
+    }
+    
 
 
 }
