@@ -15,10 +15,15 @@ import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
 
 const HomePage = () => {
+
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
+    const [isPanelOpen, setIsPanelOpen] = useState(true);
+
+
+
 
     // 마운트 시 로컬스토리지에서 savedSessionIds 가져오기
     useEffect(() => {
@@ -38,6 +43,13 @@ const HomePage = () => {
         setSavedSessionIds(savedIds);
         console.log("savedSessionIds 불러옴:", savedIds);
     }, []);
+
+    useEffect(() => {
+        if (selectedPomo) {
+            setIsPanelOpen(true); // 새로운 Pomo 선택 시 항상 패널 열기
+        }
+    }, [selectedPomo]);
+
 
 
     // 선택된 Pomo와 관련된 워크플로우
@@ -77,14 +89,25 @@ const HomePage = () => {
                         <DefaultPomoSection onSelect={setSelectedPomo} />
                     </div>
 
-                    {selectedPomo && (
+                    {selectedPomo && isPanelOpen && (
                         <div className={styles['workflow-panel']}>
+
+
                             {filteredWorkflows.length > 0 ? (
-                                filteredWorkflows.map(w => (
+                                filteredWorkflows.map((w) => (
                                     <div key={w.index} className={styles['workflow-item']}>
-                                        <h3>{w.name}</h3>
+                                        <div className={styles['workflow-item-header']}>
+                                            <h3>{w.name}</h3>
+                                            {/* 닫기 버튼 */}
+                                            <button
+                                                className={styles.closeButton}
+                                                onClick={() => setIsPanelOpen(false)}
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
                                         <div className={styles['workflow-steps']}>
-                                            {w.steps.map(step => {
+                                            {w.steps.map((step) => {
                                                 const session = sessionTexts[step.session];
                                                 return (
                                                     <SessionMini
@@ -102,11 +125,15 @@ const HomePage = () => {
                                 <div>선택된 Pomo와 관련된 워크플로우가 없습니다.</div>
                             )}
 
-                            <div style={{ marginTop: "auto" }}>
-                                <StartPomoBtn width="234px" onClick={() => navigate(`/pomo/${filteredWorkflows[0]?.id}`)} />
+                            <div style={{ marginTop: "auto", width: "100%", display: "flex", justifyContent: "center" }}>
+                                <StartPomoBtn
+                                    width="90%" // 부모보다 살짝 작게
+                                    onClick={() => navigate(`/pomo/${filteredWorkflows[0]?.id}`)}
+                                />
                             </div>
                         </div>
                     )}
+
                 </div>
             )}
 
