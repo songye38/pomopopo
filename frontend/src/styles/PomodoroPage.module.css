@@ -1,0 +1,78 @@
+.container {
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+  height: 100vh;
+  margin-top: 20px;
+}
+
+.pomoName {
+  color: black;
+  font-size: 60px;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+}
+
+.pomoGuide {
+  color: black;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.timer {
+  font-size: 200px;
+  color: black;
+  font-family: "Outfit", sans-serif;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-family: "Pretendard", sans-serif;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.8;
+}
+
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .pomoName {
+  color: black;
+  font-size: 36px;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+}
+    .timer {
+    font-size: 120px;
+    color: black;
+    font-family: "Outfit", sans-serif;
+    }
+
+}
