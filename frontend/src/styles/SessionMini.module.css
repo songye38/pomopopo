@@ -1,0 +1,27 @@
+.container {
+  width: 234px;
+  height: auto;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* 제목 영역 */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 🔹 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 10px;
+    gap: 16px;
+  }
+}

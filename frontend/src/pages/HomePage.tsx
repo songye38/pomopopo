@@ -63,8 +63,8 @@ const HomePage = () => {
                     </div>
                 </div>
 
-                <div style={{ width: '50%' }}>
-                    <ProfileSection />
+                <div style={{ width: '60%' }}>
+                    <ProfileSection isLoggedIn={false} />
                 </div>
             </div>
 
@@ -136,7 +136,7 @@ const HomePage = () => {
                             );
                         })
                     ) : (
-                        <div className={styles['empty-state']}>저장된 세션이 없습니다.</div>
+                        <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
                     )}
                 </div>
             )}

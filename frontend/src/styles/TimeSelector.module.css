@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* 개별 버튼 */
+.button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+  min-width: 50px;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.button:hover {
+  border-color: #888;
+  background-color: #f7f7f7;
+}
+
+/* 선택된 버튼 */
+.selected {
+  color: #fff;
+}
+
+/* 🔹 모바일 대응 */
+@media (max-width: 768px) {
+  .container {
+    gap: 6px;
+  }
+
+  .button {
+    font-size: 13px;
+    padding: 5px 10px;
+    min-width: 44px;
+  }
+}

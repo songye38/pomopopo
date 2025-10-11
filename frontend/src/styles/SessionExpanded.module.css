@@ -1,0 +1,86 @@
+.container {
+  width: auto;
+  height: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* 상단 헤더 (제목 + 삭제 버튼) */
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.title {
+  font-family: "Pretendard", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: black;
+  word-wrap: break-word;
+}
+
+.removeButton {
+  cursor: pointer;
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  transition: transform 0.15s ease;
+}
+
+.removeButton:hover {
+  transform: scale(1.1);
+}
+
+/* 설명 입력창 */
+.textareaWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.textarea {
+  width: 90%;
+  height: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  font-size: 16px;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 500;
+  line-height: 21px;
+  resize: vertical;
+  background-color: transparent;
+  color: #898989;
+  outline: none;
+}
+
+.textarea:focus {
+  outline: none;
+  border: none;
+}
+
+/* 🔹 반응형 디자인 */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .textarea {
+    font-size: 14px;
+    width: 100%;
+  }
+}

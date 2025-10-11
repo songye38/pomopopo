@@ -1,0 +1,52 @@
+.container {
+  width: auto;
+  height: auto;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* 제목 부분 */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 설명 및 목적 래퍼 */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: auto;
+}
+
+.purposeBox {
+  color: black;
+  font-size: 12px;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 600;
+  line-height: 18px;
+  word-wrap: break-word;
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+}
+
+/* 🔹 모바일 대응 */
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .purposeBox {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 8px;
+  }
+}
