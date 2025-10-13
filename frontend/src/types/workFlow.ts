@@ -4,10 +4,11 @@ import type { Workflow } from "./types"
 // 10개 워크플로우 전체 정의
 export const workf1s: Workflow[] = [
   {
-    id : '1',
+    id: '1',
     name: "🎨 Refine",
-    index : "refine",
+    index: "refine",
     pattern: "발산 → 스크리닝 → 수렴 → 정밀 조율 → 장기 휴식",
+    msg: "조지아 오키프처럼 \n세밀하게 디테일 다듬기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "확산", purpose: "결과" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -18,10 +19,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '2',
+    id: '2',
     name: "🔁 Reverse",
-    index : "reverse",
+    index: "reverse",
     pattern: "수렴 → 뒤집기 세션 → 수렴 → 장기 휴식",
+    msg: "르네 마그리트처럼 \n일상을 뒤집어 새 관점 찾기",
     steps: [
       { order: 1, session: "converge", duration: "25분", energy: "2", process: "논리", purpose: "결과" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -32,10 +34,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '3',
+    id: '3',
     name: "🎲 Random",
-    index : "random",
+    index: "random",
     pattern: "발산 → 제약 도입 → 발산 → 장기 휴식",
+    msg: "존 케이지처럼 \n우연성과 제약 속에서 창의적 아이디어 만들기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "직관", purpose: "과정" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -46,10 +49,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '4',
+    id: '4',
     name: "🌊 Emotion",
-    index : "emotion",
+    index: "emotion",
     pattern: "발산 → 감정 기록 → 발산 → 장기 휴식",
+    msg: "빈센트 반 고흐처럼 \n내 감정을 솔직하게 표현하기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "직관", purpose: "감정" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -60,10 +64,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '5',
+    id: '5',
     name: "🚀 Explore",
-    index : "explore",
+    index: "explore",
     pattern: "발산 → 아이디어 태깅 → 발산 → 장기 휴식",
+    msg: "앤디 워홀처럼 \n아이디어를 키워드와 패턴으로 분류하고 탐구하기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "확산", purpose: "과정" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -74,10 +79,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '6',
+    id: '6',
     name: "🧭 Story",
-    index : "story",
+    index: "story",
     pattern: "수렴 → 구조화 → 수렴 → 장기 휴식",
+    msg: "스탠리 큐브릭처럼 \n전체 흐름과 구조를 철저하게 설계하기",
     steps: [
       { order: 1, session: "converge", duration: "25분", energy: "2", process: "수렴", purpose: "결과" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -88,10 +94,12 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '7',
+    id: '7',
     name: "🔮 Echo",
-    index : "echo",
+    index: "echo",
     pattern: "관찰 → 반응 분석 → 관찰 → 장기 휴식",
+    msg: '루이스 부르주아처럼 \n자신의 감정과 반응을 관찰하고 분석하기',
+
     steps: [
       { order: 1, session: "observe", duration: "25분", energy: "2", process: "직관+논리", purpose: "감정" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -102,10 +110,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '8',
+    id: '8',
     name: "🛸 Escape",
-    index : "escape",
+    index: "escape",
     pattern: "발산 → 규칙 탈착 → 발산 → 장기 휴식",
+    msg: "장 미셸 바스키아처럼 \n기존 규칙을 깨고 자유롭게 실험하기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "3", process: "직관", purpose: "탐구" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -116,10 +125,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '9',
+    id: '9',
     name: "🔃 Repeat",
-    index : "repeat",
+    index: "repeat",
     pattern: "발산 → 수렴 → 변형 → 발산 → 수렴 → 장기 휴식",
+    msg: "요셉 알버스처럼 \n반복과 변형으로 아이디어 심화하기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "2", process: "확산", purpose: "탐구" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },
@@ -130,10 +140,11 @@ export const workf1s: Workflow[] = [
     ],
   },
   {
-    id : '10',
+    id: '10',
     name: "🔥 Empty",
-    index : "empty",
+    index: "empty",
     pattern: "발산 → 정화 → 발산 → 장기 휴식",
+    msg: "앤디 골즈워시처럼 \n머리를 비우고 감각 회복하기",
     steps: [
       { order: 1, session: "diverge", duration: "25분", energy: "1", process: "직관", purpose: "과정" },
       { order: 2, session: "break", duration: "5분", energy: "1", process: "-", purpose: "-" },

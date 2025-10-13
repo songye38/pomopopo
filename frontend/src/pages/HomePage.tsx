@@ -99,15 +99,21 @@ const HomePage = () => {
                             {filteredWorkflows.length > 0 ? (
                                 filteredWorkflows.map((w) => (
                                     <div key={w.index} className={styles['workflow-item']}>
-                                        <div className={styles['workflow-item-header']}>
-                                            <h3>{w.name}</h3>
-                                            {/* 닫기 버튼 */}
-                                            <button
-                                                className={styles.closeButton}
-                                                onClick={() => setIsPanelOpen(false)}
-                                            >
-                                                ✕
-                                            </button>
+                                        <div style={{display:'flex',flexDirection:'column'}}>
+                                            <div className={styles['workflow-item-header']}>
+                                                <h3>{w.name} Mode</h3>
+                                                
+                                                {/* 닫기 버튼 */}
+                                                <button
+                                                    className={styles.closeButton}
+                                                    onClick={() => setIsPanelOpen(false)}
+                                                >
+                                                    ✕
+                                                </button>
+                                            </div>
+                                            <div className={styles['workflow-item-description']}>
+                                                    {w.msg}
+                                                </div>
                                         </div>
                                         <div className={styles['workflow-steps']}>
                                             {w.steps.map((step) => {

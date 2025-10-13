@@ -1,7 +1,7 @@
 import SemiboldText16 from "./Text/SemiboldText16";
 import { sessionColors } from "../types/colors";
 import { type Pomo } from "../types/types";
-import styles from "../styles/SessionMini.module.css";
+import styles from './../styles/SessionMini.module.css'
 
 interface SessionProps {
   title: string;

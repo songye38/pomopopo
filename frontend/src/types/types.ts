@@ -39,7 +39,6 @@ export interface SessionContent {
   time: string;           // 시간
   pomo:Pomo;
   relatedArtists?: string[]; // 관련 아티스트 (선택 사항)
-  msg? : string;
 }
 
 export interface WorkflowStep {
@@ -57,6 +56,7 @@ export interface Workflow {
   index : string;         // 워크플로우 인덱스
   pattern: string;         // 워크패턴 설명
   steps: WorkflowStep[];   // 각 단계 배열
+  msg : string;
 }
 
 export interface SavedSession {

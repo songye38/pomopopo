@@ -79,11 +79,22 @@
   cursor: pointer;
 }
 .workflow-item-header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* 양쪽 끝으로 아이템 배치 */
+    align-items: center;           /* 세로 정렬 중앙 */
+    font-family: "Outfit", sans-serif;
+    font-size: 20px;
+    font-weight: 100; /* 따옴표 제거 */
+}
+.workflow-item-description {
+    font-family: "Pretendard";
+    font-size: 17px;
+    font-weight: 500;
     width:100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between; /* 양쪽 끝으로 아이템 배치 */
-  align-items: center;           /* 세로 정렬도 중앙으로 */
+    padding:12px 4px 20px 4px;
+    white-space: pre-line;
 }
 .closeButton {
     background-color: transparent; /* ✅ 투명하게 */

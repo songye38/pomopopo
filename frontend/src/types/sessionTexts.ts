@@ -13,7 +13,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "basic",
     time : '25',
     relatedArtists: ["살바도르 달리 – 상상력 폭발, 초현실적 아이디어", "파블로 피카소 (큐비즘 초기) – 다양한 형태 실험","야요이 쿠사마 – 반복적 발산적 설치 예술"],
-    msg : "살바도르 달리처럼 자유롭게 상상하고 아이디어 폭발시키기"
   },
   converge: {
     name: "수렴",
@@ -25,7 +24,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "basic",
     time : '25',
     relatedArtists: ["르 코르뷔지에 – 디자인 아이디어를 구조와 기능으로 정리", "미스 반 데어 로에 – ‘Less is more’ 철학으로 디자인 수렴","모리스 라벨 – 음악에서 주제의 단순화와 집중"],
-    msg : "르 코르뷔지에처럼 아이디어를 구조와 기능으로 정리하기"
   },
   observe: {
     name: "관찰",
@@ -37,7 +35,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "basic",
     time : '25',
     relatedArtists: ["클로드 모네 – 자연 관찰, 빛과 색의 변화 포착", "레오나르도 다 빈치 – 해부, 자연 관찰을 통한 과학적 예술","앤디 골즈워시 – 자연 속 물질과 패턴 관찰"],
-    msg: "클로드 모네처럼 세심하게 관찰하고 패턴 포착하기"
   },
   screening: {
     name: "스크리닝",
@@ -49,7 +46,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "refine",
     time : '25',
     relatedArtists: ["다이애나 아르부스 – 수많은 촬영 중 핵심만 선별", "안젤름 키퍼 – 방대한 자료 중 의미 있는 요소 추출"],
-    msg : "다이애나 아르부스처럼 핵심만 골라내고 중요한 것 선별하기"
   },
   refine: {
     name: "정밀 조율",
@@ -61,7 +57,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "refine",
     time : '25',
     relatedArtists: ["조지아 오키프 – 세밀한 형태와 색감 다듬기", "아이웨이웨이 – 설치물 디테일과 구조 조율"],
-    msg : "조지아 오키프처럼 세밀하게 디테일 다듬기"
   },
   reverse: {
     name: "뒤집기 사고",
@@ -73,7 +68,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "reverse",
     time : '25',
     relatedArtists: ["르네 마그리트 – 일상적 사물 뒤집기, 역설적 이미지", "요셉 보이스 – 사회 구조에 대한 전복적 설치"],
-    msg : "르네 마그리트처럼 일상을 뒤집어 새 관점 찾기"
   },
   constraint: {
     name: "제약 도입",
@@ -85,7 +79,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "random",
     time : '25',
     relatedArtists: ["존 케이지 – 우연성과 제약을 음악에 적용", "마르셀 뒤샹 – 기존 오브제를 제약 속에서 재해석"],
-    msg : "존 케이지처럼 우연성과 제약 속에서 창의적 아이디어 만들기"
   },
   emotion: {
     name: "감정 기록",
@@ -97,7 +90,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "emotion",
     time : '25',
     relatedArtists: ["빈센트 반 고흐 – 감정 표현을 직접 그림에 담음", "프리다 칼로 – 자기 내면 감정을 솔직하게 회화로 표현"],
-    msg : "빈센트 반 고흐처럼 내 감정을 솔직하게 표현하기"
   },
   tagging: {
     name: "아이디어 태깅",
@@ -109,7 +101,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "explore",
     time : '25',
     relatedArtists: ["앤디 워홀 – 반복과 패턴, 시리즈화로 아이디어 분류", "솔 르윗 – 개념미술에서 시스템적 접근"],
-    msg : "앤디 워홀처럼 아이디어를 키워드와 패턴으로 분류하고 탐구하기"
   },
   structuring: {
     name: "구조화",
@@ -121,7 +112,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "story",
     time : '25',
     relatedArtists: ["스탠리 큐브릭 – 영화 속 스토리 구조 철저하게 설계", "아키그레이브(Comics) – 시퀀스 기반 내러티브 설계"],
-    msg : "스탠리 큐브릭처럼 전체 흐름과 구조를 철저하게 설계하기"
   },
   analysis: {
     name: "반응 분석",
@@ -133,7 +123,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "echo",
     time : '25',
     relatedArtists: ["루이스 부르주아 – 자신의 심리/감정 패턴을 작품화", "요셉 코수스 – 관찰을 통한 개념 예술"],
-    msg : '루이스 부르주아처럼 자신의 감정과 반응을 관찰하고 분석하기'
   },
   ruleBreaking: {
     name: "규칙 탈착",
@@ -145,7 +134,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "escape",
     time : '25',
     relatedArtists: ["장 미셸 바스키아 – 기존 미술 규칙 파괴, 자유로운 표현", "마르셀 뒤샹 – 레디메이드로 규칙 도전"],
-    msg : "장 미셸 바스키아처럼 기존 규칙을 깨고 자유롭게 실험하기"
   },
   transformation: {
     name: "변형",
@@ -157,7 +145,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "repeat",
     time : '25',
     relatedArtists: ["브라크 – 형태와 시각 요소 반복 변형", "요셉 알버스 – 색채와 형태 반복적 실험"],
-    msg : "요셉 알버스처럼 반복과 변형으로 아이디어 심화하기"
   },
   break: {
     name: "단기휴식",
@@ -169,7 +156,6 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "empty",
     time : '5',
     relatedArtists: ["존 케이지 – 명상적 음악 실험", "앤디 골즈워시 – 자연 속 작업과 회복"],
-    msg : "앤디 골즈워시처럼 머리를 비우고 감각 회복하기"
   },
   detox: {
     name: "장기휴식",
@@ -181,6 +167,5 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     pomo: "empty",
     time : '25',
     relatedArtists: ["존 케이지 – 명상적 음악 실험", "앤디 골즈워시 – 자연 속 작업과 회복"],
-    msg : "앤디 골즈워시처럼 머리를 비우고 감각 회복하기"
   },
 };
