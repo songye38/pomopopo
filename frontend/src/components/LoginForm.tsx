@@ -1,14 +1,36 @@
 import { useState } from "react";
 import styles from '../styles/AuthForm.module.css'
+import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api/auth";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const { login } = useAuth(); // AuthProvider에서 상태 가져오기
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("로그인 시도:", { email, password });
-    // TODO: 로그인 로직 연결 (API 등)
+    setError(null);
+
+    try {
+      const user = await loginUser({ email, password });
+      console.log("에러방지용",error);
+      login(user.name);       // AuthProvider 상태 업데이트
+      console.log("set use name",user.name)
+      navigate("/");          // 로그인 후 홈으로 이동
+    } catch (err: unknown) {
+      console.error("회원가입 실패:", err);
+
+      // err가 Error 타입인지 체크 후 메시지 사용
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("알 수 없는 오류가 발생했습니다.");
+      }
+    }
   };
 
   return (

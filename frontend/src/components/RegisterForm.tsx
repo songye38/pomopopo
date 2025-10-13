@@ -1,15 +1,34 @@
 import { useState } from "react";
-import styles from '../styles/AuthForm.module.css'
+import styles from '../styles/AuthForm.module.css';
+import { registerUser } from "../api/auth";
 
 export default function RegisterForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("회원가입 시도:", { name, email, password });
-    // TODO: 회원가입 로직 연결 (API 등)
+    setError("");
+    setSuccess("");
+
+    try {
+      const user = await registerUser({ name, email, password });
+      console.log("회원가입 성공:", user);
+      setSuccess("회원가입 성공! 환영합니다 🎉");
+    } catch (err: unknown) {
+      console.error("회원가입 실패:", err);
+
+      // err가 Error 타입인지 체크 후 메시지 사용
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("알 수 없는 오류가 발생했습니다.");
+      }
+    }
+
   };
 
   return (
@@ -45,6 +64,9 @@ export default function RegisterForm() {
           placeholder="비밀번호를 입력하세요"
           required
         />
+
+        {error && <p className={styles.error}>{error}</p>}
+        {success && <p className={styles.success}>{success}</p>}
 
         <button type="submit" className={styles.submitBtn}>
           회원가입

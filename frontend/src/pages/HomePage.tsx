@@ -76,7 +76,7 @@ const HomePage = () => {
                 </div>
 
                 <div style={{ width: '60%' }}>
-                    <ProfileSection isLoggedIn={false} />
+                    <ProfileSection />
                 </div>
             </div>
 

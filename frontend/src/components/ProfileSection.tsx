@@ -2,35 +2,29 @@ import RegularText14 from "./Text/RegularText14";
 import userlogo from "/images/user_logo.png";
 import styles from "../styles/ProfileSection.module.css";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth"; // ✅ 추가
 
-interface ProfileSectionProps {
-  isLoggedIn: boolean;
-  userName?: string;
-  totalTime?: string;
-  totalFocus?: string;
-}
-
-export default function ProfileSection({
-  isLoggedIn,
-  userName = "Pomo Beginner",
-  totalTime = "22시간",
-  totalFocus = "30회",
-}: ProfileSectionProps) {
-
-
+export default function ProfileSection() {
   const navigate = useNavigate();
-  // ✅ 로그인 O → 유저 정보 보여주기
+  const { user } = useAuth(); // ✅ 전역 상태 가져오기
+
+  const isLoggedIn = !!user; // 유저 존재 여부로 로그인 상태 판별
+
+  console.log("user------",user);
+
+  // ✅ 로그인 상태일 때
   if (isLoggedIn) {
     return (
       <div className={styles.container}>
         <img src={userlogo} alt="로고" className={styles.userImage} />
         <div className={styles.textContainer}>
-          <RegularText14>{userName}</RegularText14>
-          <RegularText14>총 뽀모도로 시간 : {totalTime}</RegularText14>
-          <RegularText14>총 집중 횟수 : {totalFocus}</RegularText14>
+          <RegularText14>{user}</RegularText14>
+          <RegularText14>총 뽀모도로 시간 : 22시간</RegularText14>
+          <RegularText14>총 집중 횟수 : 30회</RegularText14>
           <div className={styles.bottomMenu}>
-            <RegularText14>⚙️설정</RegularText14>
-            <RegularText14>💎기록</RegularText14>
+            <RegularText14>⚙️ 설정</RegularText14>
+            <RegularText14>💎 기록</RegularText14>
+            <RegularText14>🚪 로그아웃</RegularText14>
           </div>
         </div>
       </div>
