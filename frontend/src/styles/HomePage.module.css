@@ -200,7 +200,7 @@
         position: fixed;
         top: -10%;       /* 화면 위쪽에서 40% 위치 */
         left: 50%;      /* 화면 가로 중앙 */
-        width: 60%;
+        width: 85%;
         max-width: 600px;
         height: auto;
         background: white;
