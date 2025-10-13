@@ -1,6 +1,7 @@
 import RegularText14 from "./Text/RegularText14";
 import userlogo from "/images/user_logo.png";
 import styles from "../styles/ProfileSection.module.css";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileSectionProps {
   isLoggedIn: boolean;
@@ -15,6 +16,9 @@ export default function ProfileSection({
   totalTime = "22시간",
   totalFocus = "30회",
 }: ProfileSectionProps) {
+
+
+  const navigate = useNavigate();
   // ✅ 로그인 O → 유저 정보 보여주기
   if (isLoggedIn) {
     return (
@@ -39,7 +43,12 @@ export default function ProfileSection({
       <div className={styles.guestContainer}>
         <RegularText14>안녕하세요 👋</RegularText14>
         <RegularText14>로그인 후 나만의 뽀모도로를 관리해보세요!</RegularText14>
-        <button className={styles.loginButton}>로그인하기</button>
+        <button
+          className={styles.loginButton}
+          onClick={() => navigate("/login")}
+        >
+          로그인하기
+        </button>
       </div>
     </div>
   );
