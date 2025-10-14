@@ -13,6 +13,8 @@ import type { SavedSession } from "../types/types";
 import { getRandomColor } from "../utils/random";
 import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
+import ServiceDescModal from "../components/serviceDescModal";
+import HowToUseModal from "../components/HowtouseModal";
 
 const HomePage = () => {
 
@@ -20,7 +22,9 @@ const HomePage = () => {
     const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
-    const [isPanelOpen, setIsPanelOpen] = useState(true);
+    const [isPanelOpen, setIsPanelOpen] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(true);
+    const [isHowToOpen, setHowToOpen] = useState(false);
 
 
 
@@ -69,9 +73,11 @@ const HomePage = () => {
                     </div>
                     <img src={logo} alt="로고" className={styles['header-logo']} />
                     <div className={styles['header-right']}>
-                        <a>서비스 소개</a>
-                        <a>사용방법</a>
-                        <a>문의</a>
+                        <a className={styles['info']} onClick={() => setModalOpen(true)}>🛈 서비스 소개</a>
+                        <ServiceDescModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
+                        <a className={styles['info']} onClick={() => setHowToOpen(true)}>🍀 사용방법</a>
+                        <HowToUseModal isOpen={isHowToOpen} onClose={() => setHowToOpen(false)} />
+                        <a className={styles['info']} onClick={() => setModalOpen(true)}>💖 문의</a>
                     </div>
                 </div>
 
@@ -90,19 +96,19 @@ const HomePage = () => {
                     </div>
 
                     {/* Dim 처리 */}
-                    <div className={styles.backdrop} onClick={() => setIsPanelOpen(false)}></div>
+
 
                     {selectedPomo && isPanelOpen && (
-                        <div className={styles['workflow-panel']}>
+                        <div className={`${styles['workflow-panel']} ${isPanelOpen ? styles.open : ''}`}>
 
 
                             {filteredWorkflows.length > 0 ? (
                                 filteredWorkflows.map((w) => (
                                     <div key={w.index} className={styles['workflow-item']}>
-                                        <div style={{display:'flex',flexDirection:'column'}}>
+                                        <div style={{ display: 'flex', flexDirection: 'column' }}>
                                             <div className={styles['workflow-item-header']}>
                                                 <h3>{w.name} Mode</h3>
-                                                
+
                                                 {/* 닫기 버튼 */}
                                                 <button
                                                     className={styles.closeButton}
@@ -112,8 +118,8 @@ const HomePage = () => {
                                                 </button>
                                             </div>
                                             <div className={styles['workflow-item-description']}>
-                                                    {w.msg}
-                                                </div>
+                                                {w.msg}
+                                            </div>
                                         </div>
                                         <div className={styles['workflow-steps']}>
                                             {w.steps.map((step) => {

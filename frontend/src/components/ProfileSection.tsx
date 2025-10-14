@@ -18,7 +18,7 @@ export default function ProfileSection() {
       <div className={styles.container}>
         <img src={userlogo} alt="로고" className={styles.userImage} />
         <div className={styles.textContainer}>
-          <RegularText14>{user}</RegularText14>
+          <div className={styles.name}>{user}</div>
           <RegularText14>총 뽀모도로 시간 : 22시간</RegularText14>
           <RegularText14>총 집중 횟수 : 30회</RegularText14>
           <div className={styles.bottomMenu}>

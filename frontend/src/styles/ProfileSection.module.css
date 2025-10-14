@@ -8,6 +8,10 @@
   width: 86px;
   height: auto;
 }
+.name {
+  font-size: 20px;
+  font-weight: 500;
+}
 
 .textContainer {
   display: flex;
@@ -47,6 +51,7 @@
   font-size: 14px;
   transition: all 0.2s ease;
 }
+
 
 .loginButton:hover {
   background-color: #c92b22;
