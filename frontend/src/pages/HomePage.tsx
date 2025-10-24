@@ -13,7 +13,7 @@ import type { SavedSession } from "../types/types";
 import { getRandomColor } from "../utils/random";
 import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
-import ServiceDescModal from "../components/serviceDescModal";
+import ServiceDescModal from "../components/ServiceModal";
 import HowToUseModal from "../components/HowtouseModal";
 
 const HomePage = () => {
@@ -23,7 +23,7 @@ const HomePage = () => {
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
     const [isPanelOpen, setIsPanelOpen] = useState(false);
-    const [isModalOpen, setModalOpen] = useState(true);
+    const [isModalOpen, setModalOpen] = useState(false);
     const [isHowToOpen, setHowToOpen] = useState(false);
 
 

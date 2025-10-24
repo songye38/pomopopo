@@ -6,7 +6,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const ServiceDescModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+const ServiceModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
@@ -29,4 +29,4 @@ const ServiceDescModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   );
 };
 
-export default ServiceDescModal;
+export default ServiceModal;

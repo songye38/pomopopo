@@ -17,6 +17,8 @@ export default function PomodoroPage() {
     const [isRunning, setIsRunning] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
+
+    //화면 크기 감지
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
         checkMobile();
@@ -25,9 +27,11 @@ export default function PomodoroPage() {
     }, []);
 
 
+    //세션 불러오기
     useEffect(() => {
         if (!id) return;
 
+        //세션이 있다면 세션을 불러오기
         const savedSession = JSON.parse(localStorage.getItem(id) || "null") as SavedSession | null;
         if (savedSession && savedSession.droppedSessions?.length) {
             setSessions(savedSession.droppedSessions);
@@ -35,6 +39,7 @@ export default function PomodoroPage() {
             return;
         }
 
+        //혹은 기본 워크플로우에서 세션 불러오기
         const workflow = workf1s.find(wf => wf.id === id);
         if (workflow) {
             const workflowSessions: SessionContent[] = workflow.steps.map(step => {
@@ -51,10 +56,13 @@ export default function PomodoroPage() {
             return;
         }
 
+        //세션을 찾을 수 없다면 홈으로 이동
         alert("세션을 찾을 수 없습니다.");
         navigate("/");
     }, [id]);
 
+
+    //실제 뽀모도로 타이머 로직
     useEffect(() => {
         if (!isRunning) return;
 
