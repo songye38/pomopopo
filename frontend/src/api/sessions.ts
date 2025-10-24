@@ -37,7 +37,7 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
         })),
     };
     try {
-        const res = await axios.post("https://api.pomopopo.com/pomodoros/make", payload, { withCredentials: true });
+        const res = await axios.post("/pomodoros/make", payload, { withCredentials: true });
         return res.data;
     } catch (error) {
         console.error("서버 저장 실패:", error);
