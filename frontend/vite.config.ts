@@ -5,15 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   // vite.config.js
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://api.pomopopo.com:8080',
-        changeOrigin: true,
-        secure: false,
-      },
-    },
-  }
+
 })
 
 
