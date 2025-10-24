@@ -25,7 +25,7 @@ Api.interceptors.response.use(
       try {
         // refresh_token은 httponly 쿠키에 있으므로 그대로 withCredentials 사용
         const res = await axios.post(
-          "https://api.songyeserver.info/users/refresh",
+          "https://api.pomopopo.com/users/refresh",
           {},
           { withCredentials: true }
         );
