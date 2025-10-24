@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://api.pomopopo.com:8080',
+        target: 'https://api.pomopopo.com:8080',
         changeOrigin: true,
         secure: false,
       },
