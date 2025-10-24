@@ -4,7 +4,7 @@ import { type Pomo } from "../types/types";
 import styles from './../styles/SessionMini.module.css'
 
 interface SessionProps {
-  title: string;
+  title?: string;
   pomo: Pomo;
   backgroundColor?: string;
   time: string;

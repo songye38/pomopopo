@@ -4,7 +4,7 @@ import { type Pomo } from "../types/types";
 import styles from '../styles/SessionDefault.module.css'
 
 interface SessionProps {
-  title: string;
+  title?: string;
   description: string;
   purpose: string;
   pomo: Pomo;

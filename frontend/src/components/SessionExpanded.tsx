@@ -14,7 +14,7 @@ import styles from '../styles/SessionExpanded.module.css'
 
 interface SessionExpandedProps {
   session: SessionContent;
-  title: string;
+  title?: string;
   description: string;
   pomo: Pomo;
   backgroundColor?: string;

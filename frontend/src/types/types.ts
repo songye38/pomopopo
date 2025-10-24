@@ -30,11 +30,11 @@ export type Session =
 
 export interface SessionContent {
   id?: string;              // 고유 ID 추가 (선택적) 중복 세션이 있을수도 있으므로 고유id가 필요하다. 
-  name: string;            // 세션 이름
-  target: string;          // 목적
-  effect: string;          // 기대 효과
-  energy: "1" | "2" | "3";  // 에너지 강도
-  features: string[];      // 특화 기능
+  name?: string;            // 세션 이름
+  target?: string;          // 목적
+  effect?: string;          // 기대 효과
+  energy?: "1" | "2" | "3";  // 에너지 강도
+  features?: string[];      // 특화 기능
   guide: string;           // 설명/가이드
   time: string;           // 시간
   pomo:Pomo;
