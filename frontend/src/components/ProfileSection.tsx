@@ -6,10 +6,10 @@ import { useAuth } from "../hooks/useAuth"; // ✅ 추가
 
 export default function ProfileSection() {
   const navigate = useNavigate();
-  const { user,logout } = useAuth(); // ✅ 전역 상태 가져오기
+  const { user, logout } = useAuth(); // ✅ 전역 상태 가져오기
   const isLoggedIn = !!user; // 유저 존재 여부로 로그인 상태 판별
 
-   const handleLogout = async () => {
+  const handleLogout = async () => {
     await logout(); // ✅ 서버 + 클라이언트 로그아웃 동시 수행
     navigate("/");
   };
@@ -46,6 +46,12 @@ export default function ProfileSection() {
         >
           로그인하기
         </button>
+        <div
+          className={styles.registerText}
+          onClick={() => navigate("/register")}
+        >
+          회원가입
+        </div>
       </div>
     </div>
   );

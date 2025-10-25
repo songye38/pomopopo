@@ -34,6 +34,13 @@
   color: #333;
   transition: color 0.2s ease;
 }
+.registerText {
+    cursor: pointer;
+    font-family: "Pretendard", sans-serif;
+    font-size: 14px;
+    color: #7b7b7b; /* 파란색으로 강조 */
+    transition: color 0.2s ease;
+}
 
 /* 로그인 X 상태 */
 .guestContainer {
