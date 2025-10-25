@@ -23,7 +23,7 @@ import { useAuth } from "../hooks/useAuth";
 const HomePage = () => {
 
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
-    const {user} = useAuth();
+    const { user } = useAuth();
     const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
@@ -177,50 +177,68 @@ const HomePage = () => {
             )}
 
             {/* 내 뽀모도로 */}
+            {/* 내 뽀모도로 */}
             {activeTab === "내 뽀모도로" && (
                 <div className={styles['saved-sessions-grid']}>
                     <NewPomoButton />
 
-                    {pomodoros.length > 0 ? (
-                        pomodoros.map(p => (
-                            <div key={p.id} className={styles['saved-session-card']}>
-
-                                <div className={styles['saved-session-card-inner']}>
-                                    <h3 className={styles['saved-session-title']}>{p.title}</h3>
-                                    <div className={styles['info-buttons']}>
-                                        <div className={styles['info-text']}>수정 | </div>
-                                        <div
-                                            className={styles['info-text']}
-                                            onClick={() => handleDeletePomodoro(p.id)}
-                                        >
-                                            삭제
+                    {user ? (
+                        pomodoros.length > 0 ? (
+                            pomodoros.map(p => (
+                                <div key={p.id} className={styles['saved-session-card']}>
+                                    <div className={styles['saved-session-card-inner']}>
+                                        <h3 className={styles['saved-session-title']}>{p.title}</h3>
+                                        <div className={styles['info-buttons']}>
+                                            <div className={styles['info-text']}>수정 | </div>
+                                            <div
+                                                className={styles['info-text']}
+                                                onClick={() => handleDeletePomodoro(p.id)}
+                                            >
+                                                삭제
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
+                                    <div className={styles['session-circles-container']}>
+                                        {p.sessions.map(s => (
+                                            <div
+                                                key={s.order}
+                                                className={styles['session-circle']}
+                                                style={{ backgroundColor: getRandomColor() }}
+                                            >
+                                                {s.goal}
+                                            </div>
+                                        ))}
+                                    </div>
 
-                                <div className={styles['session-circles-container']}>
-                                    {p.sessions.map(s => (
-                                        <div
-                                            key={s.order} // 서버 세션 id 없으면 order를 key로 사용
-                                            className={styles['session-circle']}
-                                            style={{ backgroundColor: getRandomColor() }}
-                                        >
-                                            {s.goal} {/* 서버에서는 guide 대신 goal로 내려줌 */}
-                                        </div>
-                                    ))}
+                                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                                        <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                    </div>
                                 </div>
-
-                                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                    <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
-                                </div>
-                            </div>
-                        ))
+                            ))
+                        ) : (
+                            <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                        )
                     ) : (
-                        <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                        <div className={styles['empty-state']}>
+                            로그인이 필요합니다.
+                            <span
+                                className={styles['login-link']}
+                                onClick={() => navigate("/login")}
+                            >
+                                로그인
+                            </span> 혹은
+                            <span
+                                className={styles['register-link']}
+                                onClick={() => navigate("/register")}
+                            >
+                                회원가입
+                            </span>
+                        </div>
                     )}
                 </div>
             )}
+
 
             {/* 기록 탭 */}
             {activeTab === "기록" && (
