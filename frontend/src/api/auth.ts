@@ -54,3 +54,18 @@ export async function loginUser(payload: LoginPayload): Promise<UserOut> {
 
   return res.json(); // UserOut 반환
 }
+
+// ✅ 로그아웃
+export async function logoutUser(): Promise<{ msg: string }> {
+  const res = await fetch(`${API_BASE}/logout`, {
+    method: "POST",
+    credentials: "include", // ✅ 쿠키 기반 로그아웃이므로 꼭 포함해야 함
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.detail || "로그아웃 실패");
+  }
+
+  return res.json();
+}
