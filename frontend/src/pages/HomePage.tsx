@@ -177,48 +177,62 @@ const HomePage = () => {
             )}
 
             {/* 내 뽀모도로 */}
-            {/* 내 뽀모도로 */}
             {activeTab === "내 뽀모도로" && (
-                <div className={styles['saved-sessions-grid']}>
-                    <NewPomoButton />
-
+                <div
+                    className={styles['saved-sessions-grid']}
+                    style={
+                        !user
+                            ? {
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "60vh", // 원하는 높이 지정
+                                gap: "16px",
+                            }
+                            : {}
+                    }
+                >
                     {user ? (
-                        pomodoros.length > 0 ? (
-                            pomodoros.map(p => (
-                                <div key={p.id} className={styles['saved-session-card']}>
-                                    <div className={styles['saved-session-card-inner']}>
-                                        <h3 className={styles['saved-session-title']}>{p.title}</h3>
-                                        <div className={styles['info-buttons']}>
-                                            <div className={styles['info-text']}>수정 | </div>
-                                            <div
-                                                className={styles['info-text']}
-                                                onClick={() => handleDeletePomodoro(p.id)}
-                                            >
-                                                삭제
+                        <>
+                            <NewPomoButton />
+                            {pomodoros.length > 0 ? (
+                                pomodoros.map(p => (
+                                    <div key={p.id} className={styles['saved-session-card']}>
+                                        <div className={styles['saved-session-card-inner']}>
+                                            <h3 className={styles['saved-session-title']}>{p.title}</h3>
+                                            <div className={styles['info-buttons']}>
+                                                <div className={styles['info-text']}>수정 | </div>
+                                                <div
+                                                    className={styles['info-text']}
+                                                    onClick={() => handleDeletePomodoro(p.id)}
+                                                >
+                                                    삭제
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className={styles['session-circles-container']}>
-                                        {p.sessions.map(s => (
-                                            <div
-                                                key={s.order}
-                                                className={styles['session-circle']}
-                                                style={{ backgroundColor: getRandomColor() }}
-                                            >
-                                                {s.goal}
-                                            </div>
-                                        ))}
-                                    </div>
+                                        <div className={styles['session-circles-container']}>
+                                            {p.sessions.map(s => (
+                                                <div
+                                                    key={s.order}
+                                                    className={styles['session-circle']}
+                                                    style={{ backgroundColor: getRandomColor() }}
+                                                >
+                                                    {s.goal}
+                                                </div>
+                                            ))}
+                                        </div>
 
-                                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                        <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                                            <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                        </div>
                                     </div>
-                                </div>
-                            ))
-                        ) : (
-                            <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
-                        )
+                                ))
+                            ) : (
+                                <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                            )}
+                        </>
                     ) : (
                         <div className={styles['empty-state']}>
                             로그인이 필요합니다.
@@ -238,6 +252,7 @@ const HomePage = () => {
                     )}
                 </div>
             )}
+
 
 
             {/* 기록 탭 */}
