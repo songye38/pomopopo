@@ -7,12 +7,12 @@ import PomodoroPage from "./pages/PomodoroPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthProvider"; // ✅ 여기 추가!
-import { useRestoreUser } from "./api/Api";
+// import { useRestoreUser } from "./api/Api";
 
 function AppContent() {
   
   // ✅ 여기서 로그인 상태 복원 훅 호출
-  useRestoreUser();
+  // useRestoreUser();
 
   return (
     <Router>
