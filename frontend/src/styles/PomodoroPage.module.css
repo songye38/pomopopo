@@ -21,6 +21,11 @@
   height: 100vh;
   margin-top: 20px;
 }
+.order {
+  font-size: 32px;
+  color: black;
+  font-weight: 500;
+}
 
 .pomoName {
   color: black;
