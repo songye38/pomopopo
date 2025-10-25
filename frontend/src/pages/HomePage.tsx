@@ -9,12 +9,13 @@ import { TabButtons } from "../components/Button/TabButtons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StartPomoBtn } from "../components/Button/StartPomoBtn";
-import type { SavedSession } from "../types/types";
 import { getRandomColor } from "../utils/random";
 import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
 import ServiceDescModal from "../components/ServiceModal";
 import HowToUseModal from "../components/HowtouseModal";
+import { fetchUserPomodoros } from "../api/sessions";
+import type { PomodoroOut } from "../types/types";
 
 const HomePage = () => {
 
@@ -25,34 +26,55 @@ const HomePage = () => {
     const [isPanelOpen, setIsPanelOpen] = useState(false);
     const [isModalOpen, setModalOpen] = useState(false);
     const [isHowToOpen, setHowToOpen] = useState(false);
+    const [pomodoros, setPomodoros] = useState<PomodoroOut[]>([]);
 
 
 
 
-    // 마운트 시 로컬스토리지에서 savedSessionIds 가져오기
+    // // 마운트 시 로컬스토리지에서 savedSessionIds 가져오기
+    // useEffect(() => {
+    //     // 로컬스토리지에 있는 모든 key 가져오기
+    //     const allKeys = Object.keys(localStorage);
+
+    //     // savedSessionId 형식의 key만 필터링 (UUID 형식이면)
+    //     const savedIds = allKeys.filter(key => {
+    //         try {
+    //             const item = JSON.parse(localStorage.getItem(key) || "");
+    //             return item && item.droppedSessions; // SavedSession 구조가 있는 것만
+    //         } catch {
+    //             return false;
+    //         }
+    //     });
+
+    //     setSavedSessionIds(savedIds);
+    //     console.log("savedSessionIds 불러옴:", savedIds);
+    // }, []);
+
+    // useEffect(() => {
+    //     if (selectedPomo) {
+    //         setIsPanelOpen(true); // 새로운 Pomo 선택 시 항상 패널 열기
+    //     }
+    // }, [selectedPomo]);
+
     useEffect(() => {
-        // 로컬스토리지에 있는 모든 key 가져오기
-        const allKeys = Object.keys(localStorage);
-
-        // savedSessionId 형식의 key만 필터링 (UUID 형식이면)
-        const savedIds = allKeys.filter(key => {
+        const getPomodoros = async () => {
             try {
-                const item = JSON.parse(localStorage.getItem(key) || "");
-                return item && item.droppedSessions; // SavedSession 구조가 있는 것만
-            } catch {
-                return false;
+                const data = await fetchUserPomodoros(); // 서버에서 가져오기
+                setPomodoros(data);
+
+                // 서버 데이터 기준으로 id 리스트 뽑기
+                const ids = data.map(p => p.id);
+                setSavedSessionIds(ids);
+
+                console.log("savedSessionIds 서버에서 불러옴:", ids);
+            } catch (error) {
+                console.error("뽀모도로 불러오기 실패:", error);
+                setSavedSessionIds([]);
             }
-        });
+        };
 
-        setSavedSessionIds(savedIds);
-        console.log("savedSessionIds 불러옴:", savedIds);
+        getPomodoros();
     }, []);
-
-    useEffect(() => {
-        if (selectedPomo) {
-            setIsPanelOpen(true); // 새로운 Pomo 선택 시 항상 패널 열기
-        }
-    }, [selectedPomo]);
 
 
 
@@ -156,31 +178,61 @@ const HomePage = () => {
             {activeTab === "내 뽀모도로" && (
                 <div className={styles['saved-sessions-grid']}>
                     <NewPomoButton />
-                    {savedSessionIds.length > 0 ? (
-                        savedSessionIds.map(id => {
-                            const saved = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
-                            if (!saved?.droppedSessions) return null;
 
-                            return (
-                                <div key={id} className={styles['saved-session-card']}>
-                                    <h3 className={styles['saved-session-title']}>{saved.title}</h3>
-                                    <div style={{ display: "flex", gap: 8 }}>
-                                        {saved.droppedSessions.map(s => (
-                                            <div key={s.id} className={styles['session-circle']} style={{ backgroundColor: getRandomColor() }}>
-                                                {s.name}
-                                            </div>
-                                        ))}
-                                    </div>
-                                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                        <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${id}`)} />
-                                    </div>
+                    {pomodoros.length > 0 ? (
+                        pomodoros.map(p => (
+                            <div key={p.id} className={styles['saved-session-card']}>
+                                <h3 className={styles['saved-session-title']}>{p.title}</h3>
+
+                                <div style={{ display: "flex", gap: 8 }}>
+                                    {p.sessions.map(s => (
+                                        <div
+                                            key={s.order} // 서버 세션 id 없으면 order를 key로 사용
+                                            className={styles['session-circle']}
+                                            style={{ backgroundColor: getRandomColor() }}
+                                        >
+                                            {s.goal} {/* 서버에서는 guide 대신 goal로 내려줌 */}
+                                        </div>
+                                    ))}
                                 </div>
-                            );
-                        })
+
+                                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                                    <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                </div>
+                            </div>
+                        ))
                     ) : (
                         <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
                     )}
                 </div>
+
+                // <div className={styles['saved-sessions-grid']}>
+                //     <NewPomoButton />
+                //     {savedSessionIds.length > 0 ? (
+                //         savedSessionIds.map(id => {
+                //             const saved = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
+                //             if (!saved?.droppedSessions) return null;
+
+                //             return (
+                //                 <div key={id} className={styles['saved-session-card']}>
+                //                     <h3 className={styles['saved-session-title']}>{saved.title}</h3>
+                //                     <div style={{ display: "flex", gap: 8 }}>
+                //                         {saved.droppedSessions.map(s => (
+                //                             <div key={s.id} className={styles['session-circle']} style={{ backgroundColor: getRandomColor() }}>
+                //                                 {s.name}
+                //                             </div>
+                //                         ))}
+                //                     </div>
+                //                     <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                //                         <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${id}`)} />
+                //                     </div>
+                //                 </div>
+                //             );
+                //         })
+                //     ) : (
+                //         <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                //     )}
+                // </div>
             )}
 
         </div>

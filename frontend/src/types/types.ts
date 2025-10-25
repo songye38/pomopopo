@@ -65,3 +65,19 @@ export interface SavedSession {
     droppedSessions: SessionContent[];
     savedAt: number;
 }
+
+
+// types/types.ts
+export type SessionOut = {
+  goal: string;
+  duration: number;
+  order: number;
+  type: number;
+};
+
+
+export type PomodoroOut = {
+  id: string;
+  title: string;
+  sessions: SessionOut[];
+};
