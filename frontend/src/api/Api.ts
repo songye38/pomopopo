@@ -48,10 +48,10 @@ Api.interceptors.response.use(
 
 // ✅ 로그인 상태 복원 + 세션 저장
 export const useRestoreUser = () => {
-  const { user, setUser } = useAuth(); // user가 null이면 로그아웃 상태
+  const { user, setUser } = useAuth();
 
   useEffect(() => {
-    if (user) return; // 이미 로그인 상태라면 restore 호출 안 함
+    if (user) return; // 이미 로그인 상태면 restore 호출 안 함
 
     Api.get("/users/me")
       .then((res) => {
@@ -62,7 +62,7 @@ export const useRestoreUser = () => {
         setUser(null);
         sessionStorage.removeItem("userName");
       });
-  }, []); // []: 컴포넌트 마운트 시 한 번만 실행
+  }, [user, setUser]); // 의존성에 setUser도 추가
 };
 
 export default Api;
