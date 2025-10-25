@@ -66,7 +66,8 @@ const HomePage = () => {
                 const ids = data.map(p => p.id);
                 setSavedSessionIds(ids);
 
-                console.log("savedSessionIds 서버에서 불러옴:", ids,savedSessionIds);
+                console.log("서버에서 가져온 뽀모도로 전체 데이터:", data);
+                console.log("savedSessionIds 서버에서 불러옴:", ids);
             } catch (error) {
                 console.error("뽀모도로 불러오기 실패:", error);
                 setSavedSessionIds([]);
@@ -74,8 +75,8 @@ const HomePage = () => {
         };
 
         getPomodoros();
-        console.log("가져온 뽀모도로들:", pomodoros);
     }, []);
+
 
 
 
