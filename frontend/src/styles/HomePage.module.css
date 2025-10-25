@@ -183,7 +183,6 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  flex-wrap: wrap; /* 여러 줄로 감싸기 */
   overflow-x: auto;  /* 넘칠 경우 스크롤 생성 */
 }
 .saved-session-card-inner {
