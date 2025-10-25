@@ -37,7 +37,7 @@ Api.interceptors.response.use(
       } catch (refreshError) {
         console.error("리프레시 토큰도 만료됨");
         // 로그아웃 처리
-        window.location.href = "/login";
+        // window.location.href = "/login";
         return Promise.reject(refreshError);
       }
     }
