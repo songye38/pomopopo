@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth";
 
 const Api = axios.create({
   baseURL: "https://api.pomopopo.com",
@@ -46,9 +47,12 @@ Api.interceptors.response.use(
 );
 
 // ✅ 로그인 상태 복원 + 세션 저장
-export const useRestoreUser = (setUser: (name: string | null) => void) => {
-  console.log("useRestoreUser 호출됨");
+export const useRestoreUser = () => {
+  const { user, setUser } = useAuth(); // user가 null이면 로그아웃 상태
+
   useEffect(() => {
+    if (user) return; // 이미 로그인 상태라면 restore 호출 안 함
+
     Api.get("/users/me")
       .then((res) => {
         setUser(res.data.name);
@@ -58,7 +62,7 @@ export const useRestoreUser = (setUser: (name: string | null) => void) => {
         setUser(null);
         sessionStorage.removeItem("userName");
       });
-  }, []);
+  }, []); // []: 컴포넌트 마운트 시 한 번만 실행
 };
 
 export default Api;
