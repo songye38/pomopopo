@@ -234,20 +234,24 @@ const HomePage = () => {
                             )}
                         </>
                     ) : (
-                        <div className={styles['empty-state']}>
-                            로그인이 필요합니다.
-                            <span
-                                className={styles['login-link']}
-                                onClick={() => navigate("/login")}
-                            >
-                                로그인
-                            </span> 혹은
-                            <span
-                                className={styles['register-link']}
-                                onClick={() => navigate("/register")}
-                            >
-                                회원가입
-                            </span>
+
+                        <div>
+                            <NewPomoButton />
+                            <div className={styles['empty-state']}>
+                                로그인이 필요합니다.
+                                <span
+                                    className={styles['login-link']}
+                                    onClick={() => navigate("/login")}
+                                >
+                                    로그인
+                                </span> 혹은
+                                <span
+                                    className={styles['register-link']}
+                                    onClick={() => navigate("/register")}
+                                >
+                                    회원가입
+                                </span>
+                            </div>
                         </div>
                     )}
                 </div>
