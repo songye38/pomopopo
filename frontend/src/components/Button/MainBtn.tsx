@@ -37,7 +37,7 @@ export const MainBtn = ({ variant,onClick: externalOnClick }: ButtonProps) => {
             onClick: () => navigate("/make"), // ✅ 클릭 시 라우팅
         },
         save: {
-            label: "임시저장",
+            label: "저장하기",
             style: {
                 width: "auto",
                 height: "auto",
