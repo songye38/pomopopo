@@ -176,14 +176,14 @@
   flex-direction: column;
   gap: 12px;
   transition: all 0.2s ease;
-  height: 200px; /* 카드 높이 고정 */
+  height: 180px; /* 카드 높이 고정 */
   overflow: hidden; /* 넘치는 부분 숨김 */
 }
 .session-circles-container{
   display: flex;
   flex-direction: row;
   gap: 4px;
-  overflow-y: auto;  /* 넘칠 경우 스크롤 생성 */
+  overflow-x: auto;  /* 넘칠 경우 스크롤 생성 */
 }
 .saved-session-card-inner {
   display: flex;
