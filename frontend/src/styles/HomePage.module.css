@@ -198,7 +198,7 @@
 }
 
 .info-text:hover {
-  border-bottom: 2px solid #0000ff; /* 파란색 라인 */
+  color:  #0000ff; /* 파란색 라인 */
 }
 
 .saved-session-title {
