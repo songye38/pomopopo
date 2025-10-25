@@ -181,7 +181,7 @@
 }
 .session-circles-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 4px;
   overflow-y: auto;  /* 넘칠 경우 스크롤 생성 */
 }
