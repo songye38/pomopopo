@@ -191,7 +191,7 @@ const HomePage = () => {
                                 </div>
 
 
-                                <div className="styles['session-circles-container']">
+                                <div className={styles['session-circles-container']}>
                                     {p.sessions.map(s => (
                                         <div
                                             key={s.order} // 서버 세션 id 없으면 order를 key로 사용
