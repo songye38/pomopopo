@@ -74,6 +74,7 @@ const HomePage = () => {
         };
 
         getPomodoros();
+        console.log("가져온 뽀모도로들:", pomodoros);
     }, []);
 
 
