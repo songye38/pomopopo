@@ -179,12 +179,13 @@
   height: 180px; /* 카드 높이 고정 */
   overflow: hidden; /* 넘치는 부분 숨김 */
 }
-.session-circles-container{
+.session-circles-container {
   display: flex;
   flex-direction: row;
   gap: 4px;
-  overflow-x: auto;  /* 넘칠 경우 스크롤 생성 */
+  overflow-x: auto;   /* 가로 스크롤 */
 }
+
 .saved-session-card-inner {
   display: flex;
   flex-direction: row;
@@ -216,6 +217,7 @@
 }
 
 .session-circle {
+  flex-shrink: 0;     /* 절대 줄어들지 않도록 */
   width: 60px;
   height: 60px;
   border-radius: 50%;
