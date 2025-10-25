@@ -50,3 +50,16 @@ export const fetchPomodoroById = async (pomodoroId: string): Promise<PomodoroOut
     throw error;
   }
 };
+
+
+// -------------------------------------
+//  특정 뽀모도로 삭제
+// -------------------------------------
+export const deletePomodoroById = async (id: string): Promise<void> => {
+  try {
+    await axios.delete(`/pomodoros/${id}`, { withCredentials: true });
+  } catch (error) {
+    console.error("뽀모도로 삭제 실패:", error);
+    throw error;
+  }
+};

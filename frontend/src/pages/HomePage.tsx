@@ -16,6 +16,7 @@ import ServiceDescModal from "../components/ServiceModal";
 import HowToUseModal from "../components/HowtouseModal";
 import { fetchUserPomodoros } from "../api/sessions";
 import type { PomodoroOut } from "../types/types";
+import { deletePomodoroById } from "../api/sessions";
 
 const HomePage = () => {
 
@@ -28,33 +29,22 @@ const HomePage = () => {
     const [isHowToOpen, setHowToOpen] = useState(false);
     const [pomodoros, setPomodoros] = useState<PomodoroOut[]>([]);
 
+    // 컴포넌트 내부 또는 hooks 위쪽에 정의
+    const handleDeletePomodoro = async (id: string) => {
+        const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+        if (!confirmDelete) return;
 
+        try {
+            await deletePomodoroById(id);  // 서버에 DELETE 요청
+            // 상태 업데이트
+            setPomodoros(prev => prev.filter(pomo => pomo.id !== id));
+            alert("삭제 완료!");
+        } catch (error) {
+            alert("삭제 실패. 다시 시도해주세요.");
+            console.error(error);
+        }
+    };
 
-
-    // // 마운트 시 로컬스토리지에서 savedSessionIds 가져오기
-    // useEffect(() => {
-    //     // 로컬스토리지에 있는 모든 key 가져오기
-    //     const allKeys = Object.keys(localStorage);
-
-    //     // savedSessionId 형식의 key만 필터링 (UUID 형식이면)
-    //     const savedIds = allKeys.filter(key => {
-    //         try {
-    //             const item = JSON.parse(localStorage.getItem(key) || "");
-    //             return item && item.droppedSessions; // SavedSession 구조가 있는 것만
-    //         } catch {
-    //             return false;
-    //         }
-    //     });
-
-    //     setSavedSessionIds(savedIds);
-    //     console.log("savedSessionIds 불러옴:", savedIds);
-    // }, []);
-
-    // useEffect(() => {
-    //     if (selectedPomo) {
-    //         setIsPanelOpen(true); // 새로운 Pomo 선택 시 항상 패널 열기
-    //     }
-    // }, [selectedPomo]);
 
     useEffect(() => {
         const getPomodoros = async () => {
@@ -185,12 +175,17 @@ const HomePage = () => {
                     {pomodoros.length > 0 ? (
                         pomodoros.map(p => (
                             <div key={p.id} className={styles['saved-session-card']}>
-                                
+
                                 <div className={styles['saved-session-card-inner']}>
                                     <h3 className={styles['saved-session-title']}>{p.title}</h3>
                                     <div className={styles['info-buttons']}>
                                         <div className={styles['info-text']}>수정 | </div>
-                                        <div className={styles['info-text']}> 삭제</div>
+                                        <div
+                                            className={styles['info-text']}
+                                            onClick={() => handleDeletePomodoro(p.id)}
+                                        >
+                                            삭제
+                                        </div>
                                     </div>
                                 </div>
 
@@ -216,34 +211,6 @@ const HomePage = () => {
                         <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
                     )}
                 </div>
-
-                // <div className={styles['saved-sessions-grid']}>
-                //     <NewPomoButton />
-                //     {savedSessionIds.length > 0 ? (
-                //         savedSessionIds.map(id => {
-                //             const saved = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
-                //             if (!saved?.droppedSessions) return null;
-
-                //             return (
-                //                 <div key={id} className={styles['saved-session-card']}>
-                //                     <h3 className={styles['saved-session-title']}>{saved.title}</h3>
-                //                     <div style={{ display: "flex", gap: 8 }}>
-                //                         {saved.droppedSessions.map(s => (
-                //                             <div key={s.id} className={styles['session-circle']} style={{ backgroundColor: getRandomColor() }}>
-                //                                 {s.name}
-                //                             </div>
-                //                         ))}
-                //                     </div>
-                //                     <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                //                         <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${id}`)} />
-                //                     </div>
-                //                 </div>
-                //             );
-                //         })
-                //     ) : (
-                //         <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
-                //     )}
-                // </div>
             )}
 
             {/* 기록 탭 */}
