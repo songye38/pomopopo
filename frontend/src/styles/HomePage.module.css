@@ -182,8 +182,8 @@
 .session-circles-container{
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  overflow-x: auto;  /* 넘칠 경우 스크롤 생성 */
+  gap: 4px;
+  overflow-y: auto;  /* 넘칠 경우 스크롤 생성 */
 }
 .saved-session-card-inner {
   display: flex;
