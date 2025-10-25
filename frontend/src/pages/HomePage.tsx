@@ -66,7 +66,7 @@ const HomePage = () => {
                 const ids = data.map(p => p.id);
                 setSavedSessionIds(ids);
 
-                console.log("savedSessionIds 서버에서 불러옴:", ids);
+                console.log("savedSessionIds 서버에서 불러옴:", ids,savedSessionIds);
             } catch (error) {
                 console.error("뽀모도로 불러오기 실패:", error);
                 setSavedSessionIds([]);
