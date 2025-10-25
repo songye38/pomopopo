@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import type { SessionContent, SavedSession } from "../types/types";
+import {type SessionContent } from "../types/types";
 import { sessionImages } from "../types/images";
 import LogoutBtn from "../components/Button/LogoutBtn";
 import { workf1s } from "../types/workFlow";
 import { sessionTexts } from "../types/sessionTexts";
 import styles from "../styles/PomodoroPage.module.css";
+import { fetchPomodoroById } from "../api/sessions";
+import { mapTypeToPomo } from "../utils/mapTypeToPomo";
 
 export default function PomodoroPage() {
     const { id } = useParams<{ id: string }>();
@@ -27,39 +29,59 @@ export default function PomodoroPage() {
     }, []);
 
 
-    //세션 불러오기
     useEffect(() => {
         if (!id) return;
 
-        //세션이 있다면 세션을 불러오기
-        const savedSession = JSON.parse(localStorage.getItem(id) || "null") as SavedSession | null;
-        if (savedSession && savedSession.droppedSessions?.length) {
-            setSessions(savedSession.droppedSessions);
-            setTimeLeft(parseInt(savedSession.droppedSessions[0].time) * 60);
-            return;
-        }
+        const getSession = async () => {
+            try {
+                // 1️⃣ 서버에서 해당 뽀모도로 가져오기
+                const pomodoro = await fetchPomodoroById(id);
 
-        //혹은 기본 워크플로우에서 세션 불러오기
-        const workflow = workf1s.find(wf => wf.id === id);
-        if (workflow) {
-            const workflowSessions: SessionContent[] = workflow.steps.map(step => {
-                const sessionTemplate = sessionTexts[step.session];
-                return {
-                    ...sessionTemplate,
-                    time: step.duration.replace("분", ""),
-                    pomo: sessionTemplate.pomo,
-                    id: `${workflow.id}-${step.order}`
-                };
-            });
-            setSessions(workflowSessions);
-            setTimeLeft(parseInt(workflowSessions[0].time) * 60);
-            return;
-        }
+                if (pomodoro && pomodoro.sessions?.length) {
+                    // 서버 데이터 기준으로 세션 세팅
+                    const serverSessions: SessionContent[] = pomodoro.sessions.map(s => ({
+                        guide: s.goal,
+                        time: s.duration.toString(),
+                        pomo: mapTypeToPomo(s.type),
+                    }));
 
-        //세션을 찾을 수 없다면 홈으로 이동
-        alert("세션을 찾을 수 없습니다.");
-        navigate("/");
+                    setSessions(serverSessions);
+                    setTimeLeft(parseInt(serverSessions[0].time) * 60);
+                    return;
+                }
+
+                // 2️⃣ 서버에 데이터가 없으면 기본 워크플로우
+                const workflow = workf1s.find(wf => wf.id === id);
+                if (workflow) {
+                    const workflowSessions: SessionContent[] = workflow.steps.map(step => {
+                        const sessionTemplate = sessionTexts[step.session];
+                        return {
+                            ...sessionTemplate,
+                            time: step.duration.replace("분", ""),
+                            pomo: sessionTemplate.pomo,
+                            id: `${workflow.id}-${step.order}`,
+                        };
+                    });
+
+                    setSessions(workflowSessions);
+                    setTimeLeft(parseInt(workflowSessions[0].time) * 60);
+                    return;
+                }
+
+                // 3️⃣ 찾을 수 없으면 홈 이동
+                alert("세션을 찾을 수 없습니다.");
+                navigate("/");
+            } catch (error) {
+                console.error("세션 불러오기 실패:", error);
+                setSessions([]);
+                setTimeLeft(0);
+                navigate("/");
+            }
+        };
+
+        getSession();
     }, [id]);
+
 
 
     //실제 뽀모도로 타이머 로직

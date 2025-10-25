@@ -1,27 +1,7 @@
 // api/sessions.ts
 import axios from "./Api";
-import type { SavedSession } from "./../types/types"
-import type { PomodoroOut } from "../types/types";
-
-// pomo 값에 따른 기본 type_id 매핑
-const pomoTypeMap: Record<string, number> = {
-    "diverge": 1,
-    "converge": 2,
-    "observe": 3,
-    "screening": 4,
-    "refine": 5,
-    "reverse": 6,
-    "constraint": 7,
-    "emotion": 8,
-    "tagging": 9,
-    "structuring": 10,
-    "analysis": 11,
-    "ruleBreaking": 12,
-    "transformation": 13,
-    "break": 14,
-    "detox": 15,
-};
-
+import type { PomodoroOut,SavedSession } from "../types/types";
+import { pomoTypeMap } from "../types/types";
 
 export const saveSessionToServer = async (sessionObj: SavedSession) => {
 
@@ -54,6 +34,19 @@ export const fetchUserPomodoros = async (): Promise<PomodoroOut[]> => {
     return res.data;
   } catch (error) {
     console.error("뽀모도로 불러오기 실패:", error);
+    throw error;
+  }
+};
+
+// -------------------------------------
+//  특정 뽀모도로 가져오기
+// -------------------------------------
+export const fetchPomodoroById = async (pomodoroId: string): Promise<PomodoroOut> => {
+  try {
+    const res = await axios.get(`/pomodoros/${pomodoroId}`, { withCredentials: true });
+    return res.data;
+  } catch (error) {
+    console.error(`뽀모도로 ${pomodoroId} 불러오기 실패:`, error);
     throw error;
   }
 };

@@ -28,6 +28,46 @@ export type Session =
   | "break"
   | "detox";
 
+
+
+
+// pomo 값에 따른 기본 type_id 매핑
+export const pomoTypeMap: Record<string, number> = {
+    "diverge": 1,
+    "converge": 2,
+    "observe": 3,
+    "screening": 4,
+    "refine": 5,
+    "reverse": 6,
+    "constraint": 7,
+    "emotion": 8,
+    "tagging": 9,
+    "structuring": 10,
+    "analysis": 11,
+    "ruleBreaking": 12,
+    "transformation": 13,
+    "break": 14,
+    "detox": 15,
+};
+
+export const TypePomoMap: Record<number, string> = {
+    1 : "diverge",
+    2: "converge",
+    3: "observe" ,
+    4: "screening",
+    5: "refine",
+    6:"reverse",
+    7:"constraint",
+    8:"emotion",
+    9:"tagging",
+    10:"structuring",
+    11:"analysis",
+    12:"ruleBreaking",
+    13:"transformation",
+    14:"break",
+    15:"detox"
+};
+
 export interface SessionContent {
   id?: string;              // 고유 ID 추가 (선택적) 중복 세션이 있을수도 있으므로 고유id가 필요하다. 
   name?: string;            // 세션 이름
