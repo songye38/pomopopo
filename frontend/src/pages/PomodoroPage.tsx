@@ -43,6 +43,7 @@ export default function PomodoroPage() {
                         guide: s.goal,
                         time: s.duration.toString(),
                         pomo: mapTypeToPomo(s.type),
+                        order : s.order,
                     }));
 
                     setSessions(serverSessions);
@@ -60,6 +61,7 @@ export default function PomodoroPage() {
                             time: step.duration.replace("분", ""),
                             pomo: sessionTemplate.pomo,
                             id: `${workflow.id}-${step.order}`,
+                            order : step.order,
                         };
                     });
 
@@ -129,6 +131,7 @@ export default function PomodoroPage() {
             </div>
 
             <div className={styles.content}>
+                <div className={styles.order}>{sessions[currentIndex].order}</div>
                 <div className={styles.pomoName}>{sessions[currentIndex].pomo}</div>
                 <div className={styles.pomoGuide}>🎯{sessions[currentIndex].guide}</div>
                 <div className={styles.timer}>{formatTime(timeLeft)}</div>

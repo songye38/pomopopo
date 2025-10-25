@@ -79,6 +79,7 @@ export interface SessionContent {
   time: string;           // 시간
   pomo:Pomo;
   relatedArtists?: string[]; // 관련 아티스트 (선택 사항)
+  order?:number;
 }
 
 export interface WorkflowStep {
