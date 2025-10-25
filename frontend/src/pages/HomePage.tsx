@@ -68,7 +68,7 @@ const HomePage = () => {
 
                 console.log("서버에서 가져온 뽀모도로 전체 데이터:", data);
                 console.log("savedSessionIds 서버에서 불러옴:", ids);
-                console.log("savedSessionIds",savedSessionIds)
+                console.log("savedSessionIds", savedSessionIds)
             } catch (error) {
                 console.error("뽀모도로 불러오기 실패:", error);
                 setSavedSessionIds([]);
@@ -111,7 +111,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <TabButtons activeTab={activeTab} onTabChange={setActiveTab} tabs={["내 뽀모도로", "프리셋 뽀모도로"]} />
+            <TabButtons activeTab={activeTab} onTabChange={setActiveTab} tabs={["내 뽀모도로", "프리셋 뽀모도로", "기록"]} />
 
             {/* 프리셋 뽀모도로 */}
             {activeTab === "프리셋 뽀모도로" && (
@@ -179,6 +179,67 @@ const HomePage = () => {
 
             {/* 내 뽀모도로 */}
             {activeTab === "내 뽀모도로" && (
+                <div className={styles['saved-sessions-grid']}>
+                    <NewPomoButton />
+
+                    {pomodoros.length > 0 ? (
+                        pomodoros.map(p => (
+                            <div key={p.id} className={styles['saved-session-card']}>
+                                <h3 className={styles['saved-session-title']}>{p.title}</h3>
+
+                                <div style={{ display: "flex", gap: 8 }}>
+                                    {p.sessions.map(s => (
+                                        <div
+                                            key={s.order} // 서버 세션 id 없으면 order를 key로 사용
+                                            className={styles['session-circle']}
+                                            style={{ backgroundColor: getRandomColor() }}
+                                        >
+                                            {s.goal} {/* 서버에서는 guide 대신 goal로 내려줌 */}
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                                    <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                    )}
+                </div>
+
+                // <div className={styles['saved-sessions-grid']}>
+                //     <NewPomoButton />
+                //     {savedSessionIds.length > 0 ? (
+                //         savedSessionIds.map(id => {
+                //             const saved = JSON.parse(localStorage.getItem(id) || "{}") as SavedSession;
+                //             if (!saved?.droppedSessions) return null;
+
+                //             return (
+                //                 <div key={id} className={styles['saved-session-card']}>
+                //                     <h3 className={styles['saved-session-title']}>{saved.title}</h3>
+                //                     <div style={{ display: "flex", gap: 8 }}>
+                //                         {saved.droppedSessions.map(s => (
+                //                             <div key={s.id} className={styles['session-circle']} style={{ backgroundColor: getRandomColor() }}>
+                //                                 {s.name}
+                //                             </div>
+                //                         ))}
+                //                     </div>
+                //                     <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
+                //                         <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${id}`)} />
+                //                     </div>
+                //                 </div>
+                //             );
+                //         })
+                //     ) : (
+                //         <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
+                //     )}
+                // </div>
+            )}
+
+            {/* 내 뽀모도로 */}
+            {activeTab === "기록" && (
                 <div className={styles['saved-sessions-grid']}>
                     <NewPomoButton />
 
