@@ -188,8 +188,10 @@ const HomePage = () => {
                                 
                                 <div className={styles['saved-session-card-inner']}>
                                     <h3 className={styles['saved-session-title']}>{p.title}</h3>
-                                    <div className={styles['info-text']}>수정</div>
-                                    <div className={styles['info-text']}>삭제</div>
+                                    <div className={styles['info-buttons']}>
+                                        <div className={styles['info-text']}>수정</div>
+                                        <div className={styles['info-text']}>삭제</div>
+                                    </div>
                                 </div>
 
 

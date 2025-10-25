@@ -186,8 +186,13 @@
 }
 .saved-session-card-inner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 8px;
+}
+.info-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
 }
 
 .saved-session-title {
