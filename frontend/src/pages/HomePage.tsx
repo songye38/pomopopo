@@ -191,7 +191,7 @@ const HomePage = () => {
                                 </div>
 
 
-                                <div style={{ display: "flex", gap: 8 }}>
+                                <div className="styles['session-circles-container']">
                                     {p.sessions.map(s => (
                                         <div
                                             key={s.order} // 서버 세션 id 없으면 order를 key로 사용
@@ -223,8 +223,7 @@ const HomePage = () => {
                         pomodoros.map(p => (
                             <div key={p.id} className={styles['saved-session-card']}>
                                 <h3 className={styles['saved-session-title']}>{p.title}</h3>
-
-                                <div style={{ display: "flex", gap: 8 }}>
+                                <div className="saved-session-card-inner">
                                     {p.sessions.map(s => (
                                         <div
                                             key={s.order} // 서버 세션 id 없으면 order를 key로 사용
