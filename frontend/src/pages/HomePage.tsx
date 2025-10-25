@@ -68,6 +68,7 @@ const HomePage = () => {
 
                 console.log("서버에서 가져온 뽀모도로 전체 데이터:", data);
                 console.log("savedSessionIds 서버에서 불러옴:", ids);
+                console.log("savedSessionIds",savedSessionIds)
             } catch (error) {
                 console.error("뽀모도로 불러오기 실패:", error);
                 setSavedSessionIds([]);
