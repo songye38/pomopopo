@@ -24,20 +24,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  // 자동 로그인 / 상태 복원
   useEffect(() => {
-    if (!user) {
-      Api.get("/users/me")
-        .then((res) => {
-          setUser(res.data.name);
-          sessionStorage.setItem("userName", res.data.name);
-        })
-        .catch(() => {
-          setUser(null);
-          sessionStorage.removeItem("userName");
-        });
-    }
-  }, [user]);
+    const restoreUser = async () => {
+      try {
+        const res = await Api.get("/users/me");
+        setUser(res.data.name);
+        sessionStorage.setItem("userName", res.data.name);
+      } catch {
+        setUser(null);
+        sessionStorage.removeItem("userName");
+      }
+    };
+
+    restoreUser();
+  }, []); // ✅ 빈 배열 → 마운트 시 1회만 실행
 
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout }}>
