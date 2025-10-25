@@ -11,7 +11,7 @@ export default function ProfileSection() {
 
    const handleLogout = async () => {
     await logout(); // ✅ 서버 + 클라이언트 로그아웃 동시 수행
-    navigate("/login");
+    navigate("/");
   };
 
   // ✅ 로그인 상태일 때
