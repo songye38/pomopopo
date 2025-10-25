@@ -18,10 +18,12 @@ import { fetchUserPomodoros } from "../api/sessions";
 import type { PomodoroOut } from "../types/types";
 import { deletePomodoroById } from "../api/sessions";
 import { toast } from "react-toastify";
+import { useAuth } from "../hooks/useAuth";
 
 const HomePage = () => {
 
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
+    const {user} = useAuth();
     const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
@@ -48,18 +50,23 @@ const HomePage = () => {
 
 
     useEffect(() => {
+        if (!user) {
+            // 로그아웃 상태라면 뽀모 리스트 초기화
+            setPomodoros([]);
+            setSavedSessionIds([]);
+            return;
+        }
+
         const getPomodoros = async () => {
             try {
                 const data = await fetchUserPomodoros(); // 서버에서 가져오기
                 setPomodoros(data);
 
-                // 서버 데이터 기준으로 id 리스트 뽑기
                 const ids = data.map(p => p.id);
                 setSavedSessionIds(ids);
 
                 console.log("서버에서 가져온 뽀모도로 전체 데이터:", data);
-                console.log("savedSessionIds 서버에서 불러옴:", ids);
-                console.log("savedSessionIds", savedSessionIds)
+                console.log("저장된 세션 ID들:", savedSessionIds);
             } catch (error) {
                 console.error("뽀모도로 불러오기 실패:", error);
                 setSavedSessionIds([]);
@@ -67,7 +74,8 @@ const HomePage = () => {
         };
 
         getPomodoros();
-    }, []);
+    }, [user]);  // 로그인 상태가 바뀔 때마다 실행
+
 
 
 
