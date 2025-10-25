@@ -43,6 +43,14 @@
   gap: 10px;
   justify-content: flex-end;
 }
+.info-text {
+  cursor: pointer;
+  font-family: "Pretendard", sans-serif;
+  font-size: 14px;
+  color: #333;
+  transition: color 0.2s ease;
+
+}
 
 .info {
   color:black;
