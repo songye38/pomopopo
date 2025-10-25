@@ -184,6 +184,11 @@
   gap: 12px;
   transition: all 0.2s ease;
 }
+.saved-session-card-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
 .saved-session-title {
   margin: 0;
