@@ -1,7 +1,7 @@
 import { useState, useEffect, type ReactNode } from "react";
 import Api from "../api/Api"; // axios 인스턴스
 import { AuthContext } from "./AuthContext";
-
+import { logoutUser } from "../api/auth";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<string | null>(() => {
@@ -13,9 +13,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     sessionStorage.setItem("userName", userName);
   };
 
-  const logout = () => {
-    setUser(null);
-    sessionStorage.removeItem("userName");
+  const logout = async () => {
+    try {
+      await logoutUser(); // ✅ 서버에도 로그아웃 요청
+    } catch (err) {
+      console.error("서버 로그아웃 실패 (무시 가능):", err);
+    } finally {
+      setUser(null);
+      sessionStorage.removeItem("userName");
+    }
   };
 
   // 자동 로그인 / 상태 복원

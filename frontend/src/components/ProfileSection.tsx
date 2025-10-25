@@ -3,24 +3,15 @@ import userlogo from "/images/user_logo.png";
 import styles from "../styles/ProfileSection.module.css";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth"; // ✅ 추가
-import { logoutUser } from "../api/auth";
-import { toast } from "react-toastify";
 
 export default function ProfileSection() {
   const navigate = useNavigate();
-  const { user,setUser } = useAuth(); // ✅ 전역 상태 가져오기
+  const { user,logout } = useAuth(); // ✅ 전역 상태 가져오기
   const isLoggedIn = !!user; // 유저 존재 여부로 로그인 상태 판별
-  
-  const handleLogout = async () => {
-    try {
-      await logoutUser(); // ✅ 서버에 로그아웃 요청
-      setUser(null); // ✅ 전역 상태 초기화
-      navigate("/"); // ✅ 로그인 페이지로 이동
-      toast.success("성공적으로 로그아웃되었습니다.");
-    } catch (err) {
-      console.error("로그아웃 실패:", err);
-      toast.error("로그아웃 중 문제가 발생했어요.");
-    }
+
+   const handleLogout = async () => {
+    await logout(); // ✅ 서버 + 클라이언트 로그아웃 동시 수행
+    navigate("/login");
   };
 
   // ✅ 로그인 상태일 때
