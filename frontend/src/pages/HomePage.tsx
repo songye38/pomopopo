@@ -17,6 +17,7 @@ import HowToUseModal from "../components/HowtouseModal";
 import { fetchUserPomodoros } from "../api/sessions";
 import type { PomodoroOut } from "../types/types";
 import { deletePomodoroById } from "../api/sessions";
+import { toast } from "react-toastify";
 
 const HomePage = () => {
 
@@ -38,9 +39,9 @@ const HomePage = () => {
             await deletePomodoroById(id);  // 서버에 DELETE 요청
             // 상태 업데이트
             setPomodoros(prev => prev.filter(pomo => pomo.id !== id));
-            alert("삭제 완료!");
+            toast.success("삭제 완료!");
         } catch (error) {
-            alert("삭제 실패. 다시 시도해주세요.");
+            toast.error("삭제 실패. 다시 시도해주세요.");
             console.error(error);
         }
     };
