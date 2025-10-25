@@ -25,7 +25,6 @@ export default function ProfileSection() {
           <RegularText14>총 집중 횟수 : 30회</RegularText14>
           <div className={styles.bottomMenu}>
             <RegularText14>⚙️ 설정</RegularText14>
-            <RegularText14>💎 기록</RegularText14>
             <div className={styles.infoText} onClick={handleLogout}>
               🚪 로그아웃
             </div>
