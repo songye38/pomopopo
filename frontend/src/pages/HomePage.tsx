@@ -234,23 +234,11 @@ const HomePage = () => {
                             )}
                         </>
                     ) : (
-
                         <div>
-                            <NewPomoButton />
+                            <NewPomoButton label="임시 뽀모도로 만들기" />
                             <div className={styles['empty-state']}>
-                                로그인이 필요합니다.
-                                <span
-                                    className={styles['login-link']}
-                                    onClick={() => navigate("/login")}
-                                >
-                                    로그인
-                                </span> 혹은
-                                <span
-                                    className={styles['register-link']}
-                                    onClick={() => navigate("/register")}
-                                >
-                                    회원가입
-                                </span>
+                                로그인 없이도 뽀모도로를 바로 시작할 수 있어요.  <br />
+                                하지만 기록을 남기고 싶다면, 계정을 만들어 주세요 — 당신의 집중력, 놓치지 않기 위해서!
                             </div>
                         </div>
                     )}
