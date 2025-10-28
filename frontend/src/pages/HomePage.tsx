@@ -19,6 +19,8 @@ import type { PomodoroOut } from "../types/types";
 import { deletePomodoroById } from "../api/sessions";
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
+import { sessionColors } from "../types/colors";
+import { mapTypeToPomo } from "../utils/mapTypeToPomo";
 
 const HomePage = () => {
 
@@ -75,9 +77,6 @@ const HomePage = () => {
 
         getPomodoros();
     }, [user]);  // 로그인 상태가 바뀔 때마다 실행
-
-
-
 
 
     // 선택된 Pomo와 관련된 워크플로우
@@ -223,7 +222,11 @@ const HomePage = () => {
                                                 <div
                                                     key={s.order}
                                                     className={styles['session-circle']}
-                                                    style={{ backgroundColor: getRandomColor() }}
+                                                    style={{
+                                                        backgroundColor:
+                                                            sessionColors[mapTypeToPomo(s.type)]?.main ||
+                                                            sessionColors.basic.main,
+                                                    }}
                                                 >
                                                     {s.name}
                                                 </div>

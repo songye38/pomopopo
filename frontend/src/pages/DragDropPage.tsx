@@ -178,8 +178,6 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
   };
 
 
-
-
   useEffect(() => {
     console.log("droppedSessions 업데이트됨:", droppedSessions);
   }, [droppedSessions]);
