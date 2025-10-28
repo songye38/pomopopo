@@ -37,6 +37,7 @@ const ItemTypes = {
 };
 
 
+// 드래그 가능한 세션 컴포넌트
 export const DraggableSession = ({ session }: DraggableSessionProps) => {
   const [{ isDragging }, drag] = useDrag<
     { session: SessionContent },
@@ -144,10 +145,11 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ time, pomo, guide }) => ({
+    const filteredSessions = droppedSessions.map(({ name,time, pomo, guide }) => ({
       time,
       pomo,
       guide,
+      name,
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

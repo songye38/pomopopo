@@ -12,6 +12,7 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
             duration: s.time,
             order: idx + 1,       // 1부터 시작하는 순서
             type_id: pomoTypeMap[s.pomo] ?? 1,
+            name : s.name,
         })),
     };
     try {
