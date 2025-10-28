@@ -225,7 +225,7 @@ const HomePage = () => {
                                                     className={styles['session-circle']}
                                                     style={{ backgroundColor: getRandomColor() }}
                                                 >
-                                                    {s.goal}
+                                                    {s.name}
                                                 </div>
                                             ))}
                                         </div>
