@@ -124,16 +124,16 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
 
 
   //로컬스토리지에 저장하는 부분
-  const saveSessionToLocal = (id: string, saveObj: SavedSession) => {
-    // 로컬스토리지 저장
-    localStorage.setItem(id, JSON.stringify(saveObj));
+  // const saveSessionToLocal = (id: string, saveObj: SavedSession) => {
+  //   // 로컬스토리지 저장
+  //   localStorage.setItem(id, JSON.stringify(saveObj));
 
-    // 전체 목록 관리
-    const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
-    if (!existingIds.includes(id)) {
-      localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
-    }
-  };
+  //   // 전체 목록 관리
+  //   const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
+  //   if (!existingIds.includes(id)) {
+  //     localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
+  //   }
+  // };
 
 
   // 로컬 스토리지에 저장 + 서버에 저장을 통합하는 부분
@@ -160,19 +160,16 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       savedAt: Date.now(),
     };
 
-    // ✅ 로컬 저장
-    saveSessionToLocal(id, saveObj);
+    // ✅ 로컬 저장 -> 우선 로컬 저장은 나중에 하는걸로
+    // saveSessionToLocal(id, saveObj);
     // setCurrentSessionId(id);
 
     try {
-      const newPomo = await saveSessionToServer(saveObj); // <- 서버 응답 받기
+      const newPomo = await saveSessionToServer(saveObj);
       console.log("✅ 새로 생성된 뽀모도로 ID:", newPomo.id);
       setCurrentSessionId(newPomo.id);
-
       toast.success("성공! 세션이 로컬 + 서버에 저장되었습니다!");
-
-      // 💡 바로 해당 뽀모도로 상세 페이지로 이동시키거나
-      // navigate(`/pomo/${newPomo.id}`);
+      return newPomo.id; // <- ✅ ID 리턴!
     } catch (error) {
       console.error("서버 저장 실패:", error);
       toast.warning("로컬에는 저장되었지만, 서버 저장에 실패했습니다.");
@@ -187,9 +184,6 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     console.log("droppedSessions 업데이트됨:", droppedSessions);
   }, [droppedSessions]);
 
-  // const handleRemove = (sessionToRemove: SessionContent) => {
-  //     setDroppedSessions(prev => prev.filter(s => s !== sessionToRemove));
-  // };
 
   return (
     <div className={styles.container}>
@@ -209,10 +203,12 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
           <MainBtn variant="save" onClick={() => saveDroppedSessions(title, droppedSessions)} />
           <StartPomoBtn
             width="auto"
-            onClick={() => {
+            onClick={async () => {
               if (!currentSessionId) {
-                saveDroppedSessions(title, droppedSessions);
-                if (id) navigate(`/pomo/${id}`);
+                const newId = await saveDroppedSessions(title, droppedSessions); // <- await로 대기
+                if (newId) {
+                  navigate(`/pomo/${newId}`);
+                }
               } else {
                 console.log("현재 세션 ID로 네비게이트:", currentSessionId);
                 navigate(`/pomo/${currentSessionId}`);
