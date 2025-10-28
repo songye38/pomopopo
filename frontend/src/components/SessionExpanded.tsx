@@ -46,7 +46,7 @@ export default function SessionExpanded({
 
   const handleTimeChange = (value: number) => {
     setSelectedTime(value);
-    console.log("selectedTime",selectedTime)
+    console.log("selectedTime", selectedTime)
     onUpdate({ ...session, time: String(value) });
   };
 
@@ -68,7 +68,7 @@ export default function SessionExpanded({
       </div>
 
       <TimeSelector
-        time={25}
+        time={selectedTime}   // ✅ 상태값을 전달
         mainColor={bgColorforTime}
         onChange={handleTimeChange}
       />

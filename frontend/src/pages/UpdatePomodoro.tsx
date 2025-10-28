@@ -158,7 +158,7 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
       return updatedPomo.id;
     } catch (error) {
       console.error("서버 수정 실패:", error);
-      toast.warning("로컬에는 저장되었지만, 서버 수정에 실패했습니다.");
+      toast.warning("서버 수정에 실패했습니다.");
     }
   };
 
