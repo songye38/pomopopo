@@ -26,7 +26,9 @@ const HomePage = () => {
 
     const [selectedPomo, setSelectedPomo] = useState<string | null>(null);
     const { user } = useAuth();
-    const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
+    const [activeTab, setActiveTab] = useState(() => {
+        return localStorage.getItem("activeTab") || "프리셋 뽀모도로";
+    });
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
     const [isPanelOpen, setIsPanelOpen] = useState(true);
@@ -52,6 +54,11 @@ const HomePage = () => {
     // 컴포넌트 내부 또는 hooks 위쪽에 정의
     const handleUpdatePomodoro = async (id: string) => {
         navigate(`/update/${id}`);
+    };
+
+    const handleTabChange = (tab: string) => {
+        setActiveTab(tab);
+        localStorage.setItem("activeTab", tab);
     };
 
 
@@ -115,7 +122,7 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <TabButtons activeTab={activeTab} onTabChange={setActiveTab} tabs={["내 뽀모도로", "프리셋 뽀모도로", "기록"]} />
+            <TabButtons activeTab={activeTab} onTabChange={handleTabChange} tabs={["내 뽀모도로", "프리셋 뽀모도로", "기록"]} />
 
             {/* 프리셋 뽀모도로 */}
             {activeTab === "프리셋 뽀모도로" && (
@@ -217,13 +224,13 @@ const HomePage = () => {
                                                     className={styles['info-text']}
                                                     onClick={() => handleUpdatePomodoro(p.id)}
                                                 >
-                                                    수정 | 
+                                                    수정 |
                                                 </div>
                                                 <div
                                                     className={styles['info-text']}
                                                     onClick={() => handleDeletePomodoro(p.id)}
                                                 >
-                                                     삭제
+                                                    삭제
                                                 </div>
                                             </div>
                                         </div>
