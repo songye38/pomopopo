@@ -114,6 +114,7 @@ export type SessionOut = {
   duration: number;
   order: number;
   type: number;
+  name: string;
 };
 
 
