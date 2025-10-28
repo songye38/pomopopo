@@ -236,6 +236,7 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
               console.log("StartPomoBtn 클릭됨");
               const newId = await updateDroppedSessions(title, droppedSessions);
               console.log("updateDroppedSessions 리턴값:", newId);
+              console.log("원래값", currentSessionId);
               if (newId) {
                 navigate(`/pomo/${newId}`);
               }
