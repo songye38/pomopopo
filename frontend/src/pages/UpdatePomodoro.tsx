@@ -234,15 +234,10 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
             width="auto"
             onClick={async () => {
               console.log("StartPomoBtn 클릭됨");
-              if (!currentSessionId) {
-                const newId = await updateDroppedSessions(title, droppedSessions);
-                console.log("updateDroppedSessions 리턴값:", newId);
-                if (newId) {
-                  navigate(`/pomo/${newId}`);
-                }
-              } else {
-                console.log("현재 세션 ID로 네비게이트:", currentSessionId);
-                navigate(`/pomo/${currentSessionId}`);
+              const newId = await updateDroppedSessions(title, droppedSessions);
+              console.log("updateDroppedSessions 리턴값:", newId);
+              if (newId) {
+                navigate(`/pomo/${newId}`);
               }
             }}
           />
