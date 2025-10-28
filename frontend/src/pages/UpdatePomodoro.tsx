@@ -124,6 +124,7 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
   };
 
   const updateDroppedSessions = async (title: string, droppedSessions: SessionContent[]) => {
+    console.log("함수가 호출된다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     if (!id) {
       toast.error("ID가 존재하지 않습니다.");
       return;
