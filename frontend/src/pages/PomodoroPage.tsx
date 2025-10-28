@@ -56,6 +56,7 @@ export default function PomodoroPage() {
 
                 // 2️⃣ 서버에 데이터가 없으면 기본 워크플로우
                 const workflow = workf1s.find(wf => wf.id === id);
+                console.log("기본 워크플로우 조회:", workflow);
                 if (workflow) {
                     const workflowSessions: SessionContent[] = workflow.steps.map(step => {
                         const sessionTemplate = sessionTexts[step.session];
