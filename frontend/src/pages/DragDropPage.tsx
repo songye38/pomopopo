@@ -17,7 +17,7 @@ import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
 import { saveSessionToServer } from '../api/sessions';
-import { SessionNameTypeMap } from '../types/types';
+import { pomoTypeMap } from '../types/types';
 
 
 type DraggableSessionProps = {
@@ -112,10 +112,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
   const [title, setTitle] = useState(generateRandomTitle());
   const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
 
-  // const handleDrop = (session: SessionContent) => {
-  //     setDroppedSessions((prev) => [...prev, session]);
 
-  // };
   const handleDrop = (session: SessionContent) => {
     setDroppedSessions(prev => [
       ...prev,
@@ -146,12 +143,12 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide }) => ({
+    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide,nameEnglish }) => ({
       time,
       pomo,
       guide,
       name,
-      type_id : SessionNameTypeMap[name] || 1, // name에 따른 type_id 매핑 (임의로 1로 설정)
+      type_id: pomoTypeMap[nameEnglish ?? "diverge"],
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

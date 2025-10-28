@@ -83,7 +83,7 @@ export const SessionNameTypeMap: Record<string, number> = {
     "규칙 탈착":12,
     "변형":13,
     "단기휴식":14,
-    "장기휴식":15
+    "장기휴식":15,
 }
 
 export interface SessionContent {
@@ -98,6 +98,7 @@ export interface SessionContent {
   pomo:Pomo;
   relatedArtists?: string[]; // 관련 아티스트 (선택 사항)
   order?:number;
+  nameEnglish? : Session;
 }
 
 export interface WorkflowStep {
