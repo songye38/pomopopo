@@ -185,7 +185,11 @@ const HomePage = () => {
                             <div style={{ marginTop: "auto", width: "100%", display: "flex", justifyContent: "center" }}>
                                 <StartPomoBtn
                                     width="90%" // 부모보다 살짝 작게
-                                    onClick={() => navigate(`/pomo/${filteredWorkflows[0]?.id}`)}
+                                    onClick={() => {
+                                        const localId = filteredWorkflows[0]?.id;
+                                        if (!localId) return;
+                                        navigate(`/pomo/${localId}?mode=local`);
+                                    }}
                                 />
                             </div>
                         </div>
@@ -251,7 +255,10 @@ const HomePage = () => {
                                         </div>
 
                                         <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                            <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
+                                            <StartPomoBtn
+                                                label="시작하기"
+                                                onClick={() => navigate(`/pomo/${p.id}?mode=server`)}
+                                            />
                                         </div>
                                     </div>
                                 ))

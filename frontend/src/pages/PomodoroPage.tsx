@@ -19,6 +19,12 @@ export default function PomodoroPage() {
     const [isRunning, setIsRunning] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
+    // URL 쿼리로 모드 결정
+    const queryParams = new URLSearchParams(location.search);
+    const mode = queryParams.get("mode"); // "server" 또는 "local"
+    const isServerMode = mode === "server";
+
+
 
     //화면 크기 감지
     useEffect(() => {
@@ -28,65 +34,63 @@ export default function PomodoroPage() {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
+    // 서버에서 데이터 가져오기
+    const loadServerSessions = async () => {
+        if (!id) return;
+        try {
+            const pomodoro = await fetchPomodoroById(id);
+            if (!pomodoro || !pomodoro.sessions?.length) throw new Error("세션 없음");
+
+            const serverSessions: SessionContent[] = pomodoro.sessions.map(s => ({
+                guide: s.goal,
+                time: s.duration.toString(),
+                pomo: mapTypeToPomo(s.type_id),
+                order: s.order,
+                name: s.name,
+                type_id: s.type_id,
+            }));
+
+            setSessions(serverSessions);
+            setTimeLeft(parseInt(serverSessions[0].time) * 60);
+        } catch (error) {
+            console.error("서버 세션 로드 실패:", error);
+            navigate("/"); // 실패하면 홈으로
+        }
+    };
+
+    // 로컬 워크플로우에서 데이터 가져오기
+    const loadLocalSessions = () => {
+        if (!id) return;
+        const workflow = workf1s.find(wf => wf.id === id);
+        if (!workflow) {
+            alert("세션을 찾을 수 없습니다.");
+            navigate("/");
+            return;
+        }
+
+        const workflowSessions: SessionContent[] = workflow.steps.map(step => {
+            const sessionTemplate = sessionTexts[step.session];
+            return {
+                ...sessionTemplate,
+                time: step.duration.replace("분", ""),
+                pomo: sessionTemplate.pomo,
+                id: `${workflow.id}-${step.order}`,
+                order: step.order,
+            };
+        });
+
+        setSessions(workflowSessions);
+        setTimeLeft(parseInt(workflowSessions[0].time) * 60);
+    };
 
     useEffect(() => {
-        console.log("PomodoroPage useEffect 실행");
         if (!id) return;
-
-        const getSession = async () => {
-            try {
-                // 1️⃣ 서버에서 해당 뽀모도로 가져오기
-                const pomodoro = await fetchPomodoroById(id);
-
-                if (pomodoro && pomodoro.sessions?.length) {
-                    // 서버 데이터 기준으로 세션 세팅
-                    const serverSessions: SessionContent[] = pomodoro.sessions.map(s => ({
-                        guide: s.goal,
-                        time: s.duration.toString(),
-                        pomo: mapTypeToPomo(s.type_id),
-                        order: s.order,
-                        name : s.name,
-                        type_id : s.type_id,
-                    }));
-
-                    setSessions(serverSessions);
-                    setTimeLeft(parseInt(serverSessions[0].time) * 60);
-                    return;
-                }
-
-                // 2️⃣ 서버에 데이터가 없으면 기본 워크플로우
-                const workflow = workf1s.find(wf => wf.id === id);
-                console.log("기본 워크플로우 조회:", workflow);
-                if (workflow) {
-                    const workflowSessions: SessionContent[] = workflow.steps.map(step => {
-                        const sessionTemplate = sessionTexts[step.session];
-                        return {
-                            ...sessionTemplate,
-                            time: step.duration.replace("분", ""),
-                            pomo: sessionTemplate.pomo,
-                            id: `${workflow.id}-${step.order}`,
-                            order: step.order,
-                        };
-                    });
-
-                    setSessions(workflowSessions);
-                    setTimeLeft(parseInt(workflowSessions[0].time) * 60);
-                    return;
-                }
-
-                // 3️⃣ 찾을 수 없으면 홈 이동
-                alert("세션을 찾을 수 없습니다.");
-                navigate("/");
-            } catch (error) {
-                console.error("세션 불러오기 실패:", error);
-                setSessions([]);
-                setTimeLeft(0);
-                navigate("/");
-            }
-        };
-
-        getSession();
-    }, [id]);
+        if (isServerMode) {
+            loadServerSessions();
+        } else {
+            loadLocalSessions();
+        }
+    }, [id, isServerMode]);
 
 
 
