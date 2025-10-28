@@ -76,6 +76,7 @@ const HomePage = () => {
         };
 
         getPomodoros();
+        console.log("pomodoros",pomodoros);
     }, [user]);  // 로그인 상태가 바뀔 때마다 실행
 
 
