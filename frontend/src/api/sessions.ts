@@ -57,6 +57,43 @@ export const fetchPomodoroById = async (pomodoroId: string): Promise<PomodoroOut
 
 
 // -------------------------------------
+//  특정 뽀모도로 수정
+// -------------------------------------
+export const updatePomodoro = async (
+  pomodoroId: string,
+  sessionObj: SavedSession
+): Promise<PomodoroOut> => {
+  console.log("updatePomodoro 호출됨:", pomodoroId);
+
+  // 세션 payload 준비
+  const payload = {
+    title: sessionObj.title,
+    sessions: sessionObj.droppedSessions.map((s, idx) => ({
+      id: s.id,           // 기존 세션이면 id 포함
+      goal: s.guide,
+      duration: s.time,
+      order: idx + 1,     // 1부터 시작하는 순서
+      type_id: s.type_id,
+      name: s.name,
+    })),
+  };
+
+  console.log("서버에 보낼 수정 페이로드:", payload);
+
+  try {
+    const res = await axios.put(`/pomodoros/${pomodoroId}`, payload, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.error(`뽀모도로 ${pomodoroId} 수정 실패:`, error);
+    throw error;
+  }
+};
+
+
+
+// -------------------------------------
 //  특정 뽀모도로 삭제
 // -------------------------------------
 export const deletePomodoroById = async (id: string): Promise<void> => {

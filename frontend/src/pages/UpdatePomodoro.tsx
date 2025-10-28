@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
-import { saveSessionToServer } from '../api/sessions';
+import { updatePomodoro } from '../api/sessions';
 import { fetchPomodoroById } from '../api/sessions';
 import { mapTypeToPomo } from '../utils/mapTypeToPomo';
 import type { SessionOut } from '../types/types';
@@ -123,30 +123,15 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
     ]);
   };
 
-
-  //로컬스토리지에 저장하는 부분
-  // const saveSessionToLocal = (id: string, saveObj: SavedSession) => {
-  //   // 로컬스토리지 저장
-  //   localStorage.setItem(id, JSON.stringify(saveObj));
-
-  //   // 전체 목록 관리
-  //   const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
-  //   if (!existingIds.includes(id)) {
-  //     localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
-  //   }
-  // };
-
-
-  // 로컬 스토리지에 저장 + 서버에 저장을 통합하는 부분
-
-  const saveDroppedSessions = async (title: string, droppedSessions: SessionContent[]) => {
+  const updateDroppedSessions = async (title: string, droppedSessions: SessionContent[]) => {
     if (!id) {
       toast.error("ID가 존재하지 않습니다.");
       return;
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide, type_id }) => ({
+    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide, type_id, id }) => ({
+      id,
       time,
       pomo,
       guide,
@@ -154,32 +139,28 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
       type_id,
     }));
 
-    // ✅ 로컬 저장용 객체 (정제된 버전)
+    // ✅ 서버 저장용 객체
     const saveObj: SavedSession = {
       id,
       title,
-      droppedSessions: filteredSessions, // 이제 전체 대신 필요한 값만
+      droppedSessions: filteredSessions,
       savedAt: Date.now(),
     };
 
-    console.log("저장할 세션 객체:", saveObj);
-
-    // ✅ 로컬 저장 -> 우선 로컬 저장은 나중에 하는걸로
-    // saveSessionToLocal(id, saveObj);
-    // setCurrentSessionId(id);
+    console.log("서버에 보낼 수정 객체:", saveObj);
 
     try {
-      const newPomo = await saveSessionToServer(saveObj);
-      console.log("✅ 새로 생성된 뽀모도로 ID:", newPomo.id);
-      setCurrentSessionId(newPomo.id);
-      toast.success("성공! 세션이 로컬 + 서버에 저장되었습니다!");
-      return newPomo.id; // <- ✅ ID 리턴!
+      const updatedPomo = await updatePomodoro(id, saveObj);
+      console.log("✅ 수정된 뽀모도로 ID:", updatedPomo.id);
+      setCurrentSessionId(updatedPomo.id);
+      toast.success("성공! 세션이 서버에 수정되었습니다!");
+      return updatedPomo.id;
     } catch (error) {
-      console.error("서버 저장 실패:", error);
-      toast.warning("로컬에는 저장되었지만, 서버 저장에 실패했습니다.");
+      console.error("서버 수정 실패:", error);
+      toast.warning("로컬에는 저장되었지만, 서버 수정에 실패했습니다.");
     }
-
   };
+
 
 
   useEffect(() => {
@@ -230,11 +211,6 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
     }
   }, [id]);
 
-
-
-
-
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -250,12 +226,12 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
             onChange={(e) => setTitle(e.target.value)}
             className={styles.titleInput}
           />
-          <MainBtn variant="save" onClick={() => saveDroppedSessions(title, droppedSessions)} />
+          <MainBtn variant="save" onClick={() => updateDroppedSessions(title, droppedSessions)} />
           <StartPomoBtn
             width="auto"
             onClick={async () => {
               if (!currentSessionId) {
-                const newId = await saveDroppedSessions(title, droppedSessions); // <- await로 대기
+                const newId = await updateDroppedSessions(title, droppedSessions); // <- await로 대기
                 if (newId) {
                   navigate(`/pomo/${newId}`);
                 }
