@@ -169,6 +169,8 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
   }, [droppedSessions]);
 
 
+
+  // 초기 데이터 로드
   useEffect(() => {
     const loadPomodoro = async (pomodoroId: string) => {
       try {
@@ -231,8 +233,10 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
           <StartPomoBtn
             width="auto"
             onClick={async () => {
+              console.log("StartPomoBtn 클릭됨");
               if (!currentSessionId) {
-                const newId = await updateDroppedSessions(title, droppedSessions); // <- await로 대기
+                const newId = await updateDroppedSessions(title, droppedSessions);
+                console.log("updateDroppedSessions 리턴값:", newId);
                 if (newId) {
                   navigate(`/pomo/${newId}`);
                 }
