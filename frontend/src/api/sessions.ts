@@ -5,6 +5,8 @@ import { pomoTypeMap } from "../types/types";
 
 export const saveSessionToServer = async (sessionObj: SavedSession) => {
 
+  console.log("saveSessionToServer 호출됨:");
+
     const payload = {
         title: sessionObj.title,
         sessions: sessionObj.droppedSessions.map((s, idx) => ({
