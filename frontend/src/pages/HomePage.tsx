@@ -49,6 +49,11 @@ const HomePage = () => {
             console.error(error);
         }
     };
+    // 컴포넌트 내부 또는 hooks 위쪽에 정의
+    const handleUpdatePomodoro = async (id: string) => {
+        navigate(`/make/${id}`);
+    };
+
 
 
     useEffect(() => {
@@ -76,7 +81,7 @@ const HomePage = () => {
         };
 
         getPomodoros();
-        console.log("pomodoros",pomodoros);
+        console.log("pomodoros", pomodoros);
     }, [user]);  // 로그인 상태가 바뀔 때마다 실행
 
 
@@ -208,7 +213,12 @@ const HomePage = () => {
                                         <div className={styles['saved-session-card-inner']}>
                                             <h3 className={styles['saved-session-title']}>{p.title}</h3>
                                             <div className={styles['info-buttons']}>
-                                                <div className={styles['info-text']}>수정 | </div>
+                                                <div
+                                                    className={styles['info-text']}
+                                                    onClick={() => handleUpdatePomodoro(p.id)}
+                                                >
+                                                    수정
+                                                </div>
                                                 <div
                                                     className={styles['info-text']}
                                                     onClick={() => handleDeletePomodoro(p.id)}
