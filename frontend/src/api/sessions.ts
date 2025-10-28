@@ -15,6 +15,8 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
             name : s.name,
         })),
     };
+
+    console.log("서버에 저장할 페이로드:", payload);
     try {
         const res = await axios.post("/pomodoros/add", payload, { withCredentials: true });
         return res.data;
