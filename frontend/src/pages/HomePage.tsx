@@ -224,8 +224,7 @@ const HomePage = () => {
                                                     className={styles['session-circle']}
                                                     style={{
                                                         backgroundColor:
-                                                            sessionColors[mapTypeToPomo(s.type)]?.main ||
-                                                            sessionColors.basic.main,
+                                                            sessionColors[mapTypeToPomo(s.type)]?.main || sessionColors.basic.main,
                                                     }}
                                                 >
                                                     {s.name}
