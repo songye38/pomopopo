@@ -207,6 +207,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
                 saveDroppedSessions(title, droppedSessions);
                 if (id) navigate(`/pomo/${id}`);
               } else {
+                console.log("현재 세션 ID로 네비게이트:", currentSessionId);
                 navigate(`/pomo/${currentSessionId}`);
               }
             }}
