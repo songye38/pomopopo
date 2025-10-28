@@ -22,13 +22,17 @@ interface DefaultPomoSectionProps {
 
 
 export default function DefaultPomoSection({ onSelect }: DefaultPomoSectionProps) {
+  console.log("Rendering DefaultPomoSection");
   return (
     <div className={styles.container}>
       {defaultPomos.map((pomo) => (
         <div
           key={pomo.name}
           className={styles['pomo-card']}
-          onClick={() => onSelect?.(pomo.name)}
+          onClick={() => {
+            console.log(pomo.name); // 콘솔에 출력
+            onSelect?.(pomo.name); // 원래 onSelect 호출
+          }}
         >
           <img src={pomo.thumbnail} alt={pomo.name} className={styles['pomo-image']} />
           {/* <div>{pomo.name}</div> */}

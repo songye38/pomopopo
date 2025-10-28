@@ -27,7 +27,7 @@ const HomePage = () => {
     const [activeTab, setActiveTab] = useState("프리셋 뽀모도로");
     const [savedSessionIds, setSavedSessionIds] = useState<string[]>([]);
     const navigate = useNavigate();
-    const [isPanelOpen, setIsPanelOpen] = useState(false);
+    const [isPanelOpen, setIsPanelOpen] = useState(true);
     const [isModalOpen, setModalOpen] = useState(false);
     const [isHowToOpen, setHowToOpen] = useState(false);
     const [pomodoros, setPomodoros] = useState<PomodoroOut[]>([]);
@@ -116,7 +116,13 @@ const HomePage = () => {
             {activeTab === "프리셋 뽀모도로" && (
                 <div className={styles['center-section']}>
                     <div className={styles['default-pomo']}>
-                        <DefaultPomoSection onSelect={setSelectedPomo} />
+                        <DefaultPomoSection
+                            onSelect={(pomo) => {
+                                console.log("selectedPomo:", pomo);
+                                setSelectedPomo(pomo);
+                                setIsPanelOpen(true); // 패널 바로 열기
+                            }}
+                        />
                     </div>
 
                     {/* Dim 처리 */}
