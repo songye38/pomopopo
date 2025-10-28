@@ -17,6 +17,7 @@ import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
 import { saveSessionToServer } from '../api/sessions';
+import { SessionNameTypeMap } from '../types/types';
 
 
 type DraggableSessionProps = {
@@ -150,7 +151,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       pomo,
       guide,
       name,
-      type_id : pomo === "basic" ? 1 : pomo === "refine" ? 2 : 1, // 예시 매핑
+      type_id : SessionNameTypeMap[name] || 1, // name에 따른 type_id 매핑 (임의로 1로 설정)
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

@@ -68,8 +68,23 @@ export const TypePomoMap: Record<number, string> = {
     15:"detox"
 };
 
-
-
+export const SessionNameTypeMap: Record<string, number> = {
+    "발산": 1,
+    "수렴":2,
+    "관찰":3,
+    "스크리닝":4,
+    "정밀 조율":5,
+    "뒤집기 사고":6,
+    "제약 도입":7,
+    "감정 기록":8,
+    "아이디어 태깅":9,
+    "구조화":10,
+    "반응 분석":11,
+    "규칙 탈착":12,
+    "변형":13,
+    "단기휴식":14,
+    "장기휴식":15
+}
 
 export interface SessionContent {
   id?: string;              // 고유 ID 추가 (선택적) 중복 세션이 있을수도 있으므로 고유id가 필요하다. 
