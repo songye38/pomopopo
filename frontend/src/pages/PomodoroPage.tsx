@@ -30,6 +30,7 @@ export default function PomodoroPage() {
 
 
     useEffect(() => {
+        console.log("PomodoroPage useEffect 실행");
         if (!id) return;
 
         const getSession = async () => {
