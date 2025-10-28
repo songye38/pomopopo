@@ -150,6 +150,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       pomo,
       guide,
       name,
+      type_id : pomo === "basic" ? 1 : pomo === "refine" ? 2 : 1, // 예시 매핑
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

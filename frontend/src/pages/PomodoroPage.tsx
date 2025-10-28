@@ -44,6 +44,7 @@ export default function PomodoroPage() {
                         time: s.duration.toString(),
                         pomo: mapTypeToPomo(s.type_id),
                         order: s.order,
+                        name : s.name,
                     }));
 
                     setSessions(serverSessions);
