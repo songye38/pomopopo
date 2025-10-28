@@ -13,7 +13,8 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
             goal: s.guide,
             duration: s.time,
             order: idx + 1,       // 1부터 시작하는 순서
-            type_id: pomoTypeMap[s.pomo] ?? 1,
+            // type_id: pomoTypeMap[s.pomo] ?? 1,
+            type_id : pomoTypeMap[s.nameEnglish ?? "diverge"],
             name : s.name,
         })),
     };
