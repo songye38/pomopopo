@@ -113,7 +113,7 @@ export type SessionOut = {
   goal: string;
   duration: number;
   order: number;
-  type: number;
+  type_id: number;
   name: string;
 };
 

@@ -42,7 +42,7 @@ export default function PomodoroPage() {
                     const serverSessions: SessionContent[] = pomodoro.sessions.map(s => ({
                         guide: s.goal,
                         time: s.duration.toString(),
-                        pomo: mapTypeToPomo(s.type),
+                        pomo: mapTypeToPomo(s.type_id),
                         order: s.order,
                     }));
 
