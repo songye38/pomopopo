@@ -162,6 +162,8 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       savedAt: Date.now(),
     };
 
+    console.log("저장할 세션 객체:", saveObj);
+
     // ✅ 로컬 저장 -> 우선 로컬 저장은 나중에 하는걸로
     // saveSessionToLocal(id, saveObj);
     // setCurrentSessionId(id);
