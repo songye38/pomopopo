@@ -217,13 +217,13 @@ const HomePage = () => {
                                                     className={styles['info-text']}
                                                     onClick={() => handleUpdatePomodoro(p.id)}
                                                 >
-                                                    수정
+                                                    수정 | 
                                                 </div>
                                                 <div
                                                     className={styles['info-text']}
                                                     onClick={() => handleDeletePomodoro(p.id)}
                                                 >
-                                                    삭제
+                                                     삭제
                                                 </div>
                                             </div>
                                         </div>

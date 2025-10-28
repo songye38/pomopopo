@@ -20,6 +20,7 @@ import { saveSessionToServer } from '../api/sessions';
 import { fetchPomodoroById } from '../api/sessions';
 import { mapTypeToPomo } from '../utils/mapTypeToPomo';
 import type { SessionOut } from '../types/types';
+import axios, { AxiosError } from "axios";
 
 
 type DraggableSessionProps = {
@@ -185,27 +186,42 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     console.log("droppedSessions 업데이트됨:", droppedSessions);
   }, [droppedSessions]);
 
+
   useEffect(() => {
     const loadPomodoro = async (pomodoroId: string) => {
       try {
         const pomodoro = await fetchPomodoroById(pomodoroId);
 
-        // 서버에서 받아온 세션 데이터를 droppedSessions 형태로 맞추기
         const mappedSessions: SessionContent[] = pomodoro.sessions.map((s: SessionOut) => ({
           id: uuidv4(),
           name: s.name ?? "Unnamed Session",
           pomo: mapTypeToPomo(s.type_id),
-          time: s.duration.toString(), // <- number → string
+          time: s.duration.toString(),
           guide: s.goal,
           type_id: s.type_id,
         }));
 
         setDroppedSessions(mappedSessions);
-        setTitle(pomodoro.title);           // 제목 세팅
-        setCurrentSessionId(pomodoro.id);   // currentSessionId 세팅
-      } catch (error) {
-        console.error("특정 뽀모도로 불러오기 실패:", error);
-        toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+        setTitle(pomodoro.title);
+        setCurrentSessionId(pomodoro.id);
+
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response?.status === 404) {
+            // 404 → 새 뽀모도로
+            console.log("새 뽀모도로: 초기화된 상태로 시작합니다.");
+            setDroppedSessions([]);
+            setTitle(generateRandomTitle());
+            setCurrentSessionId(null);
+          } else {
+            console.error("뽀모도로 불러오기 실패:", axiosError);
+            toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+          }
+        } else {
+          console.error("알 수 없는 오류:", error);
+          toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+        }
       }
     };
 
@@ -213,6 +229,8 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       loadPomodoro(id);
     }
   }, [id]);
+
+
 
 
 
