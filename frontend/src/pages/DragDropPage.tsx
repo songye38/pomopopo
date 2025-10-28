@@ -149,6 +149,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
       guide,
       name,
       type_id: pomoTypeMap[nameEnglish ?? "diverge"],
+      nameEnglish: nameEnglish,
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

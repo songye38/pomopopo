@@ -8,6 +8,7 @@ import { sessionTexts } from "../types/sessionTexts";
 import styles from "../styles/PomodoroPage.module.css";
 import { fetchPomodoroById } from "../api/sessions";
 import { mapTypeToPomo } from "../utils/mapTypeToPomo";
+import { TypePomoMap } from "../types/types";
 
 export default function PomodoroPage() {
     const { id } = useParams<{ id: string }>();
@@ -45,6 +46,7 @@ export default function PomodoroPage() {
                         pomo: mapTypeToPomo(s.type_id),
                         order: s.order,
                         name : s.name,
+                        nameEnglish : TypePomoMap[s.type_id] || "diverge",
                     }));
 
                     setSessions(serverSessions);

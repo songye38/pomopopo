@@ -98,7 +98,7 @@ export interface SessionContent {
   pomo:Pomo;
   relatedArtists?: string[]; // 관련 아티스트 (선택 사항)
   order?:number;
-  nameEnglish? : Session;
+  nameEnglish : string;
 }
 
 export interface WorkflowStep {
