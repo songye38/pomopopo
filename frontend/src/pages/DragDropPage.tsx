@@ -17,6 +17,9 @@ import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
 import { saveSessionToServer } from '../api/sessions';
+import { fetchPomodoroById } from '../api/sessions';
+import { mapTypeToPomo } from '../utils/mapTypeToPomo';
+import type { SessionOut } from '../types/types';
 
 
 type DraggableSessionProps = {
@@ -142,7 +145,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide,type_id }) => ({
+    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide, type_id }) => ({
       time,
       pomo,
       guide,
@@ -181,6 +184,37 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
   useEffect(() => {
     console.log("droppedSessions 업데이트됨:", droppedSessions);
   }, [droppedSessions]);
+
+  useEffect(() => {
+    const loadPomodoro = async (pomodoroId: string) => {
+      try {
+        const pomodoro = await fetchPomodoroById(pomodoroId);
+
+        // 서버에서 받아온 세션 데이터를 droppedSessions 형태로 맞추기
+        const mappedSessions: SessionContent[] = pomodoro.sessions.map((s: SessionOut) => ({
+          id: uuidv4(),
+          name: s.name ?? "Unnamed Session",
+          pomo: mapTypeToPomo(s.type_id),
+          time: s.duration.toString(), // <- number → string
+          guide: s.goal,
+          type_id: s.type_id,
+        }));
+
+        setDroppedSessions(mappedSessions);
+        setTitle(pomodoro.title);           // 제목 세팅
+        setCurrentSessionId(pomodoro.id);   // currentSessionId 세팅
+      } catch (error) {
+        console.error("특정 뽀모도로 불러오기 실패:", error);
+        toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+      }
+    };
+
+    if (id) {
+      loadPomodoro(id);
+    }
+  }, [id]);
+
+
 
 
   return (
