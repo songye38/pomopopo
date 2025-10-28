@@ -145,7 +145,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ name,time, pomo, guide }) => ({
+    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide }) => ({
       time,
       pomo,
       guide,
@@ -162,15 +162,22 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
 
     // ✅ 로컬 저장
     saveSessionToLocal(id, saveObj);
-    setCurrentSessionId(id);
+    // setCurrentSessionId(id);
 
-    // ✅ 서버 저장 (같은 필드만 전달)
     try {
-      await saveSessionToServer(saveObj);
+      const newPomo = await saveSessionToServer(saveObj); // <- 서버 응답 받기
+      console.log("✅ 새로 생성된 뽀모도로 ID:", newPomo.id);
+      setCurrentSessionId(newPomo.id);
+
       toast.success("성공! 세션이 로컬 + 서버에 저장되었습니다!");
-    } catch {
+
+      // 💡 바로 해당 뽀모도로 상세 페이지로 이동시키거나
+      // navigate(`/pomo/${newPomo.id}`);
+    } catch (error) {
+      console.error("서버 저장 실패:", error);
       toast.warning("로컬에는 저장되었지만, 서버 저장에 실패했습니다.");
     }
+
   };
 
 
