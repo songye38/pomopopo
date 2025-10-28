@@ -4,6 +4,7 @@ import { DragDropPage } from "./pages/DragDropPage";
 import { sessionTexts } from './types/sessionTexts';
 import { ToastContainer } from 'react-toastify';
 import PomodoroPage from "./pages/PomodoroPage";
+import { UpdatePomodoroPage } from "./pages/UpdatePomodoro";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthProvider"; // ✅ 여기 추가!
@@ -19,6 +20,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/make/:id" element={<DragDropPage sessions={Object.values(sessionTexts)} />} />
+        <Route path="/update/:id" element={<UpdatePomodoroPage sessions={Object.values(sessionTexts)} />} />
         <Route path="/pomo/:id" element={<PomodoroPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

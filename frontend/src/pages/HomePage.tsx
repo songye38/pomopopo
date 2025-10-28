@@ -51,7 +51,7 @@ const HomePage = () => {
     };
     // 컴포넌트 내부 또는 hooks 위쪽에 정의
     const handleUpdatePomodoro = async (id: string) => {
-        navigate(`/make/${id}`);
+        navigate(`/update/${id}`);
     };
 
 

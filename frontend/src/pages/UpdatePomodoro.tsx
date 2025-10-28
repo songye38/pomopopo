@@ -2,7 +2,7 @@ import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import type { DragSourceMonitor } from 'react-dnd';
 import type { DropTargetMonitor } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import type { SessionContent, SavedSession } from "./../types/types"
+import type { SessionContent, SavedSession } from "../types/types"
 import { useState, type ReactNode } from 'react';
 import Session from '../components/SessionDefault';
 import SessionExpanded from '../components/SessionExpanded';
@@ -17,6 +17,10 @@ import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
 import { saveSessionToServer } from '../api/sessions';
+import { fetchPomodoroById } from '../api/sessions';
+import { mapTypeToPomo } from '../utils/mapTypeToPomo';
+import type { SessionOut } from '../types/types';
+import axios, { AxiosError } from "axios";
 
 
 type DraggableSessionProps = {
@@ -104,7 +108,7 @@ export const DropZone = ({ onDrop, children }: DropZoneProps) => {
 };
 
 
-export const DragDropPage = ({ sessions }: DragDropPageProps) => {
+export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
   const { id } = useParams<{ id: string }>(); // URL에서 id 가져오기
   const [droppedSessions, setDroppedSessions] = useState<SessionContent[]>([]);
   const navigate = useNavigate();
@@ -181,6 +185,54 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
   useEffect(() => {
     console.log("droppedSessions 업데이트됨:", droppedSessions);
   }, [droppedSessions]);
+
+
+  useEffect(() => {
+    const loadPomodoro = async (pomodoroId: string) => {
+      try {
+        const pomodoro = await fetchPomodoroById(pomodoroId);
+
+        const mappedSessions: SessionContent[] = pomodoro.sessions.map((s: SessionOut) => ({
+          id: uuidv4(),
+          name: s.name ?? "Unnamed Session",
+          pomo: mapTypeToPomo(s.type_id),
+          time: s.duration.toString(),
+          guide: s.goal,
+          type_id: s.type_id,
+        }));
+
+        setDroppedSessions(mappedSessions);
+        setTitle(pomodoro.title);
+        setCurrentSessionId(pomodoro.id);
+
+      } catch (error: unknown) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error as AxiosError;
+          if (axiosError.response?.status === 404) {
+            // 404 → 새 뽀모도로
+            console.log("새 뽀모도로: 초기화된 상태로 시작합니다.");
+            setDroppedSessions([]);
+            setTitle(generateRandomTitle());
+            setCurrentSessionId(null);
+          } else {
+            console.error("뽀모도로 불러오기 실패:", axiosError);
+            toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+          }
+        } else {
+          console.error("알 수 없는 오류:", error);
+          toast.error("뽀모도로 데이터를 불러오지 못했습니다.");
+        }
+      }
+    };
+
+    if (id) {
+      loadPomodoro(id);
+    }
+  }, [id]);
+
+
+
+
 
 
   return (
