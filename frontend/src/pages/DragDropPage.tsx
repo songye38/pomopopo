@@ -17,7 +17,6 @@ import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
 import styles from '../styles/DragDropPage.module.css'
 import { saveSessionToServer } from '../api/sessions';
-import { pomoTypeMap } from '../types/types';
 
 
 type DraggableSessionProps = {
@@ -143,13 +142,12 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
     }
 
     // ✅ 필요한 데이터만 추출
-    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide,nameEnglish }) => ({
+    const filteredSessions = droppedSessions.map(({ name, time, pomo, guide,type_id }) => ({
       time,
       pomo,
       guide,
       name,
-      type_id: pomoTypeMap[nameEnglish ?? "diverge"],
-      nameEnglish: nameEnglish,
+      type_id,
     }));
 
     // ✅ 로컬 저장용 객체 (정제된 버전)

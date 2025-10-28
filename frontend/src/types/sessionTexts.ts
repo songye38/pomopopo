@@ -5,7 +5,7 @@ import type { Pomo } from "./types";
 export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     diverge: {
     name: "발산",
-    nameEnglish :"diverge",
+    type_id : 1,
     target: "#자유롭게 아이디어 확장",
     effect: "#다양한 아이디어 확보",
     energy: "2",
@@ -17,7 +17,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   converge: {
     name: "수렴",
-    nameEnglish: "converge",
+    type_id : 2,
     target: "#아이디어를 좁히고 구체화",
     effect: "#실행 가능한 아이디어 정리",
     energy: "2",
@@ -29,7 +29,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   observe: {
     name: "관찰",
-    nameEnglish : "observe",
+    type_id : 3,
     target: "#현상/대상 관찰",
     effect: "#새로운 인사이트 확보",
     energy: "1",
@@ -41,7 +41,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   screening: {
     name: "스크리닝",
-    nameEnglish : "screening",
+    type_id : 4,
     target: "#아이디어 후보 정리 및 선별",
     effect: "#발산된 아이디어 중 실현 가능/효과 큰 것 선별",
     energy: "2",
@@ -53,7 +53,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   refine: {
     name: "정밀 조율",
-    nameEnglish : "refine",
+    type_id : 5,
     target: "#최종 디테일 조정, 완성도 확보",
     effect: "#결과물 퀄리티 향상",
     energy: "2",
@@ -65,7 +65,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   reverse: {
     name: "뒤집기 사고",
-    nameEnglish : "reverse",
+    type_id : 6,
     target: "#기존 구조를 재배치, 새로운 관점 도출",
     effect: "#설득력 있는 구조, 의도 명확화",
     energy: "2",
@@ -76,8 +76,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["르네 마그리트 – 일상적 사물 뒤집기, 역설적 이미지", "요셉 보이스 – 사회 구조에 대한 전복적 설치"],
   },
   constraint: {
+    type_id : 7,
     name: "제약 도입",
-    nameEnglish : "constraint",
     target: "#랜덤 아이디어를 현실적 구조로 적용",
     effect: "#창의적 + 실행 가능 아이디어 변형",
     energy: "2",
@@ -88,8 +88,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["존 케이지 – 우연성과 제약을 음악에 적용", "마르셀 뒤샹 – 기존 오브제를 제약 속에서 재해석"],
   },
   emotion: {
+    type_id : 8,
     name: "감정 기록",
-    nameEnglish : "emotion",
     target: "#감정을 글/이미지/메모로 기록",
     effect: "#감정 인식, 표현, 작업에 반영",
     energy: "2",
@@ -100,8 +100,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["빈센트 반 고흐 – 감정 표현을 직접 그림에 담음", "프리다 칼로 – 자기 내면 감정을 솔직하게 회화로 표현"],
   },
   tagging: {
+    type_id : 9,
     name: "아이디어 태깅",
-    nameEnglish : "tagging",
     target: "#발산된 아이디어를 키워드/카테고리로 분류",
     effect: "#탐구 과정 정리, 후속 연결 용이",
     energy: "2",
@@ -112,8 +112,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["앤디 워홀 – 반복과 패턴, 시리즈화로 아이디어 분류", "솔 르윗 – 개념미술에서 시스템적 접근"],
   },
   structuring: {
+    type_id : 10,
     name: "구조화",
-    nameEnglish : "structuring",
     target: "#스토리/컨텐츠 흐름 설계",
     effect: "#시청자/사용자가 흐름 이해 가능",
     energy: "2",
@@ -124,8 +124,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["스탠리 큐브릭 – 영화 속 스토리 구조 철저하게 설계", "아키그레이브(Comics) – 시퀀스 기반 내러티브 설계"],
   },
   analysis: {
+    type_id : 11,
     name: "반응 분석",
-    nameEnglish : "analysis",
     target: "#작업/자극에 대한 내 반응 관찰",
     effect: "#자기 인식, 감정 기반 피드백 확보",
     energy: "1",
@@ -136,8 +136,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["루이스 부르주아 – 자신의 심리/감정 패턴을 작품화", "요셉 코수스 – 관찰을 통한 개념 예술"],
   },
   ruleBreaking: {
+    type_id : 12,
     name: "규칙 탈착",
-    nameEnglish : "ruleBreaking",
     target: "#기존 규칙/습관 벗어나기",
     effect: "#새롭고 실험적인 시도, 창작 확장",
     energy: "3",
@@ -149,7 +149,7 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
   },
   transformation: {
     name: "변형",
-    nameEnglish : "transformation",
+    type_id : 13,
     target: "#발산 아이디어를 반복적 변형",
     effect: "#깊이 있는 탐구, 다양한 형태 실험",
     energy: "2",
@@ -160,8 +160,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["브라크 – 형태와 시각 요소 반복 변형", "요셉 알버스 – 색채와 형태 반복적 실험"],
   },
   break: {
+    type_id : 14, 
     name: "단기휴식",
-    nameEnglish : "break",
     target: "#숨 돌리기",
     effect: "#스트레스 해소, 감각 회복",
     energy: "1",
@@ -172,8 +172,8 @@ export const sessionTexts: Record<Session, SessionContent & { pomo: Pomo }> = {
     relatedArtists: ["존 케이지 – 명상적 음악 실험", "앤디 골즈워시 – 자연 속 작업과 회복"],
   },
   detox: {
+    type_id : 15,
     name: "장기휴식",
-    nameEnglish : "detox",  
     target: "#감정/머리 비우기, 휴식 겸 창작 준비",
     effect: "#리프레시",
     energy: "1",

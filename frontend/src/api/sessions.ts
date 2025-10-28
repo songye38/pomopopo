@@ -1,7 +1,6 @@
 // api/sessions.ts
 import axios from "./Api";
 import type { PomodoroOut,SavedSession } from "../types/types";
-import { pomoTypeMap } from "../types/types";
 
 export const saveSessionToServer = async (sessionObj: SavedSession) => {
 
@@ -13,8 +12,7 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
             goal: s.guide,
             duration: s.time,
             order: idx + 1,       // 1부터 시작하는 순서
-            // type_id: pomoTypeMap[s.pomo] ?? 1,
-            type_id : pomoTypeMap[s.nameEnglish ?? "diverge"],
+            type_id : s.type_id,
             name : s.name,
         })),
     };
