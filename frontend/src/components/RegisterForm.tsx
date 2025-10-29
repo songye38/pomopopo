@@ -72,6 +72,7 @@ export default function RegisterForm() {
           회원가입
         </button>
       </form>
+      {error && <div role="alert" className={styles.error}>{error}</div>}
     </div>
   );
 }

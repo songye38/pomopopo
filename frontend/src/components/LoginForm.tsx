@@ -61,6 +61,7 @@ export default function LoginForm() {
           로그인
         </button>
       </form>
+      {error && <div role="alert" className={styles.error}>{error}</div>}
     </div>
   );
 }

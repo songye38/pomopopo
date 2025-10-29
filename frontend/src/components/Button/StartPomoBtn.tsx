@@ -1,8 +1,5 @@
 //포모도로 시작 버튼
-
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 type ButtonProps = {
   label?: string;
@@ -11,7 +8,6 @@ type ButtonProps = {
 };
 
 export const StartPomoBtn = ({ label = "시작하기", onClick, width = "100%" }: ButtonProps) => {
-  const navigate = useNavigate();
   const [hover, setHover] = useState(false); // 🔥 hover 상태 추가
 
   const style: React.CSSProperties = {
@@ -34,8 +30,6 @@ export const StartPomoBtn = ({ label = "시작하기", onClick, width = "100%" }
   };
 
   const handleClick = () => {
-    console.log(`${label} 클릭!`);
-    navigate("/make");
     onClick?.();
   };
 
