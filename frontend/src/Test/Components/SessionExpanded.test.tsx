@@ -10,7 +10,7 @@ import type { Pomo } from '../../types/types'
 const mockPomo: Pomo = 'refine'
 
 const mockSession = {
-    id: '1',
+    id: 1,
     guide: '기본 가이드',
     time: '25',
     name: '기본이름',

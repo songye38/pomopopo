@@ -88,8 +88,8 @@ vi.mock('../../components/Button/MainBtn', () => ({
 // ✅ 테스트 시나리오
 describe('DragDropPage Integration', () => {
   const mockSessions: SessionContent[] = [
-    { id: '1', name: 'Session1', guide: 'Guide1', pomo: 'refine', target: 'T1', effect: 'E1', time: '25', type_id: 1 },
-    { id: '2', name: 'Session2', guide: 'Guide2', pomo: 'random', target: 'T2', effect: 'E2', time: '30', type_id: 2 },
+    { id: 1, name: 'Session1', guide: 'Guide1', pomo: 'refine', target: 'T1', effect: 'E1', time: '25', type_id: 1 },
+    { id: 2, name: 'Session2', guide: 'Guide2', pomo: 'random', target: 'T2', effect: 'E2', time: '30', type_id: 2 },
   ]
 
   beforeEach(() => {
