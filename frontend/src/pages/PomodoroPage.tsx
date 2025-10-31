@@ -97,6 +97,7 @@ export default function PomodoroPage() {
         if (!pomodoroId) return;
 
         loadServerSessions();
+        console.log("서버에서 데이터 가져오기 완료! 이제 startpomodoro만 실행하면 된다");
 
         // 2️⃣ 뽀모도로 로그 생성 + 첫 세션 로그 시작
         const initPomodoro = async () => {
