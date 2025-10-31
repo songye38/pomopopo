@@ -40,7 +40,6 @@ function App() {
   return (
     <AuthProvider>
       <div>
-        <h1>Hello World</h1>
         <AppContent />
       </div>
     </AuthProvider>
