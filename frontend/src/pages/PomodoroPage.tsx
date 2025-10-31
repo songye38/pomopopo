@@ -48,7 +48,7 @@ export default function PomodoroPage() {
             if (!pomodoro || !pomodoro.sessions?.length) throw new Error("세션 없음");
 
             const serverSessions: SessionContent[] = pomodoro.sessions.map(s => ({
-                id : s.id,
+                id: s.id,
                 guide: s.goal,
                 time: s.duration.toString(),
                 pomo: mapTypeToPomo(s.type_id),
@@ -100,22 +100,22 @@ export default function PomodoroPage() {
         console.log("서버에서 데이터 가져오기 완료! 이제 startpomodoro만 실행하면 된다");
 
         // 2️⃣ 뽀모도로 로그 생성 + 첫 세션 로그 시작
-        const initPomodoro = async () => {
-            if (!sessions || sessions.length === 0) return; // 세션이 준비되지 않았으면 스킵
+        if (!pomodoroId || !sessions || sessions.length === 0) return;
 
+        console.log("isServerMode",isServerMode);
+
+        const initPomodoro = async () => {
             try {
-                // 뽀모도로 로그 생성
                 const logRes = await startPomodoro(pomodoroId);
                 setLogId(logRes.log_id);
-                console.error("뽀모도로 초기화 성공:");
-
+                console.log("뽀모도로 초기화 성공!");
             } catch (error) {
                 console.error("뽀모도로 초기화 실패:", error);
             }
         };
 
         initPomodoro();
-    }, [pomodoroId, isServerMode]);
+    }, [pomodoroId, sessions]);
 
 
     // 세션 시작/일시정지 핸들러
