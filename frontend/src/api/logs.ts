@@ -1,4 +1,4 @@
-import axios from "axios";
+import Api from "./Api";
 
 
 interface FinishSessionLogParams {
@@ -17,7 +17,7 @@ export const startPomodoro = async (
   pomodoroId?: string,    // UUID
 ): Promise<{ log_id: string; success: boolean }> => {
   try {
-    const res = await axios.post(
+    const res = await Api.post(
       "/logs/pomodoro/start",
       { pomodoro_id: pomodoroId },
       { withCredentials: true }
@@ -40,7 +40,7 @@ export const addSessionLog = async (
   order?: number
 ): Promise<{ session_log_id: number; success: boolean }> => {
   try {
-    const res = await axios.post(
+    const res = await Api.post(
       "/logs/session/add",
       {
         log_id: logId,
@@ -65,7 +65,7 @@ export const finishSessionLog = async ({
   pauseCount
 }: FinishSessionLogParams): Promise<{ session_log_id: number; completed: boolean }> => {
   try {
-    const res = await axios.patch(
+    const res = await Api.patch(
       "/logs/session/finish",
       {
         session_log_id: sessionLogId,
@@ -89,7 +89,7 @@ export const finishPomodoro = async (
   logId: string
 ): Promise<{ log_id: string; completed: boolean; total_duration: number }> => {
   try {
-    const res = await axios.post(
+    const res = await Api.post(
       "/logs/pomodoro/finish",
       { log_id: logId },
       { withCredentials: true }
