@@ -41,7 +41,7 @@ export default function PomodoroPage() {
 
     // 서버에서 데이터 가져오기
     const loadServerSessions = async () => {
-        if (!pomodoroId) return;
+        if (!pomodoroId) return [];
         try {
             const pomodoro = await fetchPomodoroById(pomodoroId);
             if (!pomodoro || !pomodoro.sessions?.length) throw new Error("세션 없음");
@@ -58,11 +58,15 @@ export default function PomodoroPage() {
 
             setSessions(serverSessions);
             setTimeLeft(parseInt(serverSessions[0].time) * 60);
+
+            return serverSessions; // ✅ 이거 추가!
         } catch (error) {
             console.error("서버 세션 로드 실패:", error);
-            navigate("/"); // 실패하면 홈으로
+            navigate("/");
+            return []; // ✅ 실패 시에도 항상 배열 반환
         }
     };
+
 
     // 로컬 워크플로우에서 데이터 가져오기
     //! 결국 이건 지워야 하는 기능이다. 서버에서 가져오는 걸로 통합해야한다. 
@@ -93,15 +97,13 @@ export default function PomodoroPage() {
 
     // 뽀모도로 시작 및 첫 세션 로그 추가   
     useEffect(() => {
-        // pomodoroId가 아직 없거나 이미 초기화됐으면 실행 X
         if (!pomodoroId || initialized) return;
 
-        // 서버 세션 불러오기
         const loadAndInit = async () => {
-            await loadServerSessions(); // 세션 먼저 가져오기
-            console.log("서버 세션 로드 완료!");
+            const loadedSessions = await loadServerSessions(); // ✅ 세션을 리턴받도록 수정
+            console.log("서버 세션 로드 완료!", loadedSessions);
 
-            if (!sessions || sessions.length === 0) {
+            if (!loadedSessions || loadedSessions.length === 0) {
                 console.warn("세션 데이터 없음, 초기화 중단");
                 return;
             }
@@ -113,10 +115,9 @@ export default function PomodoroPage() {
                 console.log("✅ 뽀모도로 초기화 성공!");
 
                 // ⏱ 첫 세션 타이머 세팅
-                setTimeLeft(parseInt(sessions[0].time) * 60);
+                setTimeLeft(parseInt(loadedSessions[0].time) * 60);
                 setCurrentIndex(0);
 
-                // 이제 다시 실행 안 하게
                 setInitialized(true);
             } catch (error) {
                 console.error("🚨 뽀모도로 초기화 실패:", error);
@@ -125,6 +126,7 @@ export default function PomodoroPage() {
 
         loadAndInit();
     }, [pomodoroId, initialized]);
+
 
 
     // 세션 시작/일시정지 핸들러
