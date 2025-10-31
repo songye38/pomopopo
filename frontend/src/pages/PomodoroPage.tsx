@@ -25,11 +25,6 @@ export default function PomodoroPage() {
     const [totalPaused, setTotalPaused] = useState(0);
     const [pauseCount, setPauseCount] = useState(0);
 
-    // URL 쿼리로 모드 결정
-    const queryParams = new URLSearchParams(location.search);
-    const mode = queryParams.get("mode"); // "server" 또는 "local"
-    const isServerMode = mode === "server";
-
 
 
     //화면 크기 감지
@@ -102,8 +97,9 @@ export default function PomodoroPage() {
         // 2️⃣ 뽀모도로 로그 생성 + 첫 세션 로그 시작
         if (!pomodoroId || !sessions || sessions.length === 0) return;
 
-        console.log("isServerMode",isServerMode);
 
+
+        console.log("뽀모도로 id",pomodoroId);
         const initPomodoro = async () => {
             try {
                 const logRes = await startPomodoro(pomodoroId);

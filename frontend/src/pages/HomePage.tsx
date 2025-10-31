@@ -187,7 +187,7 @@ const HomePage = () => {
                                     onClick={() => {
                                         const localId = filteredWorkflows[0]?.id;
                                         if (!localId) return;
-                                        navigate(`/pomo/${localId}?mode=local`);
+                                        navigate(`/pomo/${localId}`);
                                     }}
                                 />
                             </div>
@@ -256,7 +256,7 @@ const HomePage = () => {
                                         <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
                                             <StartPomoBtn
                                                 label="시작하기"
-                                                onClick={() => navigate(`/pomo/${p.id}?mode=server`)}
+                                                onClick={() => navigate(`/pomo/${p.id}`)}
                                             />
                                         </div>
                                     </div>
