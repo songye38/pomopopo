@@ -26,6 +26,10 @@ export default function PomodoroPage() {
     const [pauseCount, setPauseCount] = useState(0);
 
 
+    //초기화 여부 -> 즉 startPomodoro는 딱 한번만 실행되도록 한다. 
+    const [initialized, setInitialized] = useState(false);
+
+
 
     //화면 크기 감지
     useEffect(() => {
@@ -89,36 +93,84 @@ export default function PomodoroPage() {
 
     // 뽀모도로 시작 및 첫 세션 로그 추가   
     useEffect(() => {
-        if (!pomodoroId) return;
+        // pomodoroId가 아직 없거나 이미 초기화됐으면 실행 X
+        if (!pomodoroId || initialized) return;
 
-        loadServerSessions();
-        console.log("서버에서 데이터 가져오기 완료! 이제 startpomodoro만 실행하면 된다");
+        // 서버 세션 불러오기
+        const loadAndInit = async () => {
+            await loadServerSessions(); // 세션 먼저 가져오기
+            console.log("서버 세션 로드 완료!");
 
-        // 2️⃣ 뽀모도로 로그 생성 + 첫 세션 로그 시작
-        if (!pomodoroId || !sessions || sessions.length === 0) return;
+            if (!sessions || sessions.length === 0) {
+                console.warn("세션 데이터 없음, 초기화 중단");
+                return;
+            }
 
-
-
-        console.log("뽀모도로 id",pomodoroId);
-        const initPomodoro = async () => {
             try {
+                console.log("뽀모도로 id:", pomodoroId);
                 const logRes = await startPomodoro(pomodoroId);
                 setLogId(logRes.log_id);
-                console.log("뽀모도로 초기화 성공!");
+                console.log("✅ 뽀모도로 초기화 성공!");
+
+                // ⏱ 첫 세션 타이머 세팅
+                setTimeLeft(parseInt(sessions[0].time) * 60);
+                setCurrentIndex(0);
+
+                // 이제 다시 실행 안 하게
+                setInitialized(true);
             } catch (error) {
-                console.error("뽀모도로 초기화 실패:", error);
+                console.error("🚨 뽀모도로 초기화 실패:", error);
             }
         };
 
-        initPomodoro();
-    }, [pomodoroId, sessions]);
+        loadAndInit();
+    }, [pomodoroId, initialized]);
 
 
     // 세션 시작/일시정지 핸들러
+    // const HandleStartSession = async () => {
+    //     if (!logId || !sessions || sessions.length === 0) return;
+
+    //     if (!isRunning) {
+    //         // 재시작 시 일시정지 시간 누적
+    //         if (pauseStart) {
+    //             const pausedSeconds = Math.floor((Date.now() - pauseStart) / 1000);
+    //             setTotalPaused(prev => prev + pausedSeconds);
+    //             setPauseCount(prev => prev + 1);
+    //             setPauseStart(null);
+    //         }
+
+    //         // 첫 세션 로그 생성
+    //         if (!currentSessionLogId) {
+    //             const firstSessionLog = await addSessionLog(
+    //                 logId,
+    //                 sessions[currentIndex].id,
+    //                 sessions[currentIndex].guide,
+    //                 parseInt(sessions[currentIndex].time),
+    //                 currentIndex + 1
+    //             );
+    //             setCurrentSessionLogId(firstSessionLog.session_log_id);
+    //             console.log("세션 기록 시작");
+    //         }
+
+    //         // 타이머 시작
+    //         setIsRunning(true);
+    //     } else {
+    //         // 일시정지
+    //         setIsRunning(false);
+    //         setPauseStart(Date.now());
+    //     }
+    // };
+
     const HandleStartSession = async () => {
         if (!logId || !sessions || sessions.length === 0) return;
 
         if (!isRunning) {
+            // 첫 시작이라면 timeLeft 세팅
+            if (timeLeft === 0) {
+                setTimeLeft(parseInt(sessions[currentIndex].time) * 60);
+            }
+
             // 재시작 시 일시정지 시간 누적
             if (pauseStart) {
                 const pausedSeconds = Math.floor((Date.now() - pauseStart) / 1000);
@@ -140,14 +192,14 @@ export default function PomodoroPage() {
                 console.log("세션 기록 시작");
             }
 
-            // 타이머 시작
-            setIsRunning(true);
+            setIsRunning(true); // 타이머 시작
         } else {
             // 일시정지
             setIsRunning(false);
             setPauseStart(Date.now());
         }
     };
+
 
     const HandleFinishSession = async () => {
         if (!currentSessionLogId) return;
