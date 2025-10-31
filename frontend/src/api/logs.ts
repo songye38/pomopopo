@@ -1,4 +1,11 @@
 import Api from "./Api";
+import type { AxiosResponse } from "axios";
+
+// 서버 응답 타입 정의
+interface StartPomodoroResponse {
+  log_id: string;
+  success: boolean;
+}
 
 
 interface FinishSessionLogParams {
@@ -8,23 +15,24 @@ interface FinishSessionLogParams {
 }
 
 
-
-
 // --------------------------
 // 1️⃣ 뽀모도로 시작
-// --------------------------
+//--------------------------
 export const startPomodoro = async (
-  pomodoroId?: string,    // UUID
-): Promise<{ log_id: string; success: boolean }> => {
+  pomodoroId: string, // UUID, 필수
+): Promise<StartPomodoroResponse> => {
   try {
     // ✅ 서버로 보내는 payload 확인
     console.log("startPomodoro 호출, pomodoroId:", pomodoroId);
     console.log("보낼 body:", { pomodoro_id: pomodoroId });
 
-    const res = await Api.post(
+    const res: AxiosResponse<StartPomodoroResponse> = await Api.post(
       "/logs/pomodoro/start",
-      { pomodoro_id: pomodoroId },
-      { withCredentials: true }
+      { pomodoro_id: pomodoroId },   // 반드시 JSON body로 보냄
+      { 
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" } // 중요!
+      }
     );
 
     console.log("서버 응답:", res.data); // 서버에서 받은 데이터 확인
@@ -34,6 +42,7 @@ export const startPomodoro = async (
     throw error;
   }
 };
+
 
 
 // --------------------------
