@@ -106,6 +106,7 @@ export default function PomodoroPage() {
                 // 뽀모도로 로그 생성
                 const logRes = await startPomodoro(pomodoroId);
                 setLogId(logRes.log_id);
+                console.error("뽀모도로 초기화 성공:");
 
             } catch (error) {
                 console.error("뽀모도로 초기화 실패:", error);
@@ -139,6 +140,7 @@ export default function PomodoroPage() {
                     currentIndex + 1
                 );
                 setCurrentSessionLogId(firstSessionLog.session_log_id);
+                console.log("세션 기록 시작");
             }
 
             // 타이머 시작
@@ -167,6 +169,7 @@ export default function PomodoroPage() {
                 totalPaused: totalPaused,
                 pauseCount: pauseCount
             });
+            console.log("세션 기록 완료");
 
             // 다음 세션으로 이동 준비
             if (currentIndex < sessions.length - 1) {
