@@ -87,7 +87,7 @@ export const SessionNameTypeMap: Record<string, number> = {
 }
 
 export interface SessionContent {
-  id?: string;              // 고유 ID 추가 (선택적) 중복 세션이 있을수도 있으므로 고유id가 필요하다. 
+  id?: number;              // 고유 ID 추가 (선택적) 중복 세션이 있을수도 있으므로 고유id가 필요하다. 
   name: string;            // 세션 이름
   target?: string;          // 목적
   effect?: string;          // 기대 효과
@@ -129,6 +129,7 @@ export interface SavedSession {
 
 // types/types.ts
 export type SessionOut = {
+  id : number;
   goal: string;
   duration: number;
   order: number;

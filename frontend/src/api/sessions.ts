@@ -2,6 +2,12 @@
 import axios from "./Api";
 import type { PomodoroOut,SavedSession } from "../types/types";
 
+
+
+
+// -------------------------------------
+//  1️⃣ 새 뽀모도로 세션 서버에 저장
+// -------------------------------------
 export const saveSessionToServer = async (sessionObj: SavedSession) => {
 
   console.log("saveSessionToServer 호출됨:");
@@ -30,7 +36,7 @@ export const saveSessionToServer = async (sessionObj: SavedSession) => {
 
 
 // -------------------------------------
-//  사용자 뽀모도로 리스트 가져오기
+//  2️⃣ 사용자 뽀모도로 리스트 가져오기
 // -------------------------------------
 export const fetchUserPomodoros = async (): Promise<PomodoroOut[]> => {
   try {
@@ -43,7 +49,7 @@ export const fetchUserPomodoros = async (): Promise<PomodoroOut[]> => {
 };
 
 // -------------------------------------
-//  특정 뽀모도로 가져오기
+//  3️⃣ 특정 뽀모도로 가져오기
 // -------------------------------------
 export const fetchPomodoroById = async (pomodoroId: string): Promise<PomodoroOut> => {
   try {
@@ -57,7 +63,7 @@ export const fetchPomodoroById = async (pomodoroId: string): Promise<PomodoroOut
 
 
 // -------------------------------------
-//  특정 뽀모도로 수정
+//  4️⃣ 특정 뽀모도로 수정
 // -------------------------------------
 export const updatePomodoro = async (
   pomodoroId: string,
@@ -94,7 +100,7 @@ export const updatePomodoro = async (
 
 
 // -------------------------------------
-//  특정 뽀모도로 삭제
+//  5️⃣ 특정 뽀모도로 삭제
 // -------------------------------------
 export const deletePomodoroById = async (id: string): Promise<void> => {
   try {

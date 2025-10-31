@@ -9,14 +9,12 @@ import { TabButtons } from "../components/Button/TabButtons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { StartPomoBtn } from "../components/Button/StartPomoBtn";
-import { getRandomColor } from "../utils/random";
 import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
 import ServiceDescModal from "../components/ServiceModal";
 import HowToUseModal from "../components/HowtouseModal";
-import { fetchUserPomodoros } from "../api/sessions";
+import { fetchUserPomodoros ,deletePomodoroById} from "../api/sessions";
 import type { PomodoroOut } from "../types/types";
-import { deletePomodoroById } from "../api/sessions";
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
 import { sessionColors } from "../types/colors";
@@ -63,6 +61,7 @@ const HomePage = () => {
 
 
 
+    // 사용자의 뽀모도로 리스트 가져오기 
     useEffect(() => {
         if (!user) {
             // 로그아웃 상태라면 뽀모 리스트 초기화
@@ -285,30 +284,6 @@ const HomePage = () => {
                 <div className={styles['saved-sessions-grid']}>
                     <NewPomoButton />
 
-                    {pomodoros.length > 0 ? (
-                        pomodoros.map(p => (
-                            <div key={p.id} className={styles['saved-session-card']}>
-                                <h3 className={styles['saved-session-title']}>{p.title}</h3>
-                                <div className="saved-session-card-inner">
-                                    {p.sessions.map(s => (
-                                        <div
-                                            key={s.order} // 서버 세션 id 없으면 order를 key로 사용
-                                            className={styles['session-circle']}
-                                            style={{ backgroundColor: getRandomColor() }}
-                                        >
-                                            {s.goal} {/* 서버에서는 guide 대신 goal로 내려줌 */}
-                                        </div>
-                                    ))}
-                                </div>
-
-                                <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 8 }}>
-                                    <StartPomoBtn label="시작하기" onClick={() => navigate(`/pomo/${p.id}`)} />
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <div className={styles['empty-state']}>저장된 뽀모도로가 없습니다.</div>
-                    )}
                 </div>
             )}
 

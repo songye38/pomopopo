@@ -11,7 +11,6 @@ import arrowLeft from "/images/arrow-narrow-left.png";
 import { useNavigate } from "react-router-dom";
 import { generateRandomTitle } from '../utils/random';
 import { useEffect } from 'react';
-import { v4 as uuidv4 } from "uuid";
 import { toast } from 'react-toastify';
 import { StartPomoBtn } from '../components/Button/StartPomoBtn';
 import { useParams } from "react-router-dom";
@@ -119,7 +118,7 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
   const handleDrop = (session: SessionContent) => {
     setDroppedSessions(prev => [
       ...prev,
-      { ...session, id: uuidv4() } // 고유 id 추가
+      { ...session} // 고유 id 추가
     ]);
   };
 
@@ -177,7 +176,7 @@ export const UpdatePomodoroPage = ({ sessions }: DragDropPageProps) => {
         const pomodoro = await fetchPomodoroById(pomodoroId);
 
         const mappedSessions: SessionContent[] = pomodoro.sessions.map((s: SessionOut) => ({
-          id: uuidv4(),
+          id: s.id,
           name: s.name ?? "Unnamed Session",
           pomo: mapTypeToPomo(s.type_id),
           time: s.duration.toString(),
