@@ -6,7 +6,7 @@ import LogoutBtn from "../components/Button/LogoutBtn";
 import styles from "../styles/PomodoroPage.module.css";
 import { fetchPomodoroById } from "../api/sessions";
 import { mapTypeToPomo } from "../utils/mapTypeToPomo";
-import { startPomodoro, addSessionLog, finishSessionLog,finishPomodoro } from "../api/logs";
+import { startPomodoro, addSessionLog, finishSessionLog, finishPomodoro } from "../api/logs";
 
 export default function PomodoroPage() {
     const { id: pomodoroId } = useParams<{ id: string }>(); //여기서의 id는 뽀모도로 아이디 잊지말자!!
@@ -310,13 +310,19 @@ export default function PomodoroPage() {
                         <button
                             className={styles.button}
                             onClick={async () => {
+                                if (!currentSessionLogId) return; // 세션 로그 없으면 실행 차단
+
                                 await HandleFinishSession(); // 마지막 세션 종료
                                 if (logId) {
                                     await finishPomodoro(logId); // ✅ 뽀모도로 전체 종료
                                     alert("🎉 모든 세션 완료! 수고했어!");
-                                    //navigate("/"); // 메인으로 이동하거나 회고 페이지로 리디렉션 가능
-                                    navigate(`/summary/${logId}`);  // ✅ 회고 페이지로 이동
+                                    navigate(`/summary/${logId}`); // ✅ 회고 페이지로 이동
                                 }
+                            }}
+                            disabled={!currentSessionLogId} // ✅ 세션 로그 없으면 버튼 비활성화
+                            style={{
+                                opacity: currentSessionLogId ? 1 : 0.5,
+                                cursor: currentSessionLogId ? "pointer" : "not-allowed",
                             }}
                         >
                             뽀모도로 종료
