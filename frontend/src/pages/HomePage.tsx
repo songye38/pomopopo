@@ -13,7 +13,7 @@ import NewPomoButton from "../components/Button/NewPomoButton";
 import styles from '../styles/HomePage.module.css'
 import ServiceDescModal from "../components/ServiceModal";
 import HowToUseModal from "../components/HowtouseModal";
-import { fetchUserPomodoros ,deletePomodoroById} from "../api/sessions";
+import { fetchUserPomodoros, deletePomodoroById } from "../api/sessions";
 import type { PomodoroOut } from "../types/types";
 import { toast } from "react-toastify";
 import { useAuth } from "../hooks/useAuth";
@@ -34,21 +34,25 @@ const HomePage = () => {
     const [isHowToOpen, setHowToOpen] = useState(false);
     const [pomodoros, setPomodoros] = useState<PomodoroOut[]>([]);
 
-    // 컴포넌트 내부 또는 hooks 위쪽에 정의
     const handleDeletePomodoro = async (id: string) => {
         const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
         if (!confirmDelete) return;
 
         try {
             await deletePomodoroById(id);  // 서버에 DELETE 요청
-            // 상태 업데이트
-            setPomodoros(prev => prev.filter(pomo => pomo.id !== id));
+
+            // 상태 업데이트: is_deleted 처리
+            setPomodoros(prev => prev.map(p =>
+                p.id === id ? { ...p, is_deleted: true } : p
+            ).filter(p => !p.is_deleted)); // 화면에서 삭제된 것처럼 보이게
+
             toast.success("삭제 완료!");
         } catch (error) {
             toast.error("삭제 실패. 다시 시도해주세요.");
             console.error(error);
         }
     };
+
     // 컴포넌트 내부 또는 hooks 위쪽에 정의
     const handleUpdatePomodoro = async (id: string) => {
         navigate(`/update/${id}`);

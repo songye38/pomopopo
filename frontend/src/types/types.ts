@@ -142,4 +142,5 @@ export type PomodoroOut = {
   id: string;
   title: string;
   sessions: SessionOut[];
+  is_deleted: boolean; // ✅ 논리 삭제 상태
 };
