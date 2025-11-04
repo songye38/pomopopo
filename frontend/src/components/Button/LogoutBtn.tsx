@@ -1,15 +1,35 @@
 import { useNavigate } from "react-router-dom";
 import logout from "/images/log_out.png";
 
+interface LogoutBtnProps {
+  logId: string | null;
+  handleFinishPomodoro?: () => Promise<void>;
+}
 
-//이름을 잘못 지었다. 실제 로그아웃을 하는게 아니라 뽀모도로 세션 페이지를 나올 때 사용하는 버튼
-const LogoutBtn = () => {
+const LogoutBtn = ({ logId, handleFinishPomodoro }: LogoutBtnProps) => {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    const confirmed = window.confirm("정말 종료하시겠습니까?");
-    if (confirmed) {
-      navigate("/"); // 메인 페이지로 이동
+  const handleLogout = async () => {
+    if (!logId) {
+      // 아직 시작 안 한 경우
+      const confirmed = window.confirm("정말 종료하시겠습니까?");
+      if (confirmed) navigate("/");
+      return;
+    }
+
+    // logId가 있는 경우 → 세션이 시작됨
+    const confirmed = window.confirm("세션이 진행 중입니다. 종료하시겠습니까?");
+    if (!confirmed) return;
+
+    try {
+      if (handleFinishPomodoro) {
+        await handleFinishPomodoro(); // 뽀모도로 종료
+      } else {
+        navigate("/"); // fallback
+      }
+    } catch (error) {
+      console.error("뽀모도로 종료 실패:", error);
+      alert("뽀모도로 종료 중 오류가 발생했어요.");
     }
   };
 
@@ -17,7 +37,7 @@ const LogoutBtn = () => {
     <div style={{ display: "flex", justifyContent: "flex-end" }}>
       <img
         src={logout}
-        alt="로그아웃"
+        alt="종료"
         style={{ width: 24, height: 24, cursor: "pointer" }}
         onClick={handleLogout}
       />

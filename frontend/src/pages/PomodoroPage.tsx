@@ -268,7 +268,7 @@ export default function PomodoroPage() {
             <div className={styles.header}>
 
                 {/* //TODO 뽀모도로 자체를 종료하는 함수 연결하기  */}
-                <LogoutBtn />
+                <LogoutBtn logId={logId} handleFinishPomodoro={handleFinishPomodoro} />
             </div>
 
             <div className={styles.content}>
