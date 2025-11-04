@@ -1,3 +1,4 @@
+/* 전체 컨테이너 */
 .container {
   display: flex;
   flex-direction: column;
@@ -10,6 +11,7 @@
   color: #333;
 }
 
+/* 헤딩 */
 h2 {
   font-size: 1.8rem;
   font-weight: 700;
@@ -18,6 +20,7 @@ h2 {
   color: #222;
 }
 
+/* 통계 박스 */
 .stats {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
@@ -36,6 +39,7 @@ h2 {
   line-height: 1.4;
 }
 
+/* 별점 섹션 */
 .ratingSection {
   display: flex;
   flex-direction: column;
@@ -74,6 +78,7 @@ h2 {
   text-shadow: 0 0 12px rgba(255, 212, 59, 0.8);
 }
 
+/* 댓글 박스 */
 .commentBox {
   width: 100%;
   max-width: 420px;
@@ -94,42 +99,42 @@ h2 {
   border-color: #74c0fc;
 }
 
-.saveBtn {
-  margin-top: 28px;
+/* 버튼 공통 */
+.button {
   padding: 12px 32px;
-  background: linear-gradient(135deg, #74c0fc, #91a7ff);
-  color: white;
-  font-weight: 600;
   border: none;
   border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(145, 167, 255, 0.3);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
 }
 
-.saveBtn:hover {
+/* primary 버튼 (저장, 메인 액션) */
+.button.primary {
+  background: linear-gradient(135deg, #74c0fc, #91a7ff);
+  color: white;
+  box-shadow: 0 6px 16px rgba(145, 167, 255, 0.3);
+}
+
+.button.primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(145, 167, 255, 0.35);
 }
 
+/* secondary 버튼 (스킵 등 보조) */
+.button.secondary {
+  background-color: #aaa;
+  color: white;
+}
 
+.button.secondary:hover {
+  background-color: #888;
+}
+
+/* 버튼 그룹 */
 .buttonGroup {
   display: flex;
   justify-content: center;
   gap: 12px;
   margin-top: 20px;
-}
-
-.saveBtn {
-  background-color: #4caf50;
-  color: white;
-}
-
-.skipBtn {
-  background-color: #aaa;
-  color: white;
-}
-
-.skipBtn:hover {
-  background-color: #888;
 }
