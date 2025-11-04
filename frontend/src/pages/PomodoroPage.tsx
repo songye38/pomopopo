@@ -292,7 +292,18 @@ export default function PomodoroPage() {
                         </button>
                     )}
 
-                    <button className={styles.button} onClick={reset}>리셋</button>
+                    {/* <button className={styles.button} onClick={reset}>리셋</button> */
+                        <button
+                            className={styles.button}
+                            onClick={reset}
+                            disabled={isRunning}
+                            style={{
+                                opacity: isRunning ? 0.5 : 1,
+                                cursor: isRunning ? "not-allowed" : "pointer",
+                            }}
+                        >
+                            리셋
+                        </button>}
 
                     {currentIndex < sessions.length - 1 ? (
                         // 중간 세션: 다음 세션으로 이동
@@ -304,6 +315,10 @@ export default function PomodoroPage() {
                                 setCurrentIndex(nextIndex);
                                 setTimeLeft(parseInt(sessions[nextIndex].time) * 60);
                             }}
+                            style={{
+                                opacity: !currentSessionLogId || isRunning ? 0.5 : 1,
+                                cursor: !currentSessionLogId || isRunning ? "not-allowed" : "pointer",
+                            }}
                         >
                             다음 세션
                         </button>
@@ -314,8 +329,8 @@ export default function PomodoroPage() {
                             onClick={handleFinishPomodoro}
                             disabled={!currentSessionLogId} // 세션 로그 없으면 비활성화
                             style={{
-                                opacity: currentSessionLogId ? 1 : 0.5,
-                                cursor: currentSessionLogId ? "pointer" : "not-allowed",
+                                opacity: !currentSessionLogId || isRunning ? 0.5 : 1,
+                                cursor: !currentSessionLogId || isRunning ? "not-allowed" : "pointer",
                             }}
                         >
                             뽀모도로 종료
