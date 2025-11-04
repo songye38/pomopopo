@@ -271,10 +271,9 @@ const HomePage = () => {
                         </>
                     ) : (
                         <div>
-                            <NewPomoButton label="임시 뽀모도로 만들기" />
+                            {/* <NewPomoButton label="임시 뽀모도로 만들기" /> */}
                             <div className={styles['empty-state']}>
-                                로그인 없이도 뽀모도로를 바로 시작할 수 있어요.  <br />
-                                하지만 기록을 남기고 싶다면, 계정을 만들어 주세요 — 당신의 집중력, 놓치지 않기 위해서!
+                                비회원은 프리셋 뽀모도로만 사용 가능해요
                             </div>
                         </div>
                     )}
