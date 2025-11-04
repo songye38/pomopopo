@@ -235,14 +235,14 @@ export default function PomodoroPage() {
 
     // const startPause = () => setIsRunning(!isRunning);
 
-    const reset = () => {
-        setTimeLeft(parseInt(sessions[currentIndex].time) * 60);
-        setIsRunning(false);
-        setCurrentSessionLogId(null);
-        setTotalPaused(0);
-        setPauseCount(0);
-        setPauseStart(null);
-    };
+    // const reset = () => {
+    //     setTimeLeft(parseInt(sessions[currentIndex].time) * 60);
+    //     setIsRunning(false);
+    //     setCurrentSessionLogId(null);
+    //     setTotalPaused(0);
+    //     setPauseCount(0);
+    //     setPauseStart(null);
+    // };
 
 
 
@@ -291,8 +291,8 @@ export default function PomodoroPage() {
                             {isRunning ? "일시정지" : "재개"}
                         </button>
                     )}
-
-                    {/* <button className={styles.button} onClick={reset}>리셋</button> */
+{/* 
+                     <button className={styles.button} onClick={reset}>리셋</button>
                         <button
                             className={styles.button}
                             onClick={reset}
@@ -303,7 +303,7 @@ export default function PomodoroPage() {
                             }}
                         >
                             리셋
-                        </button>}
+                        </button> */}
 
                     {currentIndex < sessions.length - 1 ? (
                         // 중간 세션: 다음 세션으로 이동
