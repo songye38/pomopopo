@@ -8,6 +8,7 @@ import { UpdatePomodoroPage } from "./pages/UpdatePomodoro";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import { AuthProvider } from "./context/AuthProvider";
+import PomodoroSummaryPage from "./pages/PomodoroSummaryPage";
 
 function AppContent() {
   return (
@@ -19,6 +20,7 @@ function AppContent() {
         <Route path="/pomo/:id" element={<PomodoroPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="/summary/:logId" element={<PomodoroSummaryPage />} />
       </Routes>
 
       <ToastContainer

@@ -198,6 +198,7 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
             className={styles.titleInput}
           />
           <MainBtn variant="save" onClick={() => saveDroppedSessions(title, droppedSessions)} />
+          {/* //TODO 중복 저장을 막도록 저장을 처리중이라면 로딩 스피너를 돌려야 한다.  */}
           <StartPomoBtn
             width="auto"
             onClick={async () => {

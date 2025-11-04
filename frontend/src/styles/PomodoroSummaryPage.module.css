@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  background: linear-gradient(180deg, #f8f9fa 0%, #f1f3f5 100%);
+  min-height: 100vh;
+  font-family: "Pretendard", sans-serif;
+  color: #333;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #222;
+}
+
+.stats {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 20px 28px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+  margin-bottom: 28px;
+  text-align: center;
+  width: 100%;
+  max-width: 380px;
+}
+
+.stats p {
+  margin: 8px 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.ratingSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.ratingSection label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #555;
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+}
+
+.stars span {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s, text-shadow 0.2s;
+}
+
+.filledStar {
+  color: #ffd43b;
+  text-shadow: 0 0 8px rgba(255, 212, 59, 0.6);
+}
+
+.emptyStar {
+  color: #dee2e6;
+}
+
+.stars span:hover {
+  transform: scale(1.2);
+  text-shadow: 0 0 12px rgba(255, 212, 59, 0.8);
+}
+
+.commentBox {
+  width: 100%;
+  max-width: 420px;
+  min-height: 120px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.04);
+  background-color: #fff;
+  resize: none;
+  font-size: 0.95rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.commentBox:focus {
+  border-color: #74c0fc;
+}
+
+.saveBtn {
+  margin-top: 28px;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, #74c0fc, #91a7ff);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(145, 167, 255, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.saveBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(145, 167, 255, 0.35);
+}
