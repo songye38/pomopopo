@@ -111,3 +111,25 @@ h2 {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(145, 167, 255, 0.35);
 }
+
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.saveBtn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.skipBtn {
+  background-color: #aaa;
+  color: white;
+}
+
+.skipBtn:hover {
+  background-color: #888;
+}

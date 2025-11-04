@@ -10,7 +10,7 @@ export default function PomodoroSummaryPage() {
 
   const [summary, setSummary] = useState<PomodoroSummary | null>(null);
   const [comment, setComment] = useState("");
-  const [rating, setRating] = useState<number>(3); // ⭐ 기본값 중간 정도로
+  const [rating, setRating] = useState<number>(3);
 
   useEffect(() => {
     const fetchSummary = async () => {
@@ -28,6 +28,13 @@ export default function PomodoroSummaryPage() {
     await savePomodoroFeedback(logId, comment, rating);
     alert("💬 회고 피드백이 저장되었어!");
     navigate("/");
+  };
+
+  // 💡 회고 없이 바로 메인으로 가는 함수
+  const handleSkipFeedback = () => {
+    if (confirm("회고를 작성하지 않고 메인으로 돌아갈까?")) {
+      navigate("/");
+    }
   };
 
   if (!summary) return <div>불러오는 중...</div>;
@@ -64,9 +71,14 @@ export default function PomodoroSummaryPage() {
         onChange={(e) => setComment(e.target.value)}
       />
 
-      <button className={styles.saveBtn} onClick={handleSaveFeedback}>
-        회고 저장하기
-      </button>
+      <div className={styles.buttonGroup}> {/* 💡 버튼 묶음 */}
+        <button className={styles.saveBtn} onClick={handleSaveFeedback}>
+          회고 저장하기
+        </button>
+        <button className={styles.skipBtn} onClick={handleSkipFeedback}>
+          건너뛰기
+        </button>
+      </div>
     </div>
   );
 }
