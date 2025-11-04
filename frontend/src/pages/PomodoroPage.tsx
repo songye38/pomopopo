@@ -26,11 +26,6 @@ export default function PomodoroPage() {
     const [pauseCount, setPauseCount] = useState(0);
 
 
-    //초기화 여부 -> 즉 startPomodoro는 딱 한번만 실행되도록 한다. 
-    const [initialized, setInitialized] = useState(false);
-
-
-
     //화면 크기 감지
     useEffect(() => {
         const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -98,113 +93,120 @@ export default function PomodoroPage() {
 
     // 뽀모도로 시작 및 첫 세션 로그 추가   
     useEffect(() => {
-        if (!pomodoroId || initialized) return;
-
-        const loadAndInit = async () => {
-            const loadedSessions = await loadServerSessions(); // ✅ 세션을 리턴받도록 수정
-            console.log("서버 세션 로드 완료!", loadedSessions);
-
-            if (!loadedSessions || loadedSessions.length === 0) {
-                console.warn("세션 데이터 없음, 초기화 중단");
-                return;
-            }
-
-            try {
-                console.log("뽀모도로 id:", pomodoroId);
-                const logRes = await startPomodoro(pomodoroId);
-                setLogId(logRes.log_id);
-                console.log("✅ 뽀모도로 초기화 성공!");
-
-                // ⏱ 첫 세션 타이머 세팅
-                setTimeLeft(parseInt(loadedSessions[0].time) * 60);
-                setCurrentIndex(0);
-
-                setInitialized(true);
-            } catch (error) {
-                console.error("🚨 뽀모도로 초기화 실패:", error);
+        const init = async () => {
+            const loaded = await loadServerSessions();
+            if (loaded.length) {
+                setSessions(loaded);
+                setTimeLeft(parseInt(loaded[0].time) * 60);
             }
         };
+        init();
+    }, [pomodoroId]);
 
-        loadAndInit();
-    }, [pomodoroId, initialized]);
 
+    const handleStartSession = async () => {
+        // 세션 데이터가 준비 안 됐으면 중단
+        if (!sessions.length) return;
 
-    const HandleStartSession = async () => {
-        if (!logId || !sessions || sessions.length === 0) return;
+        try {
+            // 뽀모도로 로그가 없다면 (처음 시작이라면)
+            let newLogId = logId;
+            if (!newLogId) {
+                const logRes = await startPomodoro(pomodoroId!);
+                newLogId = logRes.log_id;
+                setLogId(newLogId);
+                console.log("✅ 뽀모도로 시작:", newLogId);
+            }
 
-        if (!isRunning) {
-            // 첫 시작이라면 timeLeft 세팅
+            // 현재 세션 로그가 없다면 새로 생성
+            if (!currentSessionLogId) {
+                const currentSession = sessions[currentIndex];
+                const newSessionLog = await addSessionLog(
+                    newLogId,
+                    currentSession.id!,
+                    currentSession.guide,
+                    parseInt(currentSession.time),  // planned_duration
+                    currentIndex + 1
+                );
+
+                setCurrentSessionLogId(newSessionLog.session_log_id);
+                console.log("🟢 세션 로그 생성:", newSessionLog.session_log_id);
+            }
+
+            // 타이머 시작
+            setIsRunning(true);
             if (timeLeft === 0) {
                 setTimeLeft(parseInt(sessions[currentIndex].time) * 60);
             }
 
-            // 재시작 시 일시정지 시간 누적
+        } catch (error) {
+            console.error("🚨 세션 시작 실패:", error);
+        }
+    };
+
+
+    const handlePauseResume = () => {
+        if (isRunning) {
+            // ⏸ 일시정지
+            setPauseStart(Date.now());
+            setIsRunning(false);
+            console.log("⏸ 일시정지 시작");
+        } else {
+            // ▶ 재개 시 일시정지 시간 계산
             if (pauseStart) {
                 const pausedSeconds = Math.floor((Date.now() - pauseStart) / 1000);
                 setTotalPaused(prev => prev + pausedSeconds);
                 setPauseCount(prev => prev + 1);
                 setPauseStart(null);
             }
-
-            // 첫 세션 로그 생성
-            if (!currentSessionLogId) {
-                const currentSession = sessions[currentIndex];
-
-                const firstSessionLog = await addSessionLog(
-                    logId,
-                    currentSession.id!,
-                    currentSession.guide,
-                    parseInt(currentSession.time),  // ✅ planned_duration (초 단위)
-                    currentIndex + 1
-                );
-
-                setCurrentSessionLogId(firstSessionLog.session_log_id);
-                console.log("세션 기록 시작:", firstSessionLog.session_log_id);
-            }
-
-            setIsRunning(true); // 타이머 시작
-        } else {
-            // 일시정지
-            setIsRunning(false);
-            setPauseStart(Date.now());
+            setIsRunning(true);
+            console.log("▶ 재개");
         }
     };
 
-
-    const HandleFinishSession = async () => {
+    const handleNextSession = async () => {
         if (!currentSessionLogId) return;
 
-        // 일시정지 중이었다면 마지막 구간 계산
-        if (pauseStart) {
-            const pausedSeconds = Math.floor((Date.now() - pauseStart) / 1000);
-            setTotalPaused(prev => prev + pausedSeconds);
-            setPauseCount(prev => prev + 1);
-            setPauseStart(null);
-        }
+        await finishSessionLog({
+            sessionLogId: currentSessionLogId,
+            totalPaused,
+            pauseCount,
+        });
 
-        try {
-            await finishSessionLog({
-                sessionLogId: currentSessionLogId,
-                totalPaused: totalPaused,
-                pauseCount: pauseCount
-            });
-            console.log("세션 기록 완료");
+        // 다음 세션으로 이동
+        const nextIndex = currentIndex + 1;
+        if (nextIndex < sessions.length) {
+            const next = sessions[nextIndex];
+            const { session_log_id } = await addSessionLog(
+                logId!,
+                next.id!,
+                next.guide,
+                parseInt(next.time),
+                nextIndex + 1
+            );
 
-            // 다음 세션으로 이동 준비
-            if (currentIndex < sessions.length - 1) {
-                const nextIndex = currentIndex + 1;
-                setCurrentIndex(nextIndex);
-                setTimeLeft(parseInt(sessions[nextIndex].time) * 60);
-                setCurrentSessionLogId(null); // 다음 세션 로그 새로 생성
-                setIsRunning(false);
-                setTotalPaused(0);
-                setPauseCount(0);
-            }
-        } catch (error) {
-            console.error("세션 종료 실패:", error);
+            setCurrentIndex(nextIndex);
+            setTimeLeft(parseInt(next.time) * 60);
+            setCurrentSessionLogId(session_log_id);
+            setTotalPaused(0);
+            setPauseCount(0);
+            setIsRunning(false);
         }
     };
 
+    const handleFinishPomodoro = async () => {
+        if (!currentSessionLogId || !logId) return;
+
+        await finishSessionLog({
+            sessionLogId: currentSessionLogId,
+            totalPaused,
+            pauseCount,
+        });
+
+        await finishPomodoro(logId);
+        alert("🎉 모든 세션 완료! 수고했어!");
+        navigate(`/summary/${logId}`);
+    };
 
 
 
@@ -242,6 +244,12 @@ export default function PomodoroPage() {
         setPauseStart(null);
     };
 
+
+
+
+
+
+
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -272,32 +280,26 @@ export default function PomodoroPage() {
                 <div className={styles.timer}>{formatTime(timeLeft)}</div>
 
                 <div className={styles.controls}>
-                    <button className={styles.button} onClick={HandleStartSession}>
-                        {isRunning ? "일시정지" : "시작"}
-                    </button>
+                    {/* 첫 시작 버튼 (logId 없을 때만 표시) */}
+                    {!logId ? (
+                        <button className={styles.button} onClick={handleStartSession}>
+                            시작하기
+                        </button>
+                    ) : (
+                        // 이미 logId가 있으면 일시정지/재개 토글 버튼
+                        <button className={styles.button} onClick={handlePauseResume}>
+                            {isRunning ? "일시정지" : "재개"}
+                        </button>
+                    )}
 
                     <button className={styles.button} onClick={reset}>리셋</button>
-                    {/* {currentIndex < sessions.length - 1 && (
-                        <button
-                            className={styles.button}
-                            onClick={async () => {
-                                await HandleFinishSession(); // 현재 세션 종료 및 서버 업데이트
 
-                                const nextIndex = currentIndex + 1;
-                                setCurrentIndex(nextIndex);
-                                setTimeLeft(parseInt(sessions[nextIndex].time) * 60);
-                            }}
-                        >
-                            다음 세션
-                        </button>
-                    )} */}
                     {currentIndex < sessions.length - 1 ? (
-                        // 👉 다음 세션이 남아있는 경우
+                        // 중간 세션: 다음 세션으로 이동
                         <button
                             className={styles.button}
                             onClick={async () => {
-                                await HandleFinishSession(); // 현재 세션 종료 및 서버 업데이트
-
+                                await handleNextSession(); // 현재 세션만 종료
                                 const nextIndex = currentIndex + 1;
                                 setCurrentIndex(nextIndex);
                                 setTimeLeft(parseInt(sessions[nextIndex].time) * 60);
@@ -306,20 +308,11 @@ export default function PomodoroPage() {
                             다음 세션
                         </button>
                     ) : (
-                        // 👉 마지막 세션인 경우
+                        // 마지막 세션: 전체 뽀모도로 종료
                         <button
                             className={styles.button}
-                            onClick={async () => {
-                                if (!currentSessionLogId) return; // 세션 로그 없으면 실행 차단
-
-                                await HandleFinishSession(); // 마지막 세션 종료
-                                if (logId) {
-                                    await finishPomodoro(logId); // ✅ 뽀모도로 전체 종료
-                                    alert("🎉 모든 세션 완료! 수고했어!");
-                                    navigate(`/summary/${logId}`); // ✅ 회고 페이지로 이동
-                                }
-                            }}
-                            disabled={!currentSessionLogId} // ✅ 세션 로그 없으면 버튼 비활성화
+                            onClick={handleFinishPomodoro}
+                            disabled={!currentSessionLogId} // 세션 로그 없으면 비활성화
                             style={{
                                 opacity: currentSessionLogId ? 1 : 0.5,
                                 cursor: currentSessionLogId ? "pointer" : "not-allowed",
@@ -328,6 +321,7 @@ export default function PomodoroPage() {
                             뽀모도로 종료
                         </button>
                     )}
+
 
                 </div>
             </div>
