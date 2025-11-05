@@ -178,3 +178,26 @@ export const savePomodoroFeedback = async (
     throw error;
   }
 };
+
+
+// --------------------------
+// 7️⃣ 로그인 유저 통계 조회
+// --------------------------
+export const fetchMyStats = async (): Promise<{
+  user_id: string;
+  total_pomodoros: number;
+  total_sessions: number;
+  total_focus_duration_minutes: number;
+  average_focus_rate: number;
+  last_active_at: string | null;
+}> => {
+  try {
+    const res = await Api.get("/logs/user/me/stats", {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    console.error("유저 통계 조회 실패:", error);
+    throw error;
+  }
+};
