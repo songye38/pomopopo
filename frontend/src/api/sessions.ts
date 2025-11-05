@@ -77,7 +77,7 @@ export const updatePomodoro = async (
     sessions: sessionObj.droppedSessions.map((s, idx) => ({
       id: s.id,           // 기존 세션이면 id 포함
       goal: s.guide,
-      duration: s.time,
+      duration: Number(s.time),
       order: idx + 1,     // 1부터 시작하는 순서
       type_id: s.type_id,
       name: s.name,
