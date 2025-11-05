@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
+    console.log("AuthProvider에서 useeffect로 초기화 할 때 함수 실행 전 user",user);
     const restoreUser = async () => {
       try {
         const res = await Api.get("/users/me");
