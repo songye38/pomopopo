@@ -1,21 +1,15 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.tsx';
-import ReactGA from 'react-ga4';
-import AnalyticsWrapper from './analytics/AnalyticsWrapper.tsx';
+// main.tsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import ReactGA from "react-ga4";
 
-// 배포 환경에서만 GA 초기화
-if (import.meta.env.VITE_ENV === 'production' && import.meta.env.VITE_GA_ID) {
-  ReactGA.initialize(import.meta.env.VITE_GA_ID as string);
-}
+const GA_MEASUREMENT_ID = "G-Y84S2CY7HK"; // 여기에 GA4 측정 ID 입력
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
-      <AnalyticsWrapper>
-        <App />
-      </AnalyticsWrapper>
-    </BrowserRouter>
-  </StrictMode>,
+ReactGA.initialize(GA_MEASUREMENT_ID);
+
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
