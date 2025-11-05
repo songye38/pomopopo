@@ -119,21 +119,6 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
   };
 
 
-  //로컬스토리지에 저장하는 부분
-  // const saveSessionToLocal = (id: string, saveObj: SavedSession) => {
-  //   // 로컬스토리지 저장
-  //   localStorage.setItem(id, JSON.stringify(saveObj));
-
-  //   // 전체 목록 관리
-  //   const existingIds: string[] = JSON.parse(localStorage.getItem("savedSessionIds") || "[]");
-  //   if (!existingIds.includes(id)) {
-  //     localStorage.setItem("savedSessionIds", JSON.stringify([...existingIds, id]));
-  //   }
-  // };
-
-
-  // 로컬 스토리지에 저장 + 서버에 저장을 통합하는 부분
-
   const saveDroppedSessions = async (title: string, droppedSessions: SessionContent[]) => {
     if (!id) {
       toast.error("ID가 존재하지 않습니다.");
@@ -159,9 +144,6 @@ export const DragDropPage = ({ sessions }: DragDropPageProps) => {
 
     console.log("저장할 세션 객체:", saveObj);
 
-    // ✅ 로컬 저장 -> 우선 로컬 저장은 나중에 하는걸로
-    // saveSessionToLocal(id, saveObj);
-    // setCurrentSessionId(id);
 
     try {
       const newPomo = await saveSessionToServer(saveObj);

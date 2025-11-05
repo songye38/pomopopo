@@ -63,34 +63,6 @@ export default function PomodoroPage() {
     };
 
 
-    // 로컬 워크플로우에서 데이터 가져오기
-    //! 결국 이건 지워야 하는 기능이다. 서버에서 가져오는 걸로 통합해야한다. 
-    //TODO 서버에서 프리셋 뽀모도로 정보도 가져오도록 통합하기 
-    // const loadLocalSessions = () => {
-    //     if (!pomodoroId) return;
-    //     const workflow = workf1s.find(wf => wf.id === pomodoroId);
-    //     if (!workflow) {
-    //         alert("세션을 찾을 수 없습니다.");
-    //         navigate("/");
-    //         return;
-    //     }
-
-    //     const workflowSessions: SessionContent[] = workflow.steps.map(step => {
-    //         const sessionTemplate = sessionTexts[step.session];
-    //         return {
-    //             ...sessionTemplate,
-    //             time: step.duration.replace("분", ""),
-    //             pomo: sessionTemplate.pomo,
-    //             id: `${workflow.id}-${step.order}`,
-    //             order: step.order,
-    //         };
-    //     });
-
-    //     setSessions(workflowSessions);
-    //     setTimeLeft(parseInt(workflowSessions[0].time) * 60);
-    // };
-
-
     // 뽀모도로 시작 및 첫 세션 로그 추가   
     useEffect(() => {
         const init = async () => {
@@ -231,25 +203,6 @@ export default function PomodoroPage() {
         return () => clearTimeout(timer);
     }, [isRunning, timeLeft, currentIndex, sessions]);
 
-
-
-    // const startPause = () => setIsRunning(!isRunning);
-
-    // const reset = () => {
-    //     setTimeLeft(parseInt(sessions[currentIndex].time) * 60);
-    //     setIsRunning(false);
-    //     setCurrentSessionLogId(null);
-    //     setTotalPaused(0);
-    //     setPauseCount(0);
-    //     setPauseStart(null);
-    // };
-
-
-
-
-
-
-
     const formatTime = (seconds: number) => {
         const m = Math.floor(seconds / 60);
         const s = seconds % 60;
@@ -267,7 +220,6 @@ export default function PomodoroPage() {
         >
             <div className={styles.header}>
 
-                {/* //TODO 뽀모도로 자체를 종료하는 함수 연결하기  */}
                 <LogoutBtn logId={logId} handleFinishPomodoro={handleFinishPomodoro} />
             </div>
 
@@ -290,20 +242,7 @@ export default function PomodoroPage() {
                         <button className={styles.button} onClick={handlePauseResume}>
                             {isRunning ? "일시정지" : "재개"}
                         </button>
-                    )}
-{/* 
-                     <button className={styles.button} onClick={reset}>리셋</button>
-                        <button
-                            className={styles.button}
-                            onClick={reset}
-                            disabled={isRunning}
-                            style={{
-                                opacity: isRunning ? 0.5 : 1,
-                                cursor: isRunning ? "not-allowed" : "pointer",
-                            }}
-                        >
-                            리셋
-                        </button> */}
+                    )} 
 
                     {currentIndex < sessions.length - 1 ? (
                         // 중간 세션: 다음 세션으로 이동
