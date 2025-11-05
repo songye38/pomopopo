@@ -5,6 +5,7 @@ import type { Workflow } from "./types"
 export const workf1s: Workflow[] = [
   {
     id: '1',
+    s_id : 'a4f5fba7-521a-416a-9663-9bbab9207734',
     name: "🎨 Refine",
     index: "refine",
     pattern: "발산 → 스크리닝 → 수렴 → 정밀 조율 → 장기 휴식",
@@ -20,6 +21,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '2',
+    s_id : '2a92db55-5b68-42c9-b4fd-459a07c1ac14',
     name: "🔁 Reverse",
     index: "reverse",
     pattern: "수렴 → 뒤집기 세션 → 수렴 → 장기 휴식",
@@ -35,6 +37,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '3',
+    s_id : 'a57c7bfd-d48a-4528-9279-0b70387c4ace',
     name: "🎲 Random",
     index: "random",
     pattern: "발산 → 제약 도입 → 발산 → 장기 휴식",
@@ -50,6 +53,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '4',
+    s_id : 'd9b39b0f-8b12-4d64-a5ac-9377aa6e5598',
     name: "🌊 Emotion",
     index: "emotion",
     pattern: "발산 → 감정 기록 → 발산 → 장기 휴식",
@@ -65,6 +69,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '5',
+    s_id : 'ba8c4b49-d1c9-44a1-9cae-72188c6c41d8',
     name: "🚀 Explore",
     index: "explore",
     pattern: "발산 → 아이디어 태깅 → 발산 → 장기 휴식",
@@ -80,6 +85,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '6',
+    s_id : '1184eeb6-52cb-4a12-bcc7-a50b2fb95b8f',
     name: "🧭 Story",
     index: "story",
     pattern: "수렴 → 구조화 → 수렴 → 장기 휴식",
@@ -95,6 +101,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '7',
+    s_id : 'c5f6dd6a-0326-42cf-8792-07f1742ba5e2',
     name: "🔮 Echo",
     index: "echo",
     pattern: "관찰 → 반응 분석 → 관찰 → 장기 휴식",
@@ -111,6 +118,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '8',
+    s_id : 'b8515825-9069-4459-975e-667992e72679',
     name: "🛸 Escape",
     index: "escape",
     pattern: "발산 → 규칙 탈착 → 발산 → 장기 휴식",
@@ -126,6 +134,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '9',
+    s_id : '45955a61-37cd-42ad-8fd9-07b72db700e4',
     name: "🔃 Repeat",
     index: "repeat",
     pattern: "발산 → 수렴 → 변형 → 발산 → 수렴 → 장기 휴식",
@@ -141,6 +150,7 @@ export const workf1s: Workflow[] = [
   },
   {
     id: '10',
+    s_id : '489bb36f-3e4b-4b4b-abe3-9cb9122c62c8',
     name: "🔥 Empty",
     index: "empty",
     pattern: "발산 → 정화 → 발산 → 장기 휴식",

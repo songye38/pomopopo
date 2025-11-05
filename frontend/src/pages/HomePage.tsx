@@ -189,7 +189,7 @@ const HomePage = () => {
                                 <StartPomoBtn
                                     width="90%" // 부모보다 살짝 작게
                                     onClick={() => {
-                                        const localId = filteredWorkflows[0]?.id;
+                                        const localId = filteredWorkflows[0]?.s_id;
                                         if (!localId) return;
                                         navigate(`/pomo/${localId}`);
                                     }}
