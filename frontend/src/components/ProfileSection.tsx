@@ -33,6 +33,7 @@ export default function ProfileSection() {
   useEffect(() => {
     if (isLoggedIn) {
       setLoading(true);
+      console.log("fetcMyStats 요청 바로 전")
       fetchMyStats()
         .then((data) => {
           setStats(data);
